@@ -13,6 +13,18 @@
         android:theme="@style/Theme.SelfMadeMarkeet"
         tools:targetApi="31">
         <activity
+            android:name=".Ui.ActivityLogin"
+            android:exported="false" />
+        <activity
+            android:name=".Ui.ActivityVerification"
+            android:exported="false" />
+        <activity
+            android:name=".Ui.ActivitySignUp"
+            android:exported="false" />
+        <activity
+            android:name=".Ui.ActivitySplash"
+            android:exported="false" />
+        <activity
             android:name=".Ui.ActivityProfile"
             android:exported="false" />
         <activity
