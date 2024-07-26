@@ -13,6 +13,12 @@
         android:theme="@style/Theme.SelfMadeMarkeet"
         tools:targetApi="31">
         <activity
+            android:name=".Ui.ActivityNotifications"
+            android:exported="false" />
+        <activity
+            android:name=".Ui.ActivitySubscription"
+            android:exported="false" />
+        <activity
             android:name=".Ui.ActivityLogin"
             android:exported="false" />
         <activity
