@@ -93,7 +93,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_below="@id/billing"
-        android:drawableStart="@drawable/baseline_person_24"
+        android:drawableStart="
+        @drawable/baseline_person_24"
         android:paddingStart="15dp"
         android:hint="Name"
         android:id="@+id/bn"
@@ -328,7 +329,7 @@
         android:drawableStart="@drawable/baseline_person_24"
         android:paddingStart="15dp"
         android:text="Transaction id"
-        android:id="@+id/ti"
+        android:id="@+id/tid"
         android:textColor="@color/white"
         android:textSize="12sp"
         android:layout_marginTop="15dp"
@@ -337,8 +338,8 @@
     <TextView
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/billing"
-        android:layout_toRightOf="@id/ti"
+        android:layout_below="@id/verification"
+        android:layout_toRightOf="@id/tid"
         android:layout_marginStart="10dp"
         android:drawableStart="@drawable/baseline_outlined_flag_24"
         android:paddingStart="10dp"
@@ -352,7 +353,7 @@
     <TextView
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bn"
+        android:layout_below="@id/tid"
         android:layout_marginStart="60dp"
         android:drawableStart="@drawable/baseline_flag_circle_24"
         android:paddingStart="15dp"
@@ -366,7 +367,7 @@
     <TextView
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bcountry"
+        android:layout_below="@id/js"
         android:layout_toRightOf="@id/district"
         android:layout_marginStart="10dp"
         android:drawableStart="@drawable/baseline_location_city_24"
@@ -378,5 +379,22 @@
         android:layout_marginTop="15dp"
         android:gravity="center"
         android:background="@drawable/edittext_bg"/>
-
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Get In"
+    android:id="@+id/btn"
+    android:layout_marginTop="10dp"
+    android:layout_centerHorizontal="true"
+    android:layout_below="@id/c"
+    android:backgroundTint="#07216D"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" money is motivation"
+        android:textColor="@color/white"
+        android:textSize="29sp"
+        android:layout_below="@id/btn"
+        android:fontFamily="@font/ballite"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>
