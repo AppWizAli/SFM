@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:title="Community"
+    android:id="@+id/community_fragment"
+    android:icon="@drawable/community_icon"/>
+ <item
+    android:title="Courses"
+    android:id="@+id/course_fragment"
+     android:icon="@drawable/courses_icon"/>
+ <item
+    android:title="Crypto"
+    android:id="@+id/crypto_fragment"
+     android:icon="@drawable/bitcoin_icon"/>
+ <item
+    android:title="Forex"
+    android:id="@+id/forex_fragment"
+     android:icon="@drawable/forex_signal_icon"/>
+
+
+
+</menu>
