@@ -34,4 +34,9 @@
         android:name="com.hiskytech.selfmademarket.Fragment.FragmentForex"
         android:label="fragment_forex"
         tools:layout="@layout/fragment_forex" />
+    <fragment
+        android:id="@+id/fragmentPublishStory"
+        android:name="com.hiskytech.selfmademarket.Fragment.FragmentPublishStory"
+        android:label="fragment_publish_story"
+        tools:layout="@layout/fragment_publish_story" />
 </navigation>
