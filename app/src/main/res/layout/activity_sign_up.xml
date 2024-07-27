@@ -156,19 +156,19 @@
         android:gravity="center_horizontal"
         android:background="@drawable/edittext_bg"/>
     <androidx.cardview.widget.CardView
-        android:layout_width="170dp"
-        android:layout_height="80dp"
+        android:layout_width="172dp"
+        android:layout_height="60dp"
         android:backgroundTint="#F8F9FA"
         android:layout_below="@+id/postal"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="10dp"
         app:cardCornerRadius="8dp"
+        android:id="@+id/cv"
         app:cardElevation="4dp">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp">
+            android:layout_width="172dp"
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/startup_plan_title"
@@ -176,9 +176,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
+                android:textStyle="bold"
                 android:text="Startup Plan"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="7dp"
                 android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/startup_plan_duration"
@@ -186,9 +189,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="27dp"
                 android:text="1-Month"
                 android:textColor="@android:color/black"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/startup_plan_price"
@@ -196,97 +201,179 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/startup_plan_title"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="3dp"
                 android:text="200$"
+                android:textStyle="bold"
+                android:layout_marginStart="7dp"
                 android:textColor="@android:color/black"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/startup_plan_saving"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="5dp"
-                android:layout_alignParentBottom="true"
+                android:layout_width="99dp"
+                android:layout_height="29dp"
                 android:layout_below="@id/startup_plan_duration"
-                android:layout_toRightOf="@id/startup_plan_price"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginBottom="0dp"
                 android:backgroundTint="@android:color/holo_orange_light"
                 android:text="Selected"
                 android:textColor="@android:color/black"
-                android:textSize="12sp" />
+                android:textSize="8sp" />
 
         </RelativeLayout>
 
-    </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>   <androidx.cardview.widget.CardView
+        android:layout_width="172dp"
+        android:layout_height="60dp"
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="170dp"
-        android:layout_height="90dp"
-        android:backgroundTint="#F8F9FA"
         android:layout_below="@+id/postal"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="10dp"
+ android:layout_toRightOf="@id/cv"
         android:layout_marginTop="10dp"
         app:cardCornerRadius="8dp"
+      android:backgroundTint="#8BA7C2ED"
         app:cardElevation="4dp">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp">
+            android:layout_width="172dp"
+            android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/startup_plan_title"
+                android:id="@+id/startup_plan_title2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:text="Startup Plan"
+                android:textStyle="bold"
+                android:text="Pro Plan"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="7dp"
                 android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/startup_plan_duration"
+                android:id="@+id/startup_plan_duration2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:text="1-Month"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="27dp"
+                android:text="3-Month"
                 android:textColor="@android:color/black"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
             <TextView
-                android:id="@+id/startup_plan_price"
+                android:id="@+id/startup_plan_price2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/startup_plan_title"
+                android:layout_below="@id/startup_plan_title2"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="8dp"
-                android:text="200$"
+                android:layout_marginTop="3dp"
+                android:text="350$"
+                android:textStyle="bold"
+                android:layout_marginStart="7dp"
                 android:textColor="@android:color/black"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/startup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="5dp"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@id/startup_plan_duration"
-                android:layout_toRightOf="@id/startup_plan_price"
-                android:backgroundTint="@android:color/holo_orange_light"
-                android:text="Selected"
-                android:textColor="@android:color/black"
-                android:textSize="12sp" />
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/baseline_fiber_manual_record_24"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginEnd="27dp"
+    android:layout_below="@id/startup_plan_duration2"/>
 
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 
 
+    <TextView
+        android:layout_width="210dp"
+        android:layout_height="32dp"
+        android:layout_below="@+id/cv"
+        android:layout_centerHorizontal="true"
+        android:drawableStart="@drawable/baseline_fiber_manual_record_24"
+        android:paddingStart="15dp"
+        android:layout_centerVertical="true"
+        android:hint="Choose Payment Method"
+        android:id="@+id/pm"
+        android:textColorHint="@color/white"
+        android:layout_marginTop="15dp"
+       android:gravity="center"
+        android:background="@drawable/edittext_bg"/>
+
+    <TextView
+        android:id="@+id/verification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+   android:layout_below="@id/pm"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/productsansregular"
+        android:text="Verification"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+    <TextView
+        android:layout_width="140dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="60dp"
+        android:layout_below="@id/verification"
+        android:drawableStart="@drawable/baseline_person_24"
+        android:paddingStart="15dp"
+        android:text="Transaction id"
+        android:id="@+id/ti"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:background="@drawable/edittext_bg"/>
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/billing"
+        android:layout_toRightOf="@id/ti"
+        android:layout_marginStart="10dp"
+        android:drawableStart="@drawable/baseline_outlined_flag_24"
+        android:paddingStart="15dp"
+        android:hint="Country"
+        android:id="@+id/bcountry"
+        android:textColorHint="@color/white"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/edittext_bg"/>
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bn"
+        android:layout_marginStart="60dp"
+        android:drawableStart="@drawable/baseline_flag_circle_24"
+        android:paddingStart="15dp"
+        android:hint="District"
+        android:id="@+id/district"
+        android:textColorHint="@color/white"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/edittext_bg"/>
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bcountry"
+        android:layout_toRightOf="@id/district"
+        android:layout_marginStart="10dp"
+        android:drawableStart="@drawable/baseline_location_city_24"
+        android:paddingStart="15dp"
+        android:hint="City"
+        android:id="@+id/city"
+        android:textColorHint="@color/white"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/edittext_bg"/>
 
 </RelativeLayout>
