@@ -201,6 +201,7 @@ android:id="@+id/hour"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/user_name"
                     android:layout_marginStart="25dp"
+                    android:layout_marginEnd="10dp"
                     app:cardCornerRadius="10dp"
                     app:cardBackgroundColor="@color/Primary_color"
                     >
@@ -234,7 +235,7 @@ android:id="@+id/hour"
                 <Button
                     android:layout_width="90dp"
                     android:layout_height="40dp"
-
+android:layout_marginStart="5dp"
                     android:text="pro"
                     android:layout_marginTop="20dp"
                     android:textSize="15sp"
@@ -407,6 +408,16 @@ android:id="@+id/hour"
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Money is motivation"
+            android:textSize="30sp"
+            android:layout_marginVertical="20dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/ballite"
+            android:textColor="@color/Primary_color"
+            />
     </LinearLayout>
     </FrameLayout>
 </ScrollView>

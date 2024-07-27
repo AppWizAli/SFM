@@ -337,7 +337,7 @@
     <TextView
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/verification"
+        android:layout_below="@id/billing"
         android:layout_toRightOf="@id/ti"
         android:layout_marginStart="10dp"
         android:drawableStart="@drawable/baseline_outlined_flag_24"
@@ -352,7 +352,7 @@
     <TextView
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ti"
+        android:layout_below="@id/bn"
         android:layout_marginStart="60dp"
         android:drawableStart="@drawable/baseline_flag_circle_24"
         android:paddingStart="15dp"
@@ -366,8 +366,8 @@
     <TextView
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/js"
-        android:layout_toRightOf="@id/d"
+        android:layout_below="@id/bcountry"
+        android:layout_toRightOf="@id/district"
         android:layout_marginStart="10dp"
         android:drawableStart="@drawable/baseline_location_city_24"
         android:paddingStart="5dp"
