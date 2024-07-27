@@ -1,10 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Ui.ActivityVerification">
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="end"
+        android:text="Login"
+        android:layout_marginTop="20dp"
+        android:textSize="15sp"
+        android:drawableEnd="@drawable/baseline_key_24"
+        android:textColor="@color/black"
+      android:backgroundTint="#FFC107"
+        />
+     <ImageView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:src="@drawable/logo_for_login_screen"
+         android:layout_gravity="center"
+         android:layout_marginTop="80dp"
+         android:layout_marginBottom="20dp"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginHorizontal="70dp"
+        app:cardCornerRadius="20dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Varification in Progress"
+           android:fontFamily="@font/productsansbold"
+            android:layout_marginVertical="20dp"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            />
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Payment and KYC details\n are going for verification,it Takes\n 60 mints upto 24 Hours after Verfication \n You will be Able to Login in Your Account"
+android:textAlignment="center"
+            android:layout_marginVertical="20dp"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+
+            />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/varification"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Money is motivation"
+       android:textSize="30sp"
+        android:layout_marginVertical="35dp"
+        android:layout_gravity="center"
+      android:fontFamily="@font/ballite"
+
+        />
+
+</LinearLayout>
