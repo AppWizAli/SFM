@@ -15,6 +15,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="15dp"
         android:textColor="@color/white"
+        android:paddingEnd="10dp"
         android:fontFamily="@font/productsansregular"
         android:text="A way to Come Out\n From Matrix"
         android:textSize="29sp" />
@@ -30,21 +31,49 @@
         android:background="@drawable/leaf" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
+        android:layout_width="200dp"
+        android:layout_height="189dp"
         android:layout_below="@id/text1"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="105dp"
-        android:layout_marginTop="111dp"
+        android:layout_marginStart="91dp"
+        android:id="@+id/brain"
+        android:layout_marginTop="55dp"
         android:background="@drawable/logo_for_login_screen" />
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        app:cardCornerRadius="10dp"
+        android:paddingEnd="10dp"
+       android:layout_centerHorizontal="true"
+        android:layout_below="@id/brain"
+        android:layout_marginTop="26dp">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/baseline_arrow_forward_ios_24"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:textSize="15sp"
+            android:paddingEnd="10dp"
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/productsansregular"
+            android:text="Lets Walk in Self Made Market"/>
+
+    </androidx.cardview.widget.CardView>
+
     <ImageView
-        android:layout_width="250dp"
-        android:layout_height="232dp"
+        android:layout_width="290dp"
+        android:layout_height="239dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="105dp"
+        android:layout_marginStart="65dp"
         android:layout_marginTop="111dp"
         android:background="@drawable/tree" />
 </RelativeLayout>
