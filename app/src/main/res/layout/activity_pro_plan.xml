@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Ui.ActivityNotifications">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+
+            android:layout_height="150dp"
+            android:background="@drawable/course_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="10dp"
+                    android:src="@drawable/img" />
+
+                <TextView
+                    android:id="@+id/course_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@id/img"
+                    android:text="Sheikh Zahir Abbas"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/buton_plan"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/course_name"
+                    android:layout_gravity="center"
+                    android:layout_toRightOf="@id/img"
+
+                    android:backgroundTint="#FFC107"
+
+                    android:text="pro plan"
+
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/baseline_notifications_none_24"
+
+                    />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            app:layout_constraintBottom_toBottomOf="@+id/relativeLayout"
+            app:cardCornerRadius="20dp"
+            android:layout_marginTop="70dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:orientation="vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/course_name"
+                    android:layout_gravity="center"
+                    android:layout_toRightOf="@id/img"
+                    android:backgroundTint="#FFC107"
+
+                    android:text="pro plan"
+
+                    android:textColor="@color/black"
+
+                    app:cornerRadius="9dp" />
+
+                <TextView
+                    android:id="@+id/login_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Login status: Active"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/icon_name"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/baseline_perm_identity_24" />
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name: xxxxxxxxxxxxxxxxxxxxxxx" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/icon_email"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/baseline_play_arrow_24" />
+
+                    <TextView
+                        android:id="@+id/email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Email: xxxxxxxxxxxxxxxxxxxxxxx" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
+                    android:backgroundTint="#A4D0CABC"
+                    android:drawableEnd="@drawable/baseline_edit_24"
+                    android:text="Change Password"
+                    android:textColor="@color/black"
+                    app:cornerRadius="9dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
+                    android:backgroundTint="@color/Primary_color"
+                    android:drawableEnd="@drawable/baseline_edit_24"
+                    android:text="Invoices"
+                    android:textColor="@color/white"
+                    app:cornerRadius="9dp" />
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

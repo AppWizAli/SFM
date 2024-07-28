@@ -1,10 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.FragmentPublishStory">
+    tools:context=".Fragment.FragmentCourses">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                >
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="150dp"
+                    android:background="@drawable/course_bg"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/img"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginVertical="10dp"
+                            android:src="@drawable/img" />
+
+                        <TextView
+                            android:id="@+id/course_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_toRightOf="@id/img"
+                            android:text="Sheikh Zahir Abbas"
+                            android:textColor="@color/white" />
+
+                        <Button
+                            android:id="@+id/buton_plan"
+                            android:layout_width="120dp"
+                            android:layout_height="40dp"
+                            android:layout_below="@id/course_name"
+                            android:layout_gravity="center"
+                            android:layout_toRightOf="@id/img"
+
+                            android:backgroundTint="#FFC107"
+
+                            android:text="pro plan"
+
+                            android:textColor="@color/black" />
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/baseline_notifications_none_24"
+
+                            />
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginHorizontal="40dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/relativeLayout"
+                    android:background="@drawable/search_bg"
+                    android:drawableStart="@drawable/baseline_search_24"
+                    android:paddingStart="10dp"
+                    android:hint="Search course"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/relativeLayout"/>
 
 
 
-</FrameLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_marginTop="7dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/rv_courses"/>
+        </LinearLayout>
+    </FrameLayout>
+</ScrollView>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/invoices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Invoices"
+            android:drawableEnd="@drawable/baseline_edit_24"
+            android:backgroundTint="@color/Primary_color"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/invoice_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1. Purchased Date: 25 July 2024"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/invoice_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2. Renew Date : 25 Oct 2024"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/invoice_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3. Renew Date : 25 Oct 2024"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/invoice_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4. Renew Date : 25 Oct 2024"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/invoice_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5. Renew Date : 25 Oct 2024"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
