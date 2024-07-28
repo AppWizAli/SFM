@@ -24,12 +24,13 @@
      android:layout_height="wrap_content"
      app:cbn_background="@color/white"
      app:cbn_iconColor="@color/black"
-     app:cbn_height="76dp"
-     app:cbn_icon_size="14dp"
-     app:cbn_curve_radius="26dp"
+     app:cbn_height="86dp"
+     app:cbn_icon_size="18dp"
+     app:cbn_curve_radius="20dp"
      app:cbn_selected_icon_size="48dp"
      app:cbn_selectedIconColor="@color/Primary_color"
-     app:cbn_titleColor="@color/white"
+     app:cbn_titleColor="@color/black"
+
      app:layout_constraintBottom_toBottomOf="parent"
      app:layout_constraintEnd_toEndOf="parent"
      app:layout_constraintStart_toStartOf="parent" />
