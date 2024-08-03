@@ -1,400 +1,483 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:background="#185ED1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Ui.ActivitySignUp">
+
+    <RelativeLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#185ED1">
+
 
         <ImageView
             android:id="@+id/brain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/logo_for_login_screen" />
 
-    <TextView
-        android:id="@+id/signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/brain"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/productsansregular"
-        android:text="Sign Up"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/brain"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/productsansbold"
+            android:text="Sign Up"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/flash"
-            android:layout_toRightOf="@id/signup"
             android:layout_below="@id/brain"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="5dp"/>
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@id/signup"
+            android:src="@drawable/flash" />
 
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="80dp"
-            android:layout_marginTop="15dp"
-            android:hint="email"
             android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/signup"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edittext_bg"
             android:drawableStart="@drawable/baseline_email_24"
-           android:paddingStart="15dp"
-            android:textColorHint="@color/white"
-          android:gravity="center_horizontal"
-            android:background="@drawable/edittext_bg"
-            android:layout_below="@id/signup" />
-         <EditText
+            android:hint="email"
+            android:textSize="14sp"
+            android:fontFamily="@font/productsansregular"
+            android:drawablePadding="10dp"
+            android:paddingStart="15dp"
+            android:textColorHint="@color/hint_color" />
+
+        <EditText
+            android:id="@+id/phone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="80dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/email"
+            android:fontFamily="@font/productsansregular"
+
+            android:textSize="14sp"
+            android:layout_marginHorizontal="30dp"
             android:layout_marginTop="15dp"
-            android:hint="phone"
+            android:background="@drawable/edittext_bg"
             android:drawableStart="@drawable/baseline_local_phone_24"
-           android:paddingStart="15dp"
-            android:textColorHint="@color/white"
-          android:gravity="center_horizontal"
-             android:id="@+id/phone"
+            android:hint="phone"
+            android:paddingStart="15dp"
+            android:drawablePadding="10dp"
+            android:textColorHint="@color/hint_color" />
+
+        <EditText
+            android:id="@+id/pswrd"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/phone"
+            android:fontFamily="@font/productsansregular"
+
+            android:textSize="14sp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/edittext_bg"
-            android:layout_below="@id/email" />
-    <EditText
+            android:drawableStart="@drawable/baseline_password_24"
+            android:hint="password"
+            android:paddingStart="15dp"
+            android:drawablePadding="10dp"
+            android:textColorHint="@color/hint_color" />
+
+        <TextView
+            android:id="@+id/billing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pswrd"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/productsansbold"
+            android:text="Billing"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <RelativeLayout
+            android:id="@+id/llBilling1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="80dp"
-            android:layout_marginTop="15dp"
-            android:hint="password"
-            android:drawableStart="@drawable/baseline_password_24"
-           android:paddingStart="15dp"
-            android:textColorHint="@color/white"
-          android:gravity="center_horizontal"
-        android:id="@+id/pswrd"
+            android:layout_marginHorizontal="10dp"
+            android:layout_below="@id/billing"
+            >
+
+            <EditText
+                android:id="@+id/bn"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/edittext_bg"
+                android:textSize="14sp"
+                android:fontFamily="@font/productsansregular"
+                android:drawableStart="@drawable/baseline_person_24"
+                android:hint="Name"
+                android:paddingStart="15dp"
+                android:drawablePadding="10dp"
+                android:textColorHint="@color/hint_color" />
+
+            <EditText
+                android:id="@+id/bcountry"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/edittext_bg"
+                android:drawableStart="@drawable/baseline_outlined_flag_24"
+                android:hint="Country"
+                android:paddingStart="15dp"
+                android:textSize="14sp"
+                android:fontFamily="@font/productsansregular"
+
+                android:drawablePadding="10dp"
+                android:textColorHint="@color/hint_color" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/llDistrict"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llBilling1"
+            android:layout_marginHorizontal="10dp"
+            >
+
+            <EditText
+                android:id="@+id/district"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:textSize="14sp"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/edittext_bg"
+                android:drawableStart="@drawable/baseline_flag_circle_24"
+                android:hint="District"
+                android:fontFamily="@font/productsansregular"
+
+                android:paddingStart="15dp"
+                android:drawablePadding="10dp"
+                android:textColorHint="@color/hint_color" />
+
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/edittext_bg"
+                android:drawableStart="@drawable/baseline_location_city_24"
+                android:hint="City"
+                android:paddingStart="15dp"
+                android:textSize="14sp"
+                android:fontFamily="@font/productsansregular"
+
+                android:drawablePadding="10dp"
+                android:textColorHint="@color/hint_color" />
+
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/postal"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/llDistrict"
+            android:layout_centerHorizontal="true"
+            android:layout_marginVertical="10dp"
             android:background="@drawable/edittext_bg"
-            android:layout_below="@id/phone" />
-
-    <TextView
-        android:id="@+id/billing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pswrd"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/productsansregular"
-        android:text="Billing"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
-    <EditText
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_below="@id/billing"
-        android:drawableStart="
-        @drawable/baseline_person_24"
-        android:paddingStart="15dp"
-        android:hint="Name"
-        android:id="@+id/bn"
-        android:textColorHint="@color/white"
-        android:layout_marginTop="15dp"
-        android:gravity="center_horizontal"
-        android:background="@drawable/edittext_bg"/>
-    <EditText
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/billing"
-       android:layout_toRightOf="@id/bn"
-        android:layout_marginStart="10dp"
-        android:drawableStart="@drawable/baseline_outlined_flag_24"
-        android:paddingStart="15dp"
-        android:hint="Country"
-        android:id="@+id/bcountry"
-        android:textColorHint="@color/white"
-        android:layout_marginTop="15dp"
-        android:gravity="center_horizontal"
-        android:background="@drawable/edittext_bg"/>
-    <EditText
-    android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bn"
-        android:layout_marginStart="60dp"
-        android:drawableStart="@drawable/baseline_flag_circle_24"
-        android:paddingStart="15dp"
-        android:hint="District"
-        android:id="@+id/district"
-        android:textColorHint="@color/white"
-        android:layout_marginTop="15dp"
-        android:gravity="center_horizontal"
-        android:background="@drawable/edittext_bg"/>
-    <EditText
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bcountry"
-       android:layout_toRightOf="@id/district"
-        android:layout_marginStart="10dp"
-        android:drawableStart="@drawable/baseline_location_city_24"
-        android:paddingStart="15dp"
-        android:hint="City"
-        android:id="@+id/city"
-        android:textColorHint="@color/white"
-        android:layout_marginTop="15dp"
-        android:gravity="center_horizontal"
-        android:background="@drawable/edittext_bg"/>
-    <EditText
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/district"
-        android:layout_centerHorizontal="true"
-        android:drawableStart="@drawable/baseline_airport_shuttle_24"
-        android:paddingStart="15dp"
-        android:hint="Postal Code"
-        android:id="@+id/postal"
-        android:textColorHint="@color/white"
-        android:layout_marginTop="15dp"
-        android:gravity="center_horizontal"
-        android:background="@drawable/edittext_bg"/>
-    <androidx.cardview.widget.CardView
-        android:layout_width="172dp"
-        android:layout_height="60dp"
-        android:backgroundTint="#F8F9FA"
-        android:layout_below="@+id/postal"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
-        app:cardCornerRadius="8dp"
-        android:id="@+id/cv"
-        app:cardElevation="4dp">
+            android:drawableStart="@drawable/baseline_airport_shuttle_24"
+            android:hint="Postal Code"
+            android:textSize="14sp"
+            android:fontFamily="@font/productsansregular"
+            android:paddingStart="15dp"
+            android:drawablePadding="10dp"
+            android:textColorHint="@color/hint_color" />
 
         <RelativeLayout
-            android:layout_width="172dp"
-            android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rlStartPlan"
+            android:layout_below="@+id/postal"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
 
-            <TextView
-                android:id="@+id/startup_plan_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:textStyle="bold"
-                android:text="Startup Plan"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="7dp"
-                android:textColor="@android:color/black"
-                android:textSize="12sp" />
+            >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv"
+                android:layout_width="160dp"
+                android:layout_height="60dp"
+                android:backgroundTint="#F8F9FA"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
 
-            <TextView
-                android:id="@+id/startup_plan_duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                <RelativeLayout
+                    android:layout_width="160dp"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/startup_plan_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Startup Plan"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/startup_plan_duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginEnd="27dp"
+                        android:text="1-Month"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/startup_plan_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/startup_plan_title"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginTop="3dp"
+                        android:text="200$"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/startup_plan_saving"
+                        android:layout_width="99dp"
+                        android:layout_height="32dp"
+                        android:layout_below="@id/startup_plan_duration"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginHorizontal="20dp"
+                        android:padding="4dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="0dp"
+                        android:backgroundTint="@android:color/holo_orange_light"
+                        android:text="Selected"
+                        android:textColor="@android:color/black"
+                        android:textSize="8sp" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="160dp"
+                android:layout_height="60dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="7dp"
-                android:layout_marginEnd="27dp"
-                android:text="1-Month"
-                android:textColor="@android:color/black"
-                android:textSize="10sp" />
+                android:backgroundTint="#8BA7C2ED"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
 
-            <TextView
-                android:id="@+id/startup_plan_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/startup_plan_title"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="3dp"
-                android:text="200$"
-                android:textStyle="bold"
-                android:layout_marginStart="7dp"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                <RelativeLayout
+                    android:layout_width="160dp"
+                    android:layout_height="match_parent">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/startup_plan_saving"
-                android:layout_width="99dp"
-                android:layout_height="29dp"
-                android:layout_below="@id/startup_plan_duration"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="7dp"
-                android:layout_marginBottom="0dp"
-                android:backgroundTint="@android:color/holo_orange_light"
-                android:text="Selected"
-                android:textColor="@android:color/black"
-                android:textSize="8sp" />
+                    <TextView
+                        android:id="@+id/startup_plan_title2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Pro Plan"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/startup_plan_duration2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginEnd="27dp"
+                        android:text="3-Month"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/startup_plan_price2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/startup_plan_title2"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginTop="3dp"
+                        android:text="350$"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/startup_plan_duration2"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="27dp"
+                        android:src="@drawable/baseline_fiber_manual_record_24" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
 
         </RelativeLayout>
 
-    </androidx.cardview.widget.CardView>   <androidx.cardview.widget.CardView
-        android:layout_width="172dp"
-        android:layout_height="60dp"
 
-        android:layout_below="@+id/postal"
-        android:layout_marginStart="10dp"
- android:layout_toRightOf="@id/cv"
-        android:layout_marginTop="10dp"
-        app:cardCornerRadius="8dp"
-      android:backgroundTint="#8BA7C2ED"
-        app:cardElevation="4dp">
+
+
+        <TextView
+            android:id="@+id/paymentmethod"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_below="@+id/rlStartPlan"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edittext_bg"
+            android:drawableStart="@drawable/baseline_fiber_manual_record_24"
+            android:gravity="center"
+            android:paddingStart="15dp"
+            android:drawablePadding="10dp"
+            android:text="Choose Payment Method"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/verification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/paymentmethod"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/productsansbold"
+            android:text="Verification"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+
 
         <RelativeLayout
-            android:layout_width="172dp"
-            android:layout_height="match_parent">
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rlTransaction"
+            android:layout_below="@id/verification"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="15dp"
+            >
             <TextView
-                android:id="@+id/startup_plan_title2"
-                android:layout_width="wrap_content"
+                android:id="@+id/tid"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:textStyle="bold"
-                android:text="Pro Plan"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="7dp"
-                android:textColor="@android:color/black"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/startup_plan_duration2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="7dp"
-                android:layout_marginEnd="27dp"
-                android:text="3-Month"
-                android:textColor="@android:color/black"
+                android:background="@drawable/edittext_bg"
+                android:drawableStart="@drawable/baseline_person_24"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:text="Transaction id"
+                android:textColor="@color/white"
                 android:textSize="10sp" />
 
             <TextView
-                android:id="@+id/startup_plan_price2"
+                android:id="@+id/js"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/startup_plan_title2"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="3dp"
-                android:text="350$"
-                android:textStyle="bold"
-                android:layout_marginStart="7dp"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
-
-<ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/baseline_fiber_manual_record_24"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentEnd="true"
-    android:layout_marginEnd="27dp"
-    android:layout_below="@id/startup_plan_duration2"/>
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/edittext_bg"
+                android:drawableStart="@drawable/baseline_outlined_flag_24"
+                android:paddingStart="10dp"
+                android:gravity="center"
+                android:text="Transaction screenshot"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
 
         </RelativeLayout>
 
-    </androidx.cardview.widget.CardView>
 
 
-    <TextView
-        android:layout_width="210dp"
-        android:layout_height="32dp"
-        android:layout_below="@+id/cv"
-        android:layout_centerHorizontal="true"
-        android:drawableStart="@drawable/baseline_fiber_manual_record_24"
-        android:paddingStart="15dp"
-        android:layout_centerVertical="true"
-        android:text="Choose Payment Method"
-        android:id="@+id/paymentmethod"
-        android:textColor="@color/white"
-        android:layout_marginTop="15dp"
-       android:gravity="center"
-        android:background="@drawable/edittext_bg"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rlIdCard"
+            android:layout_below="@id/rlTransaction"
+            android:layout_marginTop="15dp"
+            android:layout_marginHorizontal="20dp"
 
-    <TextView
-        android:id="@+id/verification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-   android:layout_below="@id/paymentmethod"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/productsansregular"
-        android:text="Verification"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
-    <TextView
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_below="@id/verification"
-        android:drawableStart="@drawable/baseline_person_24"
-        android:paddingStart="15dp"
-        android:text="Transaction id"
-        android:id="@+id/tid"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:background="@drawable/edittext_bg"/>
-    <TextView
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/verification"
-        android:layout_toRightOf="@id/tid"
-        android:layout_marginStart="10dp"
-        android:drawableStart="@drawable/baseline_outlined_flag_24"
-        android:paddingStart="10dp"
-        android:text="Transaction screenshot"
-        android:id="@+id/js"
-        android:textSize="11sp"
-        android:textColor="@color/white"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:background="@drawable/edittext_bg"/>
-    <TextView
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tid"
-        android:layout_marginStart="60dp"
-        android:drawableStart="@drawable/baseline_flag_circle_24"
-        android:paddingStart="15dp"
-        android:text="Id Card Front Side"
-        android:id="@+id/d"
-        android:textSize="12sp"
-        android:textColor="@color/white"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:background="@drawable/edittext_bg"/>
-    <TextView
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/js"
-        android:layout_toRightOf="@id/district"
-        android:layout_marginStart="10dp"
-        android:drawableStart="@drawable/baseline_location_city_24"
-        android:paddingStart="5dp"
-        android:text="Back Side Of Id Card"
-        android:id="@+id/c"
-        android:textSize="12sp"
-        android:textColor="@color/white"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:background="@drawable/edittext_bg"/>
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Get In"
-    android:id="@+id/btn"
-    android:layout_marginTop="10dp"
-    android:layout_centerHorizontal="true"
-    android:layout_below="@id/c"
-    android:backgroundTint="#07216D"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" money is motivation"
-        android:textColor="@color/white"
-        android:textSize="29sp"
-        android:layout_below="@id/btn"
-        android:fontFamily="@font/ballite"
-        android:layout_centerHorizontal="true"/>
-</RelativeLayout>
+            >
+            <TextView
+                android:id="@+id/d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_bg"
+                android:drawableStart="@drawable/baseline_flag_circle_24"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:text="Id Card Front Side"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/c"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/edittext_bg"
+                android:drawableStart="@drawable/baseline_location_city_24"
+                android:gravity="center"
+                android:paddingStart="5dp"
+                android:text="Back Side Of Id Card"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlIdCard"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#07216D"
+            android:text="Get In" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/ballite"
+            android:text=" money is motivation"
+            android:textColor="@color/white"
+            android:textSize="29sp" />
+    </RelativeLayout>
+
+</ScrollView>
