@@ -54,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:text="buy form 66k and sell at 72k"
                 android:layout_below="@id/img"
+                android:id="@+id/tvDescription"
 
                 android:layout_marginStart="10dp"/>
 
