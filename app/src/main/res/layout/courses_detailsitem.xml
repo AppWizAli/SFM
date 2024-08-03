@@ -13,6 +13,7 @@
             android:orientation="vertical"
             android:layout_gravity="center">
             <ImageView
+                android:id="@+id/imgCourse"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:elevation="20dp"
@@ -20,6 +21,7 @@
                 android:scaleType="fitXY"
                 />
             <TextView
+                android:id="@+id/tvCourseName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Zero to Hero Full Road Map\n course"
@@ -45,6 +47,7 @@
 
                     />
                 <TextView
+                    android:id="@+id/tvCourseInstructor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ali Adal"
@@ -68,6 +71,7 @@
 
                     />
                 <TextView
+                    android:id="@+id/tvDuration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hour"
@@ -91,6 +95,7 @@
 
                     />
                 <TextView
+                    android:id="@+id/tvVideosCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5"
