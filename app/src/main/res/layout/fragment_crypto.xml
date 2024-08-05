@@ -103,6 +103,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/rv_coin"
         android:layout_gravity="center"
+        tools:listitem="@layout/bitcoin_item"
         />
 
 
