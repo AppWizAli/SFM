@@ -5,8 +5,6 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface CommentsInterface {
-
-    @GET("/planemanger/api_comment.php")
-
-    fun getCommints() : Call<ModelComments>
+    @GET("planemanger/view_community.php")
+    fun getCommints(): Call<ModelComments>
 }

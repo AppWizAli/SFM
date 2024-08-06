@@ -22,8 +22,7 @@ class AdaterCommint(val context: Context, var commintList: List<Comment>) : Recy
 
         holder.binding.description.text = currentPosition.description
         holder.binding.username.text = currentPosition.user_name
-        val fullUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrfWHXUI7BqoCp21ARDmz1vSl4Q0LYyPPFIQ&s"
-        Glide.with(context).load(fullUrl)
+        Glide.with(context).load(currentPosition.image)
             .into(holder.binding.accountImage)
     }
 

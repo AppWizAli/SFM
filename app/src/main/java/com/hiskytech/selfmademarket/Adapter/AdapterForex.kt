@@ -28,11 +28,10 @@ class AdapterForex(val context: Context, var forexList : List<DataXX>) : Recycle
         val formattedDate = targetFormat.format(date)
 
         holder.binding.butonPlan.setText(formattedDate)
-        holder.binding.tvTitle.text=currentPosition.title
-        holder.binding.tvDescription.text = currentPosition.description
+        holder.binding.tvForexTittle.text=currentPosition.title
+        holder.binding.tvForexDescription.text = currentPosition.description
         val fullUrl = "https://hiskytechs.com/planemanger/uploads/${currentPosition.image}"
         Glide.with(context).load(fullUrl).into(holder.binding.img)
-
 
     }
 

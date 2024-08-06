@@ -23,13 +23,7 @@ class AdapterBitcoin(val context: Context, var bitCoinList : List<DataX>) : Recy
     override fun onBindViewHolder(holder: AdapterBitcoin.MyViewHolder, position: Int) {
         val currentPosition = bitCoinList[position]
 
-        val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-        val targetFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val date = originalFormat.parse(currentPosition.created_date)
-        val formattedDate = targetFormat.format(date)
-
-        holder.binding.butonPlan.setText(formattedDate)
-        holder.binding.tvTitle.text=currentPosition.title
+        holder.binding.butonPlan.setText(currentPosition.created_date)
         holder.binding.tvDescription.text = currentPosition.description
         val fullUrl = "https://hiskytechs.com/planemanger/uploads/${currentPosition.image}"
         Glide.with(context).load(fullUrl).into(holder.binding.img)

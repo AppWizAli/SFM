@@ -50,20 +50,22 @@
                             android:text="Sheikh Zahir Abbas"
                             android:textColor="@color/white" />
 
-                        <Button
+                        <TextView
                             android:id="@+id/buton_plan"
-                            android:layout_width="120dp"
-                            android:layout_height="40dp"
+                            android:layout_width="90dp"
+                            android:layout_height="25dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="3dp"
                             android:layout_below="@id/course_name"
-                            android:layout_gravity="center"
+                            android:background="@drawable/btn_yellow"
+                            android:gravity="center"
                             android:layout_toRightOf="@id/img"
-
-                            android:backgroundTint="#FFC107"
-
-                            android:text="pro plan"
-
+                            android:layout_marginBottom="10dp"
+                            android:text="Pro Plan"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/productsansbold"
+                            android:textSize="14sp"
                             android:textColor="@color/black" />
-
                         <ImageView
                             android:layout_width="50dp"
                             android:layout_height="40dp"
@@ -99,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/rvForex"
-                tools:listitem="@layout/forex_item"/>
+                />
 
         </LinearLayout>
     </FrameLayout>
