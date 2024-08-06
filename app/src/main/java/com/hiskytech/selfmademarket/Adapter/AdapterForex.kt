@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hiskytech.selfmademarket.Model.DataXX
 import com.hiskytech.selfmademarket.databinding.ForexItemBinding
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class AdapterForex(val context: Context, var forexList : List<DataXX>) : RecyclerView.Adapter<AdapterForex.MyViewHolder>(){
 
@@ -20,12 +22,18 @@ class AdapterForex(val context: Context, var forexList : List<DataXX>) : Recycle
     override fun onBindViewHolder(holder: AdapterForex.MyViewHolder, position: Int) {
         val currentPosition = forexList[position]
 
-        holder.binding.butonPlan.setText(currentPosition.created_date)
-        holder.binding.tvForexDescription.text = currentPosition.description
+        val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val targetFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date = originalFormat.parse(currentPosition.created_date)
+        val formattedDate = targetFormat.format(date)
 
-        val url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3i2zZQq5CTOf6rmKK_EtSbEsaEIkJQl2YQQ&s"
-        Glide.with(context).load(url)
-            .into(holder.binding.img)
+        holder.binding.butonPlan.setText(formattedDate)
+        holder.binding.tvTitle.text=currentPosition.title
+        holder.binding.tvDescription.text = currentPosition.description
+        val fullUrl = "https://hiskytechs.com/planemanger/uploads/${currentPosition.image}"
+        Glide.with(context).load(fullUrl).into(holder.binding.img)
+
+
     }
 
     override fun getItemCount(): Int {

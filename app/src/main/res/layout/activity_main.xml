@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -10,19 +10,18 @@
  <androidx.fragment.app.FragmentContainerView
      android:id="@+id/nav_host_fragment"
      android:name="androidx.navigation.fragment.NavHostFragment"
-     android:layout_width="0dp"
+     android:layout_width="match_parent"
      android:layout_height="match_parent"
+     android:layout_above="@id/bottomNavigation"
      app:defaultNavHost="true"
-     app:layout_constraintBottom_toBottomOf="parent"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintStart_toStartOf="parent"
+     android:layout_marginBottom="-20dp"
      app:navGraph="@navigation/nav_graph" />
 
  <com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
      android:id="@+id/bottomNavigation"
      android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     app:cbn_background="@color/white"
+     android:layout_height="86dp"
+     android:background="@android:color/transparent"
      app:cbn_iconColor="@color/black"
      app:cbn_height="86dp"
      app:cbn_icon_size="18dp"
@@ -30,9 +29,6 @@
      app:cbn_selected_icon_size="48dp"
      app:cbn_selectedIconColor="@color/Primary_color"
      app:cbn_titleColor="@color/black"
+     android:layout_alignParentBottom="true" />
 
-     app:layout_constraintBottom_toBottomOf="parent"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintStart_toStartOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

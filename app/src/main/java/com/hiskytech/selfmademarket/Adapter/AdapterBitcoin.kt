@@ -6,7 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hiskytech.selfmademarket.Model.DataX
+import com.hiskytech.selfmademarket.R
 import com.hiskytech.selfmademarket.databinding.BitcoinItemBinding
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class AdapterBitcoin(val context: Context, var bitCoinList : List<DataX>) : RecyclerView.Adapter<AdapterBitcoin.MyViewHolder>() {
 
@@ -20,11 +23,19 @@ class AdapterBitcoin(val context: Context, var bitCoinList : List<DataX>) : Recy
     override fun onBindViewHolder(holder: AdapterBitcoin.MyViewHolder, position: Int) {
         val currentPosition = bitCoinList[position]
 
-        holder.binding.butonPlan.setText(currentPosition.created_date)
+        val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val targetFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date = originalFormat.parse(currentPosition.created_date)
+        val formattedDate = targetFormat.format(date)
+
+        holder.binding.butonPlan.setText(formattedDate)
+        holder.binding.tvTitle.text=currentPosition.title
         holder.binding.tvDescription.text = currentPosition.description
-        val fullUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrfWHXUI7BqoCp21ARDmz1vSl4Q0LYyPPFIQ&s"
-        Glide.with(context).load(fullUrl)
-            .into(holder.binding.img)
+        val fullUrl = "https://hiskytechs.com/planemanger/uploads/${currentPosition.image}"
+        Glide.with(context).load(fullUrl).into(holder.binding.img)
+        val fullcoinUrl = "https://hiskytechs.com/planemanger/uploads/${currentPosition.icon}"
+        Glide.with(context).load(fullcoinUrl).into(holder.binding.bitcoinImg)
+
     }
 
     override fun getItemCount(): Int {
