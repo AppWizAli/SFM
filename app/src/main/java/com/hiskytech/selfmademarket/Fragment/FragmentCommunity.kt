@@ -11,6 +11,7 @@ import com.hiskytech.selfmademarket.Adapter.AdaterCommint
 import com.hiskytech.selfmademarket.ApiInterface.CommentsInterface
 import com.hiskytech.selfmademarket.Model.CommintsBuilder
 import com.hiskytech.selfmademarket.Model.ModelComments
+import com.hiskytech.selfmademarket.Model.ModelCommint
 import com.hiskytech.selfmademarket.databinding.FragmentCommunityBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,8 +41,9 @@ class FragmentCommunity : Fragment() {
         val apiInterface = CommintsBuilder.getInstance().create(CommentsInterface::class.java)
         val call = apiInterface.getCommints()
 
-        call.enqueue(object : Callback<ModelComments> {
-            override fun onResponse(call: Call<ModelComments>, response: Response<ModelComments>) {
+        call.enqueue(object : Callback<ModelCommint> {
+
+            override fun onResponse(call: Call<ModelCommint>, response: Response<ModelCommint>) {
                 if (response.isSuccessful) {
                     val commentsList = response.body()?.comments ?: emptyList()
                     Log.d("FetchSuccess", "Fetched ${commentsList.size} comments")
@@ -53,8 +55,8 @@ class FragmentCommunity : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<ModelComments>, t: Throwable) {
-                Log.e("FetchError", "API call failed: ${t.message}")
+            override fun onFailure(call: Call<ModelCommint>, t: Throwable) {
+                Log.e("FragmentCommunity", "Error fetching courses", t)
             }
         })
     }
