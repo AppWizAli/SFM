@@ -44,7 +44,7 @@ class FragmentCommunity : Fragment() {
             override fun onResponse(call: Call<ModelComments>, response: Response<ModelComments>) {
                 if (response.isSuccessful) {
                     val commentsList = response.body()?.comments ?: emptyList()
-                    Log.d("FetchSuccess", "Comments fetched successfully: ${commentsList.size} items")
+                    Log.d("FetchSuccess", "Fetched ${commentsList.size} comments")
                     binding.rvCommunity.adapter = AdaterCommint(requireContext(), commentsList)
                 } else {
                     Log.e("FetchError", "Response code: ${response.code()}")

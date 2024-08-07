@@ -40,6 +40,8 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="12dp"
             android:layout_toRightOf="@id/signup"
+            android:maxLines="1"
+
             android:src="@drawable/flash" />
 
 
@@ -57,12 +59,15 @@
             android:fontFamily="@font/productsansregular"
             android:drawablePadding="10dp"
             android:paddingStart="15dp"
+            android:maxLines="1"
             android:textColorHint="@color/hint_color" />
 
         <EditText
             android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:maxLines="1"
+
             android:layout_below="@id/email"
             android:fontFamily="@font/productsansregular"
 
@@ -82,7 +87,7 @@
             android:layout_height="45dp"
             android:layout_below="@id/phone"
             android:fontFamily="@font/productsansregular"
-
+            android:maxLines="1"
             android:textSize="14sp"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="15dp"
@@ -111,6 +116,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_below="@id/billing"
+            android:maxLines="1"
+
             >
 
             <EditText
@@ -125,8 +132,9 @@
                 android:drawableStart="@drawable/baseline_person_24"
                 android:hint="Name"
                 android:paddingStart="15dp"
-                android:drawablePadding="10dp"
+                android:drawablePadding="5dp"
                 android:textColorHint="@color/hint_color" />
+
 
             <EditText
                 android:id="@+id/bcountry"
@@ -138,12 +146,12 @@
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/edittext_bg"
                 android:drawableStart="@drawable/baseline_outlined_flag_24"
+                android:maxLines="1"
                 android:hint="Country"
                 android:paddingStart="15dp"
                 android:textSize="14sp"
                 android:fontFamily="@font/productsansregular"
-
-                android:drawablePadding="10dp"
+                android:drawablePadding="5dp"
                 android:textColorHint="@color/hint_color" />
 
         </RelativeLayout>
@@ -163,6 +171,8 @@
                 android:layout_height="35dp"
                 android:layout_marginStart="10dp"
                 android:textSize="14sp"
+                android:maxLines="1"
+
                 android:layout_marginVertical="10dp"
                 android:background="@drawable/edittext_bg"
                 android:drawableStart="@drawable/baseline_flag_circle_24"
@@ -170,7 +180,7 @@
                 android:fontFamily="@font/productsansregular"
 
                 android:paddingStart="15dp"
-                android:drawablePadding="10dp"
+                android:drawablePadding="5dp"
                 android:textColorHint="@color/hint_color" />
 
             <EditText
@@ -180,6 +190,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginVertical="10dp"
+                android:maxLines="1"
+
                 android:background="@drawable/edittext_bg"
                 android:drawableStart="@drawable/baseline_location_city_24"
                 android:hint="City"
@@ -187,7 +199,7 @@
                 android:textSize="14sp"
                 android:fontFamily="@font/productsansregular"
 
-                android:drawablePadding="10dp"
+                android:drawablePadding="5dp"
                 android:textColorHint="@color/hint_color" />
 
         </RelativeLayout>
@@ -199,13 +211,15 @@
             android:layout_below="@id/llDistrict"
             android:layout_centerHorizontal="true"
             android:layout_marginVertical="10dp"
+            android:maxLines="1"
+
             android:background="@drawable/edittext_bg"
             android:drawableStart="@drawable/baseline_airport_shuttle_24"
             android:hint="Postal Code"
             android:textSize="14sp"
             android:fontFamily="@font/productsansregular"
             android:paddingStart="15dp"
-            android:drawablePadding="10dp"
+            android:drawablePadding="5dp"
             android:textColorHint="@color/hint_color" />
 
         <RelativeLayout
@@ -357,7 +371,7 @@
 
 
         <TextView
-            android:id="@+id/paymentmethod"
+            android:id="@+id/btnPayment"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:layout_below="@+id/rlStartPlan"
@@ -369,6 +383,7 @@
             android:gravity="center"
             android:paddingStart="15dp"
             android:drawablePadding="10dp"
+            android:paddingHorizontal="20dp"
             android:text="Choose Payment Method"
             android:textColor="@color/white" />
 
@@ -376,7 +391,7 @@
             android:id="@+id/verification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/paymentmethod"
+            android:layout_below="@id/btnPayment"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/productsansbold"
@@ -400,7 +415,6 @@
                 android:background="@drawable/edittext_bg"
                 android:drawableStart="@drawable/baseline_person_24"
                 android:gravity="center"
-                android:paddingStart="15dp"
                 android:text="Transaction id"
                 android:textColor="@color/white"
                 android:textSize="10sp" />
@@ -414,6 +428,7 @@
                 android:drawableStart="@drawable/baseline_outlined_flag_24"
                 android:paddingStart="10dp"
                 android:gravity="center"
+                android:paddingHorizontal="10dp"
                 android:text="Transaction screenshot"
                 android:textColor="@color/white"
                 android:textSize="10sp" />
@@ -441,6 +456,7 @@
                 android:paddingStart="15dp"
                 android:text="Id Card Front Side"
                 android:textColor="@color/white"
+                android:paddingRight="5dp"
                 android:textSize="12sp" />
 
             <TextView
@@ -450,10 +466,9 @@
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/edittext_bg"
                 android:drawableStart="@drawable/baseline_location_city_24"
-                android:gravity="center"
-                android:paddingStart="5dp"
                 android:text="Back Side Of Id Card"
                 android:textColor="@color/white"
+                android:gravity="center"
                 android:textSize="12sp" />
 
         </RelativeLayout>

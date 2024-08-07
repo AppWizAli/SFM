@@ -16,7 +16,7 @@
             >
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         app:cardMaxElevation="10dp"
         android:layout_marginHorizontal="20dp"
         app:cardElevation="20dp"
@@ -28,30 +28,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:background="#ffffff"
-        android:padding="10dp"
+        android:paddingVertical="5dp"
         android:orientation="horizontal"
         android:gravity="center"
         android:elevation="2dp"
         android:layout_alignParentTop="true">
 
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:id="@+id/imgBinance"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@drawable/binance" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Binance"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_marginStart="10dp" />
     </LinearLayout>
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         app:cardMaxElevation="10dp"
         android:layout_marginHorizontal="20dp"
         app:cardElevation="20dp"
@@ -66,13 +66,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:padding="10dp"
+        android:padding="5dp"
         android:orientation="horizontal"
         android:gravity="center"
         android:elevation="2dp"
         android:layout_below="@id/binance">
 
         <ImageView
+            android:id="@+id/imgWise"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/wise" />
@@ -81,14 +82,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Wise"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_marginStart="10dp" />
     </LinearLayout>
     </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             app:cardMaxElevation="10dp"
             android:layout_marginHorizontal="20dp"
             app:cardElevation="20dp"
@@ -103,13 +104,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:padding="10dp"
         android:orientation="horizontal"
+        android:paddingVertical="5dp"
         android:gravity="center"
         android:elevation="2dp"
         android:layout_below="@id/wise">
 
         <ImageView
+            android:id="@+id/imgPayoneer"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/payoneer" />
@@ -118,13 +120,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Payoneer"
-            android:textSize="18sp"
-            android:layout_marginStart="10dp" />
+            android:textSize="16sp"
+          />
     </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             app:cardMaxElevation="10dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="6dp"
@@ -140,16 +142,18 @@
         android:layout_height="wrap_content"
 
         android:background="#ffffff"
-        android:padding="10dp"
+        android:padding="5dp"
         android:orientation="horizontal"
         android:gravity="center"
         android:elevation="2dp"
         android:layout_below="@id/payoneer">
 
         <ImageView
+            android:id="@+id/imgEasyPaisa"
+
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/easypaisa" />
+            android:src="@drawable/img_2" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -161,7 +165,7 @@
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             app:cardMaxElevation="10dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="6dp"
@@ -181,9 +185,11 @@
                 android:elevation="2dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="5dp">
 
                 <ImageView
+                    android:id="@+id/imgJazzCash"
+
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:src="@drawable/jazzcash" />
@@ -198,7 +204,7 @@
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             app:cardMaxElevation="10dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="6dp"
@@ -214,13 +220,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:padding="10dp"
+        android:padding="5dp"
         android:orientation="horizontal"
         android:gravity="center"
         android:elevation="2dp"
         android:layout_below="@id/jazzcash">
 
         <ImageView
+            android:id="@+id/imgBank"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/banktransfer" />
