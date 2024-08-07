@@ -25,6 +25,7 @@ class AdapterCourse(val context : Context , var courseList : List<ModelCoursesIt
         holder.binding.tvCourseInstructor.text = course.course_instructor
         holder.binding.tvDuration.text = "${course.course_duration}"
         holder.binding.tvVideosCount.text = "${course.total_videos}"
+
         val fullUrl = "https://hiskytechs.com/planemanger/uploads/${course.course_image}"
         Glide.with(context).load(fullUrl).into(holder.binding.imgCourse)
 
