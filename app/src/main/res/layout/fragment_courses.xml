@@ -68,16 +68,15 @@
                    android:textColor="@color/black" />
 
 
-
                <ImageView
+                   android:id="@+id/btnNotification"
                    android:layout_width="30dp"
                    android:layout_height="30dp"
                    android:layout_alignParentEnd="true"
                    android:layout_marginHorizontal="10dp"
                    android:layout_marginTop="10dp"
-                   android:src="@drawable/baseline_notifications_none_24"
 
-                   />
+                   android:src="@drawable/baseline_notifications_none_24" />
            </RelativeLayout>
 
 

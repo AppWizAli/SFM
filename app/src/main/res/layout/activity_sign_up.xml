@@ -294,7 +294,7 @@
                         android:layout_marginEnd="7dp"
                         android:layout_marginBottom="0dp"
                         android:backgroundTint="@android:color/holo_orange_light"
-                        android:text="Selected"
+                        android:text="Select"
                         android:textColor="@android:color/black"
                         android:textSize="8sp" />
 

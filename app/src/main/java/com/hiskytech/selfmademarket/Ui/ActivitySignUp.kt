@@ -34,6 +34,8 @@ class ActivitySignUp : AppCompatActivity() {
 
     private lateinit var accountTitle : String
     private lateinit var accountNumber : String
+    private lateinit var subscriptionPlan : String
+
 
 
 
@@ -49,6 +51,12 @@ class ActivitySignUp : AppCompatActivity() {
 
             showPaymentDialog()
 
+        }
+
+        binding.startupPlanSaving.setOnClickListener(){
+            subscriptionPlan = "1"
+            binding.startupPlanSaving.setText("Selected")
+            Toast.makeText(this@ActivitySignUp, subscriptionPlan, Toast.LENGTH_SHORT).show()
         }
 
 
@@ -83,7 +91,7 @@ class ActivitySignUp : AppCompatActivity() {
                     name = name,
                     payment_method = paymentMethod,
                     phone = phone,
-                    plan_select = planSelect,
+                    plan_select = subscriptionPlan,
                     postal_code = postalCode,
                     subscription_end_date = "", // Server-generated
                     subscription_start_date = "", // Server-generated
