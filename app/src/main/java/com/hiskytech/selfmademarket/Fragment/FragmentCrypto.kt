@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hiskytech.selfmademarket.Adapter.AdapterBitcoin
 import com.hiskytech.selfmademarket.ApiInterface.BitCoinInterface
-import com.hiskytech.selfmademarket.Model.BitCoinBuilder
 import com.hiskytech.selfmademarket.Model.DataX
 import com.hiskytech.selfmademarket.Model.ModelBitCoin
+import com.hiskytech.selfmademarket.Model.RetrofitBuilder
 import com.hiskytech.selfmademarket.databinding.FragmentCryptoBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,7 +40,7 @@ class FragmentCrypto : Fragment() {
     }
 
     private fun fetchBitCoins() {
-        val apiInterface = BitCoinBuilder.getInstance().create(BitCoinInterface::class.java)
+        val apiInterface =  RetrofitBuilder.getInstance().create(BitCoinInterface::class.java)
         val call = apiInterface.getBitCoin()
 
         call.enqueue(object : Callback<ModelBitCoin> {

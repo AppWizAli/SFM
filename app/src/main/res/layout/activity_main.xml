@@ -20,7 +20,7 @@
  <com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
      android:id="@+id/bottomNavigation"
      android:layout_width="match_parent"
-     android:layout_height="wrap_content"
+     android:layout_height="86dp"
 
      app:cbn_iconColor="@color/black"
      app:cbn_height="86dp"

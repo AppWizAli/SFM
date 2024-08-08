@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hiskytech.selfmademarket.Adapter.AdapterForex
 import com.hiskytech.selfmademarket.ApiInterface.ForexInterface
 import com.hiskytech.selfmademarket.Model.DataXX
-import com.hiskytech.selfmademarket.Model.ForexBuilder
 import com.hiskytech.selfmademarket.Model.ModelForex
+import com.hiskytech.selfmademarket.Model.RetrofitBuilder
 import com.hiskytech.selfmademarket.databinding.FragmentForexBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,7 +40,7 @@ class FragmentForex : Fragment() {
     }
 
     private fun fetchForex() {
-        val apiInterface = ForexBuilder.getInstance().create(ForexInterface::class.java)
+        val apiInterface =  RetrofitBuilder.getInstance().create(ForexInterface::class.java)
         val call = apiInterface.getForex()
 
         call.enqueue(object : Callback<ModelForex> {
