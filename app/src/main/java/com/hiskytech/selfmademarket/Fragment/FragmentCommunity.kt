@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hiskytech.selfmademarket.Adapter.AdaterCommint
 import com.hiskytech.selfmademarket.ApiInterface.CommentsInterface
+import com.hiskytech.selfmademarket.Model.CommintsBuilder
 import com.hiskytech.selfmademarket.Model.ModelComments
-import com.hiskytech.selfmademarket.Model.RetrofitBuilder
 import com.hiskytech.selfmademarket.databinding.FragmentCommunityBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,15 +37,14 @@ class FragmentCommunity : Fragment() {
     }
 
     private fun fetchComments() {
-        val apiInterface = RetrofitBuilder.getInstance().create(CommentsInterface::class.java)
+        val apiInterface = CommintsBuilder.getInstance().create(CommentsInterface::class.java)
         val call = apiInterface.getCommints()
 
         call.enqueue(object : Callback<ModelComments> {
             override fun onResponse(call: Call<ModelComments>, response: Response<ModelComments>) {
-                if (response.isSuccessful && response.body() != null) {
-                    val commentsList = response.body()!!.comments
-                    Log.d("FetchSuccess", "Comments: $commentsList")
-
+                if (response.isSuccessful) {
+                    val commentsList = response.body()?.comments ?: emptyList()
+                    Log.d("FetchSuccess", "Fetched ${commentsList.size} comments")
                     binding.rvCommunity.adapter = AdaterCommint(requireContext(), commentsList)
                 } else {
                     Log.e("FetchError", "Response code: ${response.code()}")
