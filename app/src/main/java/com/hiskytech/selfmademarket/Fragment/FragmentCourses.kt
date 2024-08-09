@@ -31,7 +31,7 @@ class FragmentCourses : Fragment() {
 
     private var _binding: FragmentCoursesBinding? = null
     private val binding get() = _binding!!
-
+    private lateinit var dialog: Dialog
     private lateinit var courseAdapter: AdapterCourse
     private var courseList: MutableList<ModelCoursesItem> = mutableListOf()
 
@@ -49,7 +49,6 @@ class FragmentCourses : Fragment() {
         binding.rvcourses.layoutManager = LinearLayoutManager(requireContext())
         courseAdapter = AdapterCourse(requireContext(), courseList)
         binding.rvcourses.adapter = courseAdapter
-        binding.lottieAnimationView.visibility = View.VISIBLE
         fetchCourse()
         binding.btnNotification.setOnClickListener {
             fetchNotificationsAndShowDialog()
@@ -57,15 +56,13 @@ class FragmentCourses : Fragment() {
     }
 
     private fun fetchCourse() {
-        binding.lottieAnimationView.visibility = View.VISIBLE
-        binding.rvcourses.visibility = View.GONE
+       showAnimation()
         val quotesApi = RetrofitBuilder.getInstance().create(CourseInterface::class.java)
         val call = quotesApi.getCourses()
 
         call.enqueue(object : Callback<ModelCourses> {
             override fun onResponse(call: Call<ModelCourses>, response: Response<ModelCourses>) {
-                binding.lottieAnimationView.visibility = View.GONE
-                binding.rvcourses.visibility = View.VISIBLE
+               closeAnimation()
                 if (response.isSuccessful) {
                     val courses = response.body()
                     if (courses != null) {
@@ -82,7 +79,7 @@ class FragmentCourses : Fragment() {
             }
 
             override fun onFailure(call: Call<ModelCourses>, t: Throwable) {
-                binding.lottieAnimationView.visibility = View.GONE
+                closeAnimation()
                 Log.e("FragmentCourses", "Error fetching courses", t)
             }
         })
@@ -144,5 +141,15 @@ class FragmentCourses : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    private fun showAnimation() {
+        dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.loadingdialog)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+    }
+
+    private fun closeAnimation() {
+        dialog.dismiss()
     }
 }

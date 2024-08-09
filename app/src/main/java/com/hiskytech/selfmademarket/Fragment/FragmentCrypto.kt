@@ -1,5 +1,6 @@
 package com.hiskytech.selfmademarket.Fragment
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import com.hiskytech.selfmademarket.ApiInterface.BitCoinInterface
 import com.hiskytech.selfmademarket.Model.DataX
 import com.hiskytech.selfmademarket.Model.ModelBitCoin
 import com.hiskytech.selfmademarket.Model.RetrofitBuilder
+import com.hiskytech.selfmademarket.R
 import com.hiskytech.selfmademarket.databinding.FragmentCryptoBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,7 +23,7 @@ class FragmentCrypto : Fragment() {
 
     private var _binding: FragmentCryptoBinding? = null
     private val binding get() = _binding!!
-
+    private lateinit var dialog: Dialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,11 +42,14 @@ class FragmentCrypto : Fragment() {
     }
 
     private fun fetchBitCoins() {
+
+        showAnimation()
         val apiInterface =  RetrofitBuilder.getInstance().create(BitCoinInterface::class.java)
         val call = apiInterface.getBitCoin()
 
         call.enqueue(object : Callback<ModelBitCoin> {
             override fun onResponse(call: Call<ModelBitCoin>, response: Response<ModelBitCoin>) {
+                closeAnimation()
                 if (response.isSuccessful) {
                     val bitCoinList = response.body()?.data ?: emptyList()
                     binding.rvCoin.adapter = AdapterBitcoin(requireContext(), bitCoinList)
@@ -56,6 +61,7 @@ class FragmentCrypto : Fragment() {
             }
 
             override fun onFailure(call: Call<ModelBitCoin>, t: Throwable) {
+                closeAnimation()
                 Log.e("FetchError", "API call failed: ${t.message}")
             }
         })
@@ -64,5 +70,15 @@ class FragmentCrypto : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    private fun showAnimation() {
+        dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.loadingdialog)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+    }
+
+    private fun closeAnimation() {
+        dialog.dismiss()
     }
 }

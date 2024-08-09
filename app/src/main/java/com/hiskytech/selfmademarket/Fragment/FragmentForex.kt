@@ -1,5 +1,6 @@
 package com.hiskytech.selfmademarket.Fragment
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import com.hiskytech.selfmademarket.ApiInterface.ForexInterface
 import com.hiskytech.selfmademarket.Model.DataXX
 import com.hiskytech.selfmademarket.Model.ModelForex
 import com.hiskytech.selfmademarket.Model.RetrofitBuilder
+import com.hiskytech.selfmademarket.R
 import com.hiskytech.selfmademarket.databinding.FragmentForexBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,6 +23,7 @@ class FragmentForex : Fragment() {
 
     private var _binding: FragmentForexBinding? = null
     private val binding get() = _binding!!
+    private lateinit var dialog: Dialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,11 +43,13 @@ class FragmentForex : Fragment() {
     }
 
     private fun fetchForex() {
+        showAnimation()
         val apiInterface =  RetrofitBuilder.getInstance().create(ForexInterface::class.java)
         val call = apiInterface.getForex()
 
         call.enqueue(object : Callback<ModelForex> {
             override fun onResponse(call: Call<ModelForex>, response: Response<ModelForex>) {
+                closeAnimation()
                 if (response.isSuccessful) {
                     val forexList = response.body()?.data ?: emptyList()
                     binding.rvForex.adapter = AdapterForex(requireContext(), forexList)
@@ -56,6 +61,7 @@ class FragmentForex : Fragment() {
             }
 
             override fun onFailure(call: Call<ModelForex>, t: Throwable) {
+                closeAnimation()
                 Log.e("FetchError", "API call failed: ${t.message}")
             }
         })
@@ -64,5 +70,15 @@ class FragmentForex : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    private fun showAnimation() {
+        dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.loadingdialog)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+    }
+
+    private fun closeAnimation() {
+        dialog.dismiss()
     }
 }

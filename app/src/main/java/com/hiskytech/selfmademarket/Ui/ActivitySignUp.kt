@@ -79,7 +79,7 @@ class ActivitySignUp : AppCompatActivity() {
                 binding.startupPlanSaving.visibility = View.VISIBLE
                 binding.cv1.isEnabled = false
                 isPlanSelected = true
-              
+
                 Toast.makeText(this@ActivitySignUp, "Selected Plan: $subscriptionPlan", Toast.LENGTH_SHORT).show()
             }
         }

@@ -1,22 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item
-    android:title="Community"
-    android:id="@+id/community_fragment"
-    android:icon="@drawable/community_icon"/>
  <item
-    android:title="Courses"
-    android:id="@+id/course_fragment"
-     android:icon="@drawable/courses_icon"/>
+     android:id="@+id/fragmentCommunity"
+     android:icon="@drawable/community_icon"
+     android:title="Community" />
+
  <item
-    android:title="Crypto"
-    android:id="@+id/crypto_fragment"
-     android:icon="@drawable/bitcoin_icon"/>
+     android:id="@+id/fragmentCourses"
+     android:icon="@drawable/courses_icon"
+     android:title="Courses" />
+
  <item
-    android:title="Forex"
-    android:id="@+id/forex_fragment"
-     android:icon="@drawable/forex_signal_icon"/>
+     android:id="@+id/fragmentPublishStory"
+     android:icon="@drawable/plus_icon"
+     android:title="Add Story" />
 
+ <item
+     android:id="@+id/fragmentCrypto"
+     android:icon="@drawable/bitcoin_icon"
+     android:title="Crypto" />
 
-
+ <item
+     android:id="@+id/fragmentForex"
+     android:icon="@drawable/forex_signal_icon"
+     android:title="Forex" />
 </menu>
