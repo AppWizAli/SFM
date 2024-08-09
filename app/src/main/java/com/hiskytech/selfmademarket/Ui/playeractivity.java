@@ -46,12 +46,12 @@ public class playeractivity extends AppCompatActivity {
     private boolean isShowingTrackSelectionDialog;
 
     @SuppressLint("MissingInflatedId")
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_playeractivity);
+
         handler = new Handler(Looper.getMainLooper());
         Intent intent = getIntent();
 
@@ -91,8 +91,6 @@ public class playeractivity extends AppCompatActivity {
 
     private void setupUIControls() {
         playerView = findViewById(R.id.exoPlayerView);
-        qualityTxt = findViewById(R.id.qualityTxt); // Initialize qualityTxt
-
         ImageView forwardBtn = playerView.findViewById(R.id.fwd);
         ImageView rewindBtn = playerView.findViewById(R.id.rew);
         ImageView speedBtn = playerView.findViewById(R.id.exo_playback_speed);
@@ -145,8 +143,6 @@ public class playeractivity extends AppCompatActivity {
 
                 playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
                 Toast.makeText(playeractivity.this, "Fill Mode", Toast.LENGTH_SHORT).show();
-
-
             }
         });
         exoplayer_resize2.setOnClickListener(new View.OnClickListener() {
@@ -160,8 +156,6 @@ public class playeractivity extends AppCompatActivity {
 
                 playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
                 Toast.makeText(playeractivity.this, "Fit Mode", Toast.LENGTH_SHORT).show();
-
-
             }
         });
         exoplayer_resize3.setOnClickListener(new View.OnClickListener() {
@@ -175,7 +169,6 @@ public class playeractivity extends AppCompatActivity {
 
                 playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_ZOOM);
                 Toast.makeText(playeractivity.this, "Zoom Mode", Toast.LENGTH_SHORT).show();
-
             }
         });
         exoplayer_resize4.setOnClickListener(new View.OnClickListener() {
@@ -188,7 +181,6 @@ public class playeractivity extends AppCompatActivity {
                 exoplayer_resize5.setVisibility(View.VISIBLE);
                 playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_HEIGHT);
                 Toast.makeText(playeractivity.this, "Fixed Height", Toast.LENGTH_SHORT).show();
-
             }
         });
         exoplayer_resize5.setOnClickListener(new View.OnClickListener() {
@@ -202,10 +194,8 @@ public class playeractivity extends AppCompatActivity {
 
                 playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH);
                 Toast.makeText(playeractivity.this, "Fixed Width", Toast.LENGTH_SHORT).show();
-
             }
         });
-
 
         fullscreenBtn.setOnClickListener(view -> toggleFullscreen());
 
@@ -238,34 +228,28 @@ public class playeractivity extends AppCompatActivity {
         playerView.setPlayer(simpleExoPlayer);
         playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH);
 
-        MediaItem mediaItem = MediaItem.fromUri("https://hiskytechs.com/video_adminpenal/" + videoUrl);
+        MediaItem mediaItem = MediaItem.fromUri("https://hiskytechs.com/planemanger/get-course.php" + videoUrl);
         simpleExoPlayer.setMediaItem(mediaItem);
 
         simpleExoPlayer.prepare();
-        simpleExoPlayer.seekTo(currentPosition); // Seek to saved position
+        simpleExoPlayer.seekTo(currentPosition); // Seek to saved position if any
         simpleExoPlayer.play();
 
-        // Start updating position while playing
+        // Update playback position
         updatePositionRunnable = new Runnable() {
             @Override
             public void run() {
-                if (simpleExoPlayer != null && simpleExoPlayer.isPlaying()) {
+                if (simpleExoPlayer != null) {
                     currentPosition = simpleExoPlayer.getCurrentPosition();
-                    handler.postDelayed(this, 1000); // Update position every second
                 }
+                handler.postDelayed(this, 1000); // Update every second
             }
         };
-        handler.postDelayed(updatePositionRunnable, 1000); // Start position update runnable
+        handler.post(updatePositionRunnable);
 
-        // Error handling for ExoPlayer
-        simpleExoPlayer.addListener(new SimpleExoPlayer.Listener() {
-            @Override
-            public void onPlaybackStateChanged(int state) {
-                // Handle state changes if needed
-            }
+        simpleExoPlayer.addListener(new com.google.android.exoplayer2.Player.Listener() {
 
             public void onPlayerError(ExoPlaybackException error) {
-                // Log error or show error message
                 Toast.makeText(playeractivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -276,7 +260,7 @@ public class playeractivity extends AppCompatActivity {
             simpleExoPlayer.release();
             simpleExoPlayer = null;
         }
-        cancelUpdatePositionRunnable();
+        cancelUpdatePositionRunnable(); // Cancel position updates when releasing player
     }
 
     private void cancelUpdatePositionRunnable() {
@@ -287,61 +271,62 @@ public class playeractivity extends AppCompatActivity {
 
     private void showSpeedDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(playeractivity.this);
-        builder.setTitle("Set Speed");
+        builder.setTitle("Select Speed");
+
         builder.setItems(speedOptions, (dialog, which) -> {
-            PlaybackParameters params;
-            switch (which) {
-                case 0:
-                    qualityTxt.setText("0.25X");
-                    params = new PlaybackParameters(0.25f);
-                    break;
-                case 1:
-                    qualityTxt.setText("0.5X");
-                    params = new PlaybackParameters(0.5f);
-                    break;
-                case 2:
-                    qualityTxt.setText("1.0X");
-                    params = new PlaybackParameters(1f);
-                    break;
-                case 3:
-                    qualityTxt.setText("1.5X");
-                    params = new PlaybackParameters(1.5f);
-                    break;
-                case 4:
-                    qualityTxt.setText("2.0X");
-                    params = new PlaybackParameters(2f);
-                    break;
-                default:
-                    return;
-            }
             if (simpleExoPlayer != null) {
-                simpleExoPlayer.setPlaybackParameters(params);
+                float speed = 1f;
+                switch (which) {
+                    case 0:
+                        speed = 0.25f;
+                        break;
+                    case 1:
+                        speed = 0.5f;
+                        break;
+                    case 2:
+                        speed = 1f;
+                        break;
+                    case 3:
+                        speed = 1.5f;
+                        break;
+                    case 4:
+                        speed = 2f;
+                        break;
+                }
+                PlaybackParameters playbackParameters = new PlaybackParameters(speed);
+                simpleExoPlayer.setPlaybackParameters(playbackParameters);
+                Toast.makeText(playeractivity.this, "Playback Speed: " + speedOptions[which], Toast.LENGTH_SHORT).show();
             }
+            dialog.dismiss();
         });
-        builder.show();
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void toggleFullscreen() {
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            Toast.makeText(playeractivity.this, "Portrait mode", Toast.LENGTH_SHORT).show();
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            Toast.makeText(playeractivity.this, "Landscape mode", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void pausePlayer() {
-        if (simpleExoPlayer != null && simpleExoPlayer.isPlaying()) {
+        if (simpleExoPlayer != null) {
             simpleExoPlayer.pause();
             currentPosition = simpleExoPlayer.getCurrentPosition(); // Save current position when paused
-            cancelUpdatePositionRunnable(); // Cancel any ongoing position update
         }
     }
 
     private void resumePlayer() {
         if (simpleExoPlayer != null) {
-            simpleExoPlayer.seekTo(currentPosition); // Restore saved position
+            simpleExoPlayer.seekTo(currentPosition); // Seek to saved position when resuming
             simpleExoPlayer.play();
-            handler.postDelayed(updatePositionRunnable, 1000); // Resume position update runnable
+            handler.post(updatePositionRunnable); // Resume position updates
         }
     }
-
-    }
+}
