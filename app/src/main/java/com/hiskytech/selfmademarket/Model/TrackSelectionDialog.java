@@ -1,14 +1,32 @@
 package com.hiskytech.selfmademarket.Model;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+
+
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.exoplayer2.source.TrackGroup;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector.SelectionOverride;
+import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedTrackInfo;
+import com.google.android.exoplayer2.ui.TrackSelectionView;
+
+import java.util.Collections;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,17 +38,18 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.source.TrackGroup;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector.SelectionOverride;
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedTrackInfo;
 import com.google.android.exoplayer2.trackselection.TrackSelectionOverride;
+import com.google.android.exoplayer2.ui.TrackNameProvider;
 import com.google.android.exoplayer2.ui.TrackSelectionView;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.material.tabs.TabLayout;
 import com.hiskytech.selfmademarket.R;
-
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -185,12 +204,14 @@ public final class TrackSelectionDialog extends DialogFragment {
     @Override
     public View onCreateView(
             LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View dialogView = inflater.inflate(R.layout.treackselectiondialog,container,false);
-
+        View dialogView = inflater.inflate(R.layout.treackselectiondialog, container, false);
+        TabLayout tabLayout = dialogView.findViewById(R.id.track_selection_dialog_tab_layout);
+        ViewPager viewPager = dialogView.findViewById(R.id.track_selection_dialog_view_pager);
         Button cancelButton = dialogView.findViewById(R.id.track_selection_dialog_cancel_button);
         Button okButton = dialogView.findViewById(R.id.track_selection_dialog_ok_button);
 
-
+        viewPager.setAdapter(new FragmentAdapter(getChildFragmentManager()));
+        tabLayout.setupWithViewPager(viewPager);
 
         cancelButton.setOnClickListener(view -> dismiss());
         okButton.setOnClickListener(
