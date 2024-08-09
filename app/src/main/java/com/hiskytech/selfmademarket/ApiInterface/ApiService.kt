@@ -22,8 +22,11 @@ interface ApiService {
         @Part("district") district: RequestBody,
         @Part("postal_code") postalcode: RequestBody,
         @Part("transaction_id") transectionid: RequestBody,
-        @Part transcriptScreenshot: MultipartBody.Part,
-        @Part idCardBackPic: MultipartBody.Part,
-        @Part idCardFrontPic: MultipartBody.Part
+        @Part("plan_select") planselect: RequestBody,
+
+        @Part screenshot: MultipartBody.Part?,
+        @Part idCardBackPic: MultipartBody.Part?,
+        @Part idCardFrontPic: MultipartBody.Part?
     ): Call<userModel>
+
 }

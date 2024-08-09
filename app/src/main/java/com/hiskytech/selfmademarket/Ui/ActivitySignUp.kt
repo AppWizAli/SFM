@@ -21,6 +21,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.hiskytech.selfmademarket.Model.userModel
 import com.hiskytech.selfmademarket.R
 import com.hiskytech.selfmademarket.api.ApiService
@@ -38,14 +39,15 @@ class ActivitySignUp : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var apiInterFace: ApiService
-    private lateinit var subscriptionPlan: String
+    private var subscriptionPlan: String? = null
     private var isPlanSelected = false
     private val IMAGE_PICK_CODE = 1000
     private var clickedTextViewId: Int? = null
 
-    private var idCardBackPic: MultipartBody.Part? = null
-    private var transcriptScreenshot: MultipartBody.Part? = null
-    private var idCardFrontPic: MultipartBody.Part? = null
+    // Variables to hold image URIs
+    private var screenshotUri: Uri? = null
+    private var idCardFrontUri: Uri? = null
+    private var idCardBackUri: Uri? = null
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,40 +57,52 @@ class ActivitySignUp : AppCompatActivity() {
 
         apiInterFace = RetrofitClient.apiInterface
 
+        // Image selection listeners
         binding.js.setOnClickListener {
-            pickImageFromGallery(it.id)
+            clickedTextViewId = it.id
+            pickImageFromGallery()
         }
         binding.d.setOnClickListener {
-            pickImageFromGallery(it.id)
+            clickedTextViewId = it.id
+            pickImageFromGallery()
         }
         binding.c.setOnClickListener {
-            pickImageFromGallery(it.id)
+            clickedTextViewId = it.id
+            pickImageFromGallery()
         }
 
+        // Plan selection listeners
         binding.cv.setOnClickListener {
+
             if (!isPlanSelected) {
                 subscriptionPlan = "1"
                 binding.startupPlanSaving.visibility = View.VISIBLE
                 binding.cv1.isEnabled = false
                 isPlanSelected = true
-                Toast.makeText(this@ActivitySignUp, subscriptionPlan, Toast.LENGTH_SHORT).show()
+              
+                Toast.makeText(this@ActivitySignUp, "Selected Plan: $subscriptionPlan", Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.cv1.setOnClickListener {
+
             if (!isPlanSelected) {
                 subscriptionPlan = "3"
                 binding.plan2.visibility = View.VISIBLE
                 binding.cv.isEnabled = false
                 isPlanSelected = true
-                Toast.makeText(this@ActivitySignUp, subscriptionPlan, Toast.LENGTH_SHORT).show()
+
+                binding.cv1.setBackgroundColor(R.color.white)
+                Toast.makeText(this@ActivitySignUp, "Selected Plan: $subscriptionPlan", Toast.LENGTH_SHORT).show()
             }
         }
 
+        // Payment method button
         binding.btnPayment.setOnClickListener {
             showPaymentDialog()
         }
 
+        // Sign-up button listener
         binding.btn.setOnClickListener {
             val email = binding.email.text.toString().trim()
             val phone = binding.phone.text.toString().trim()
@@ -100,8 +114,8 @@ class ActivitySignUp : AppCompatActivity() {
             val postalCode = binding.postal.text.toString().trim()
             val transectionid = binding.tid.text.toString().trim()
 
-            if (email.isEmpty() || phone.isEmpty() || password.isEmpty() || name.isEmpty() || country.isEmpty() || district.isEmpty() || postalCode.isEmpty()) {
-                Toast.makeText(this@ActivitySignUp, "Please fill all fields", Toast.LENGTH_SHORT).show()
+            if (email.isEmpty() || phone.isEmpty() || password.isEmpty() || name.isEmpty() || country.isEmpty() || district.isEmpty() || postalCode.isEmpty() || subscriptionPlan == null) {
+                Toast.makeText(this@ActivitySignUp, "Please fill all fields and select a plan", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -114,15 +128,28 @@ class ActivitySignUp : AppCompatActivity() {
             val ucity = RequestBody.create("text/plain".toMediaTypeOrNull(), city)
             val upostalcode = RequestBody.create("text/plain".toMediaTypeOrNull(), postalCode)
             val transid = RequestBody.create("text/plain".toMediaTypeOrNull(), transectionid)
+            val uplanselect = RequestBody.create("text/plain".toMediaTypeOrNull(), subscriptionPlan!!)
+            val screenshot = createPartFromUri(screenshotUri)
+            val idCardFrontPic = createPartFromUri(idCardFrontUri)
+            val idCardBackPic = createPartFromUri(idCardBackUri)
 
-            if (transcriptScreenshot == null || idCardBackPic == null || idCardFrontPic == null) {
-                Toast.makeText(this@ActivitySignUp, "Please select all images", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+            // Log the request data
+            Log.d("API Request", "Phone: $phone, Email: $email, Password: $password, Name: $name, Country: $country, District: $district, City: $city, Postal Code: $postalCode, Transaction ID: $transectionid, Plan: $subscriptionPlan")
 
             val call = apiInterFace.signUpUser(
-                uphone, uemail, upassword, username, ucountry, ucity, udistrict,
-                upostalcode, transid, transcriptScreenshot!!, idCardBackPic!!, idCardFrontPic!!
+                uphone,
+                uemail,
+                upassword,
+                username,
+                ucountry,
+                ucity,
+                udistrict,
+                upostalcode,
+                transid,
+                uplanselect,
+                screenshot,
+                idCardBackPic,
+                idCardFrontPic
             )
 
             call.enqueue(object : Callback<userModel> {
@@ -130,22 +157,38 @@ class ActivitySignUp : AppCompatActivity() {
                     if (response.isSuccessful) {
                         response.body()?.let {
                             Log.d("API Success", "User data: ${it.users}")
-                            Toast.makeText(this@ActivitySignUp, "Account Created Successfully", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@ActivitySignUp,
+                                "Account Created Successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
                             startActivity(Intent(this@ActivitySignUp, ActivityLogin::class.java))
                             finish()
                         } ?: run {
                             Log.e("API Error", "Response body is null")
-                            Toast.makeText(this@ActivitySignUp, "Response body is null", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@ActivitySignUp,
+                                "Response body is null",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     } else {
                         Log.e("API Error", "Response code: ${response.code()}, message: ${response.message()}")
-                        Toast.makeText(this@ActivitySignUp, "Failed to fetch data: ${response.message()}", Toast.LENGTH_SHORT).show()
+                        response.errorBody()?.let { errorBody ->
+                            Log.e("API Error", "Error body: ${errorBody.string()}")
+                        }
+                        Toast.makeText(
+                            this@ActivitySignUp,
+                            "Failed to fetch data: ${response.message()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<userModel>, t: Throwable) {
                     Log.e("API Failure", "API call failed: ${t.message}", t)
-                    Toast.makeText(this@ActivitySignUp, "Failure: ${t.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ActivitySignUp, "Failure: ${t.message}", Toast.LENGTH_SHORT)
+                        .show()
                 }
             })
         }
@@ -204,65 +247,83 @@ class ActivitySignUp : AppCompatActivity() {
         imgPaymentMethod.setImageResource(drawableId)
 
         imgCopy.setOnClickListener {
-            // Copy account number to clipboard
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("Account Number", accountNumber)
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(this@ActivitySignUp, "Account number copied to clipboard", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show()
         }
-
         imgBack.setOnClickListener {
             dialog.dismiss()
+        }
+
+        val window = dialog.window
+        if (window != null) {
+            val layoutParams = WindowManager.LayoutParams()
+            layoutParams.copyFrom(window.attributes)
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
+            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
+            window.attributes = layoutParams
         }
 
         dialog.show()
     }
 
-    private fun pickImageFromGallery(viewId: Int) {
-        clickedTextViewId = viewId
+    private fun createPartFromUri(uri: Uri?): MultipartBody.Part? {
+        return uri?.let {
+            val file = File(getRealPathFromURI(uri))
+            val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+            MultipartBody.Part.createFormData("file", file.name, requestFile)
+        }
+    }
+
+    private fun getRealPathFromURI(uri: Uri): String {
+        var filePath = ""
+        val cursor = contentResolver.query(uri, null, null, null, null)
+        if (cursor != null) {
+            cursor.moveToFirst()
+            val index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            filePath = cursor.getString(index)
+            cursor.close()
+        }
+        return filePath
+    }
+
+    private fun pickImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, IMAGE_PICK_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == IMAGE_PICK_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            val imageUri: Uri? = data.data
+        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            val imageUri = data?.data
             if (imageUri != null) {
-                val imagePath = getPathFromUri(imageUri)
-                val file = File(imagePath)
-                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                val part = MultipartBody.Part.createFormData("file", file.name, requestFile)
-
                 when (clickedTextViewId) {
-                    binding.js.id -> {
-                        binding.js.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_image_24, 0, 0, 0)
-                        transcriptScreenshot = part
+                    R.id.d -> {
+                        idCardFrontUri = imageUri
+                        binding.d.visibility = View.GONE
+                        binding.dimg.visibility = View.VISIBLE
+                        binding.dimg.setImageURI(imageUri)
                     }
-                    binding.d.id -> {
-                        binding.d.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_image_24, 0, 0, 0)
-                        idCardBackPic = part
+                    R.id.js -> {
+                        screenshotUri = imageUri
+                        binding.js.visibility = View.GONE
+                        binding.jsimg.visibility = View.VISIBLE
+                        binding.jsimg.setImageURI(imageUri)
                     }
-                    binding.c.id -> {
-                        binding.c.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_image_24, 0, 0, 0)
-                        idCardFrontPic = part
+                    R.id.c -> {
+                        idCardBackUri = imageUri
+                        binding.c.visibility = View.GONE
+                        binding.cimg.visibility = View.VISIBLE
+                        binding.cimg.setImageURI(imageUri)
                     }
                 }
+            } else {
+                Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show()
             }
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+            Toast.makeText(this, "Image selection canceled", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun getPathFromUri(uri: Uri): String? {
-        var cursor = contentResolver.query(uri, null, null, null, null)
-        return if (cursor != null) {
-            cursor.moveToFirst()
-            val index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            val path = cursor.getString(index)
-            cursor.close()
-            path
-        } else {
-            null
-        }
-    }
 }

@@ -45,6 +45,9 @@ android {
 dependencies {
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation ("com.airbnb.android:lottie:5.0.3")
+    implementation ("com.google.android.gms:play-services-base:18.1.0")
+    implementation ("com.google.android.gms:play-services-auth:20.6.0")
+
     implementation ("com.squareup.okhttp3:okhttp:4.9.1")
     implementation ("androidx.media:media:1.7.0")
     implementation("com.google.android.exoplayer:exoplayer:2.19.1")

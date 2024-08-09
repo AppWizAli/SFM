@@ -11,6 +11,7 @@ import com.hiskytech.selfmademarket.Adapter.AdaterCommint
 import com.hiskytech.selfmademarket.ApiInterface.CommentsInterface
 import com.hiskytech.selfmademarket.Model.CommintsBuilder
 import com.hiskytech.selfmademarket.Model.ModelComments
+import com.hiskytech.selfmademarket.Model.ModelCommint
 import com.hiskytech.selfmademarket.databinding.FragmentCommunityBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,21 +41,22 @@ class FragmentCommunity : Fragment() {
         val apiInterface = CommintsBuilder.getInstance().create(CommentsInterface::class.java)
         val call = apiInterface.getCommints()
 
-        call.enqueue(object : Callback<ModelComments> {
-            override fun onResponse(call: Call<ModelComments>, response: Response<ModelComments>) {
-                if (response.isSuccessful) {
-                    val commentsList = response.body()?.comments ?: emptyList()
+        call.enqueue(object : Callback<ModelCommint> {
+
+            override fun onResponse(p0: Call<ModelCommint>, p1: Response<ModelCommint>) {
+                if (p1.isSuccessful) {
+                    val commentsList = p1.body()?.comments ?: emptyList()
                     Log.d("FetchSuccess", "Fetched ${commentsList.size} comments")
                     binding.rvCommunity.adapter = AdaterCommint(requireContext(), commentsList)
                 } else {
-                    Log.e("FetchError", "Response code: ${response.code()}")
-                    Log.e("FetchError", "Response message: ${response.message()}")
-                    Log.e("FetchError", "Error body: ${response.errorBody()?.string()}")
+                    Log.e("FetchError", "Response code: ${p1.code()}")
+                    Log.e("FetchError", "Response message: ${p1.message()}")
+                    Log.e("FetchError", "Error body: ${p1.errorBody()?.string()}")
                 }
             }
 
-            override fun onFailure(call: Call<ModelComments>, t: Throwable) {
-                Log.e("FetchError", "API call failed: ${t.message}")
+            override fun onFailure(p0: Call<ModelCommint>, p1: Throwable) {
+                Log.e("FetchError", "API call failed: ${p1.message}")
             }
         })
     }
