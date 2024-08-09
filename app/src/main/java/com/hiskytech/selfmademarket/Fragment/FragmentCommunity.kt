@@ -56,20 +56,20 @@ class FragmentCommunity : Fragment() {
 
         call.enqueue(object : Callback<ModelCommint> {
 
-            override fun onResponse(call: Call<ModelCommint>, response: Response<ModelCommint>) {
-                if (response.isSuccessful) {
-                    val commentsList = response.body()?.comments ?: emptyList()
+            override fun onResponse(p0: Call<ModelCommint>, p1: Response<ModelCommint>) {
+                if (p1.isSuccessful) {
+                    val commentsList = p1.body()?.comments ?: emptyList()
                     Log.d("FetchSuccess", "Fetched ${commentsList.size} comments")
                     binding.rvCommunity.adapter = AdaterCommint(requireContext(), commentsList)
                 } else {
-                    Log.e("FetchError", "Response code: ${response.code()}")
-                    Log.e("FetchError", "Response message: ${response.message()}")
-                    Log.e("FetchError", "Error body: ${response.errorBody()?.string()}")
+                    Log.e("FetchError", "Response code: ${p1.code()}")
+                    Log.e("FetchError", "Response message: ${p1.message()}")
+                    Log.e("FetchError", "Error body: ${p1.errorBody()?.string()}")
                 }
             }
 
-            override fun onFailure(call: Call<ModelCommint>, t: Throwable) {
-                Log.e("FragmentCommunity", "Error fetching courses", t)
+            override fun onFailure(p0: Call<ModelCommint>, p1: Throwable) {
+                Log.e("FetchError", "API call failed: ${p1.message}")
             }
         })
     }
