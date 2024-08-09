@@ -26,8 +26,6 @@
      app:cbn_height="86dp"
      app:cbn_icon_size="18dp"
      app:cbn_curve_radius="26dp"
-
-
      app:cbn_selected_icon_size="48dp"
      app:cbn_selectedIconColor="@color/Primary_color"
      app:cbn_titleColor="@color/black"

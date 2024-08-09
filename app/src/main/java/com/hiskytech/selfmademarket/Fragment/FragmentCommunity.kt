@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hiskytech.selfmademarket.Adapter.AdaterCommint
 import com.hiskytech.selfmademarket.ApiInterface.CommentsInterface
 import com.hiskytech.selfmademarket.Model.CommintsBuilder
-import com.hiskytech.selfmademarket.Model.ModelComments
 import com.hiskytech.selfmademarket.Model.ModelCommint
 import com.hiskytech.selfmademarket.Model.ModelNotification
 import com.hiskytech.selfmademarket.Model.NotificationBuilder

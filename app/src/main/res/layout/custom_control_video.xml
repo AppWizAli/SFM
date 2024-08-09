@@ -16,6 +16,7 @@
 
     </ImageView>
 
+
     <ImageView
         android:id="@+id/exo_play"
         android:layout_width="70dp"

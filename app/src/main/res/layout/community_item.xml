@@ -59,13 +59,25 @@
             android:text="Recently I Join the Course and Follow the \nSignals and Gets Good Results"
             android:textSize="14sp" />
 
-        <ImageView
-            android:id="@+id/account_image"
-            android:layout_width="379dp"
-            android:layout_height="147dp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:elevation="10dp"
+            app:cardCornerRadius="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="30dp"
             android:layout_below="@id/description"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/varification" />
+            >
+            <ImageView
+                android:id="@+id/account_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/varification" />
+
+        </androidx.cardview.widget.CardView>
+
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

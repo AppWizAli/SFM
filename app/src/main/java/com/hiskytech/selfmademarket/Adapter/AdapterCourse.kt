@@ -1,11 +1,14 @@
 package com.hiskytech.selfmademarket.Adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hiskytech.selfmademarket.Model.ModelCoursesItem
+import com.hiskytech.selfmademarket.R
 import com.hiskytech.selfmademarket.databinding.CoursesDetailsitemBinding
 
 class AdapterCourse(val context : Context , var courseList : List<ModelCoursesItem>) : RecyclerView.Adapter<AdapterCourse.MyViewHolder>(){
@@ -29,6 +32,13 @@ class AdapterCourse(val context : Context , var courseList : List<ModelCoursesIt
         val fullUrl = "https://hiskytechs.com/planemanger/uploads/${course.course_image}"
         Glide.with(context).load(fullUrl).into(holder.binding.imgCourse)
 
+        // Set OnClickListener to pass data
+        holder.itemView.setOnClickListener {
+            val bundle = Bundle().apply {
+                putParcelable("course", course) // Pass the course object
+            }
+            it.findNavController().navigate(R.id.fragmentCoursesDetail, bundle)
+        }
     }
 
     override fun getItemCount(): Int {

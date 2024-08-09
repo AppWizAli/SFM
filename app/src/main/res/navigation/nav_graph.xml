@@ -13,14 +13,8 @@
 
 
     </fragment>
-    <fragment
-        android:id="@+id/fragmentCourses"
-        android:name="com.hiskytech.selfmademarket.Fragment.FragmentCourses"
-        android:label="fragment_courses"
-        tools:layout="@layout/fragment_courses" >
 
 
-    </fragment>
     <fragment
         android:id="@+id/fragmentCrypto"
         android:name="com.hiskytech.selfmademarket.Fragment.FragmentCrypto"
@@ -39,4 +33,28 @@
         android:name="com.hiskytech.selfmademarket.Fragment.FragmentPublishStory"
         android:label="fragment_publish_story"
         tools:layout="@layout/fragment_publish_story" />
+
+
+    <fragment
+        android:id="@+id/fragmentCourses"
+        android:name="com.hiskytech.selfmademarket.Fragment.FragmentCourses"
+        android:label="fragment_courses"
+        tools:layout="@layout/fragment_courses">
+        <action
+            android:id="@+id/action_fragmentCourses_to_fragmentCoursesDetail"
+            app:destination="@id/fragmentCoursesDetail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentCoursesDetail"
+        android:name="com.hiskytech.selfmademarket.Fragment.FragmentCoursesDetail"
+        android:label="Course Detail">
+        <argument
+            android:name="course"
+            app:argType="com.hiskytech.selfmademarket.Model.ModelCoursesItem" />
+    </fragment>
+
+
+
+
 </navigation>

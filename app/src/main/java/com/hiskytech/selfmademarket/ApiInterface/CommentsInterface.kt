@@ -1,6 +1,5 @@
 package com.hiskytech.selfmademarket.ApiInterface
 
-import com.hiskytech.selfmademarket.Model.ModelComments
 import com.hiskytech.selfmademarket.Model.ModelCommint
 import retrofit2.Call
 import retrofit2.http.GET

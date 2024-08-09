@@ -6,32 +6,38 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.hiskytech.selfmademarket.R
-import com.hiskytech.selfmademarket.Model.Video
-import android.widget.Button
-import android.widget.TextView
-import de.hdodenhof.circleimageview.CircleImageView
 import com.bumptech.glide.Glide
-import com.hiskytech.selfmademarket.Adapter.AdapterCourse
+import com.hiskytech.selfmademarket.Adapter.AdapterVideo
+import com.hiskytech.selfmademarket.Model.ModelCoursesItem
+import com.hiskytech.selfmademarket.databinding.FragmentCoursesDetailBinding
 
 class FragmentCoursesDetail : Fragment() {
 
-    private lateinit var courseName: TextView
-    private lateinit var courseImage: CircleImageView
-    private lateinit var courseInstructor: TextView
-    private lateinit var courseDuration: TextView
-    private lateinit var courseVideos: RecyclerView
-    private lateinit var beginnersButton: Button
-    private lateinit var proButton: Button
-
-    private lateinit var videoList: List<Video>
+    private lateinit var course: ModelCoursesItem
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val binding = FragmentCoursesDetailBinding.inflate(inflater, container, false)
 
-        return view
+        // Retrieve the course data from the bundle
+        arguments?.let {
+            course = it.getParcelable("course") ?: return@let
+        }
+
+        // Use the course data
+        binding.tvCourseName.text = course.course_name
+        binding.userName.text = course.course_instructor
+        binding.tvDuration.text = course.course_duration
+
+        val fullUrl = "https://hiskytechs.com/planemanger/uploads/${course.course_image}"
+        Glide.with(requireContext()).load(fullUrl).into(binding.imgdetails)
+
+        // Set up RecyclerView for videos
+        binding.rvVideos.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvVideos.adapter = AdapterVideo(course.videos)
+
+        return binding.root
     }
 }

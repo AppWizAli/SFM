@@ -14,9 +14,10 @@
             android:layout_gravity="center">
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:elevation="10dp"
+                android:layout_height="160dp"
+                android:elevation="60dp"
                 app:cardCornerRadius="25dp"
+                android:backgroundTint="#00000000"
                 >
                 <ImageView
                     android:id="@+id/imgCourse"
