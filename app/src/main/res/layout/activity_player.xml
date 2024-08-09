@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Ui.ActivityPlayer">
+
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/exoPlayerView"
         android:layout_width="match_parent"
@@ -16,9 +17,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:resize_mode="fit"
-        app:show_buffering="when_playing">
-
-    </com.google.android.exoplayer2.ui.PlayerView>
-
-
+        app:show_buffering="when_playing" />
 </androidx.constraintlayout.widget.ConstraintLayout>

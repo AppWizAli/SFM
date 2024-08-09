@@ -43,11 +43,11 @@ android {
 }
 
 dependencies {
+    implementation ("com.squareup.okhttp3:okhttp:4.9.3") // or latest version
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation ("com.airbnb.android:lottie:5.0.3")
     implementation ("com.google.android.gms:play-services-base:18.1.0")
     implementation ("com.google.android.gms:play-services-auth:20.6.0")
-
     implementation ("com.squareup.okhttp3:okhttp:4.9.1")
     implementation ("androidx.media:media:1.7.0")
     implementation("com.google.android.exoplayer:exoplayer:2.19.1")
@@ -57,7 +57,6 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     implementation("com.github.qamarelsafadi:CurvedBottomNavigation:0.1.3")
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
