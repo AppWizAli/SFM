@@ -307,7 +307,7 @@
                 android:layout_width="160dp"
                 android:layout_height="60dp"
                 android:layout_alignParentEnd="true"
-                android:backgroundTint="#8BA7C2ED"
+                android:backgroundTint="@color/white"
                 android:id="@+id/cv1"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="4dp">
