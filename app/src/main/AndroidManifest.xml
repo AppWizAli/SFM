@@ -40,24 +40,26 @@
             android:exported="false" />
         <activity
             android:name=".Ui.ActivityLogin"
-            android:exported="false" />
-        <activity
-            android:name=".Ui.ActivityVerification"
-            android:exported="false" />
-        <activity
-            android:name=".Ui.ActivitySignUp"
-            android:exported="true">
-
+            android:exported="true" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
+        <activity
+            android:name=".Ui.ActivityVerification"
+            android:exported="false" />
+        <activity
+            android:name=".Ui.ActivitySignUp"
+            android:exported="false">
+
+
+        </activity>
 
         <activity
             android:name=".Ui.ActivitySplash"
-            android:exported="true"></activity>
+            android:exported="false"/>
         <activity
             android:name=".Ui.ActivityProfile"
             android:exported="false" />

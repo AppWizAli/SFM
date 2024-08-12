@@ -27,7 +27,6 @@ import com.hiskytech.selfmademarket.Model.ModelSignupResponse
 import com.hiskytech.selfmademarket.Model.SignupBuilder.apiInterface
 import com.hiskytech.selfmademarket.Model.userModel
 import com.hiskytech.selfmademarket.R
-import com.hiskytech.selfmademarket.api.ApiService
 import com.hiskytech.selfmademarket.api.RetrofitClient
 import com.hiskytech.selfmademarket.databinding.ActivitySignUpBinding
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -46,7 +45,7 @@ class ActivitySignUp : AppCompatActivity() {
     private var isPlanSelected = false
     private val IMAGE_PICK_CODE = 1000
     private var clickedTextViewId: Int? = null
-
+    private lateinit var dialog: Dialog
     private var screenshotUri: Uri? = null
     private var idCardFrontUri: Uri? = null
     private var idCardBackUri: Uri? = null
@@ -107,6 +106,7 @@ class ActivitySignUp : AppCompatActivity() {
         }
 
         binding.btn.setOnClickListener {
+            showAnimation()
             val email = binding.email.text.toString().trim()
             val phone = binding.phone.text.toString().trim()
             val password = binding.pswrd.text.toString().trim()
@@ -138,10 +138,9 @@ class ActivitySignUp : AppCompatActivity() {
                 "payment_method" to RequestBody.create("text/plain".toMediaTypeOrNull(), "YourPaymentMethodHere")
             )
 
-            // Create MultipartBody.Part for the screenshot
-            val transcriptScreenshotPart = createPartFromUri(this,screenshotUri, "transcript_screenshot")
-   val front_pic = createPartFromUri(this,idCardFrontUri, "id_card_front_pic")
-   val back_pic = createPartFromUri(this,idCardBackUri, "id_card_back_pic")
+            val transcriptScreenshotPart = createPartFromUri(this, screenshotUri, "transcript_screenshot")
+            val frontPicPart = createPartFromUri(this, idCardFrontUri, "id_card_front_pic")
+            val backPicPart = createPartFromUri(this, idCardBackUri, "id_card_back_pic")
 
             // Make the API call
             val call = apiInterface.signUpUser(
@@ -157,13 +156,14 @@ class ActivitySignUp : AppCompatActivity() {
                 requestBodyMap["plan_select"]!!,
                 requestBodyMap["payment_method"]!!,
                 transcriptScreenshotPart,
-                front_pic,
-                back_pic
+                frontPicPart,
+                backPicPart
             )
 
             // Handle the API response
             call.enqueue(object : Callback<ModelSignupResponse> {
                 override fun onResponse(call: Call<ModelSignupResponse>, response: Response<ModelSignupResponse>) {
+                  closeAnimation()
                     if (response.isSuccessful) {
                         response.body()?.let {
                             Log.d("API Success", "Message: ${it.message}, Status: ${it.status}")
@@ -181,6 +181,7 @@ class ActivitySignUp : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<ModelSignupResponse>, t: Throwable) {
+                  closeAnimation()
                     Log.e("API Failure", "API call failed: ${t.message}", t)
                     Toast.makeText(this@ActivitySignUp, "Failure: ${t.message}", Toast.LENGTH_SHORT).show()
                 }
@@ -298,20 +299,15 @@ class ActivitySignUp : AppCompatActivity() {
                 when (clickedTextViewId) {
                     R.id.d -> {
                         idCardFrontUri = imageUri
-
-
-                        binding.d.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_image_24, 0, 0, 0) // Change the icon
+                        binding.d.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_image_24, 0, 0, 0)
                     }
                     R.id.js -> {
                         screenshotUri = imageUri
-
-                        binding.js.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_image_24, 0, 0, 0) // Change the icon
+                        binding.js.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_image_24, 0, 0, 0)
                     }
                     R.id.c -> {
                         idCardBackUri = imageUri
-
-
-                        binding.c.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_image_24, 0, 0, 0) // Change the icon
+                        binding.c.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_image_24, 0, 0, 0)
                     }
                 }
             } else {
@@ -321,6 +317,15 @@ class ActivitySignUp : AppCompatActivity() {
             Toast.makeText(this, "Image selection canceled", Toast.LENGTH_SHORT).show()
         }
     }
+    private fun showAnimation() {
+        dialog = Dialog(this)
+        dialog.setContentView(R.layout.loadingdialog)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+    }
 
+    private fun closeAnimation() {
+        dialog.dismiss()
+    }
 
 }
