@@ -44,7 +44,6 @@ class ActivitySignUp : AppCompatActivity() {
     private val IMAGE_PICK_CODE = 1000
     private var clickedTextViewId: Int? = null
 
-    // Variables to hold image URIs
     private var screenshotUri: Uri? = null
     private var idCardFrontUri: Uri? = null
     private var idCardBackUri: Uri? = null
@@ -71,38 +70,40 @@ class ActivitySignUp : AppCompatActivity() {
             pickImageFromGallery()
         }
 
-        // Plan selection listeners
         binding.cv.setOnClickListener {
-
             if (!isPlanSelected) {
                 subscriptionPlan = "1"
                 binding.startupPlanSaving.visibility = View.VISIBLE
                 binding.cv1.isEnabled = false
                 isPlanSelected = true
 
+
+                binding.cv1.setCardBackgroundColor(ContextCompat.getColor(this, R.color.hint_color))
+
                 Toast.makeText(this@ActivitySignUp, "Selected Plan: $subscriptionPlan", Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.cv1.setOnClickListener {
-
             if (!isPlanSelected) {
                 subscriptionPlan = "3"
                 binding.plan2.visibility = View.VISIBLE
                 binding.cv.isEnabled = false
                 isPlanSelected = true
 
-                binding.cv1.setBackgroundColor(R.color.white)
+
+                binding.cv.setCardBackgroundColor(ContextCompat.getColor(this, R.color.hint_color))
+
                 Toast.makeText(this@ActivitySignUp, "Selected Plan: $subscriptionPlan", Toast.LENGTH_SHORT).show()
             }
         }
+
 
         // Payment method button
         binding.btnPayment.setOnClickListener {
             showPaymentDialog()
         }
 
-        // Sign-up button listener
         binding.btn.setOnClickListener {
             val email = binding.email.text.toString().trim()
             val phone = binding.phone.text.toString().trim()
@@ -133,7 +134,6 @@ class ActivitySignUp : AppCompatActivity() {
             val idCardFrontPic = createPartFromUri(idCardFrontUri)
             val idCardBackPic = createPartFromUri(idCardBackUri)
 
-            // Log the request data
             Log.d("API Request", "Phone: $phone, Email: $email, Password: $password, Name: $name, Country: $country, District: $district, City: $city, Postal Code: $postalCode, Transaction ID: $transectionid, Plan: $subscriptionPlan")
 
             val call = apiInterFace.signUpUser(
@@ -301,21 +301,20 @@ class ActivitySignUp : AppCompatActivity() {
                 when (clickedTextViewId) {
                     R.id.d -> {
                         idCardFrontUri = imageUri
-                        binding.d.visibility = View.GONE
-                        binding.dimg.visibility = View.VISIBLE
-                        binding.dimg.setImageURI(imageUri)
+
+
+                        binding.d.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_image_24, 0, 0, 0) // Change the icon
                     }
                     R.id.js -> {
                         screenshotUri = imageUri
-                        binding.js.visibility = View.GONE
-                        binding.jsimg.visibility = View.VISIBLE
-                        binding.jsimg.setImageURI(imageUri)
+
+                        binding.js.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_image_24, 0, 0, 0) // Change the icon
                     }
                     R.id.c -> {
                         idCardBackUri = imageUri
-                        binding.c.visibility = View.GONE
-                        binding.cimg.visibility = View.VISIBLE
-                        binding.cimg.setImageURI(imageUri)
+
+
+                        binding.c.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_image_24, 0, 0, 0) // Change the icon
                     }
                 }
             } else {
@@ -325,5 +324,6 @@ class ActivitySignUp : AppCompatActivity() {
             Toast.makeText(this, "Image selection canceled", Toast.LENGTH_SHORT).show()
         }
     }
+
 
 }

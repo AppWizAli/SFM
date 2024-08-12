@@ -23,7 +23,7 @@ class AdaterCommint(val context: Context, var commintList: List<CommentX>) : Rec
         holder.binding.description.text = currentPosition.description
         holder.binding.username.text = currentPosition.user_name
         val fullUrl = "https://hiskytechs.com/planemanger/uploads/${currentPosition.image}"
-        Glide.with(context).load(fullUrl).into(holder.binding.accountImage)
+       // Glide.with(context).load(fullUrl).into(holder.binding.accountImage)
     }
 
     override fun getItemCount(): Int {

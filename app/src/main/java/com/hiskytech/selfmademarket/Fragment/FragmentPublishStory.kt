@@ -28,7 +28,7 @@ class FragmentPublishStory : Fragment() {
 
     private var _binding: FragmentPublishStoryBinding? = null
     private val binding get() = _binding!!
-
+    private lateinit var dialog: Dialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +45,7 @@ class FragmentPublishStory : Fragment() {
         }
 
         binding.btnSubmit.setOnClickListener {
+            showAnimation()
             submitStory()
         }
     }
@@ -108,7 +109,7 @@ class FragmentPublishStory : Fragment() {
     }
 
     private fun submitStory() {
-        val username = binding.etUsername.text.toString()
+        val username = "Sheikh Zaheer Abbas"
         val description = binding.etDescription.text.toString()
 
         // Check if the input fields are not empty
@@ -126,7 +127,9 @@ class FragmentPublishStory : Fragment() {
                         call: Call<ModelStoryResponse>,
                         response: Response<ModelStoryResponse>
                     ) {
+                        closeAnimation()
                         if (response.isSuccessful) {
+                            binding.etDescription.setText("")
                             Toast.makeText(requireContext(), "Story published successfully", Toast.LENGTH_SHORT).show()
                         } else {
                             Toast.makeText(requireContext(), "Failed to publish story", Toast.LENGTH_SHORT).show()
@@ -134,6 +137,7 @@ class FragmentPublishStory : Fragment() {
                     }
 
                     override fun onFailure(call: Call<ModelStoryResponse>, t: Throwable) {
+                        closeAnimation()
                         Log.e("API_ERROR", "Failed to publish story: ${t.message}")
                         Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
                     }
@@ -141,5 +145,16 @@ class FragmentPublishStory : Fragment() {
         } else {
             Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showAnimation() {
+        dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.loadingdialog)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+    }
+
+    private fun closeAnimation() {
+        dialog.dismiss()
     }
 }

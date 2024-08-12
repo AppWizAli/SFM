@@ -4,6 +4,16 @@
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/Primary_color</item>
     </style>
+
+
+
+
+
+
+
+
+
+
     <style name="TrackSelectionDialogThemeOverlay" parent="ThemeOverlay.AppCompat.Dialog.Alert">
         <item name="windowNoTitle">false</item></style>
     <style name="Theme.SelfMadeMarkeet" parent="Base.Theme.SelfMadeMarkeet" />

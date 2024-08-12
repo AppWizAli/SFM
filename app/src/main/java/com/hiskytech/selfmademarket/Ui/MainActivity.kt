@@ -23,6 +23,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.setupWithNavController(navController)
 
-        binding.bottomNav.selectedItemId = R.id.fragmentCommunity
+        //binding.bottomNav.selectedItemId = R.id.fragmentCommunity
     }
 }

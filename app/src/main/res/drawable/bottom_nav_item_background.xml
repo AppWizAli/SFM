@@ -1,0 +1,16 @@
+<!-- res/drawable/bottom_nav_item_background.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background for selected item -->
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white" /> <!-- Change this to the desired color -->
+            <corners android:radius="20dp"/> <!-- Adjust radius for rounded corners -->
+        </shape>
+    </item>
+    <!-- Background for unselected items -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" /> <!-- Transparent for unselected items -->
+        </shape>
+    </item>
+</selector>

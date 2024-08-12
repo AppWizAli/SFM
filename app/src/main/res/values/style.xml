@@ -1,0 +1,14 @@
+<resources>
+    <!-- Active state text appearance -->
+    <style name="BottomNavTextActive">
+        <item name="android:textSize">9sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/bottom_nav_item_background</item>
+    </style>
+
+    <!-- Inactive state text appearance -->
+    <style name="BottomNavTextInactive">
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>
