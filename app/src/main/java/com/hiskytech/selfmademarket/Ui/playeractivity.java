@@ -228,7 +228,7 @@ public class playeractivity extends AppCompatActivity {
         playerView.setPlayer(simpleExoPlayer);
         playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH);
 
-        MediaItem mediaItem = MediaItem.fromUri("https://hiskytechs.com/planemanger/get-course.php" + videoUrl);
+        MediaItem mediaItem = MediaItem.fromUri("https://hiskytechs.com/planemanger/uploads/" + videoUrl);
         simpleExoPlayer.setMediaItem(mediaItem);
 
         simpleExoPlayer.prepare();

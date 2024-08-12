@@ -20,7 +20,7 @@ class AdapterVideo(private val videoList: List<Video>) :
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
         val video = videoList[position]
-        holder.binding.videoDescription.text = video.video_description
+
         holder.binding.videoCount.text = video.video_id
 
         // Handle item click

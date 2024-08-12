@@ -24,16 +24,14 @@
  <com.google.android.material.bottomnavigation.BottomNavigationView
      android:id="@+id/bottomNav"
      android:layout_width="0dp"
-     android:layout_height="80dp"
+     android:layout_height="wrap_content"
      android:background="@drawable/bottom_bg"
      android:paddingStart="10dp"
      android:paddingEnd="10dp"
      app:menu="@menu/bootom_menu"
      android:layout_margin="12dp"
-     app:itemIconTint="@color/black"
      app:layout_constraintBottom_toBottomOf="parent"
      android:fitsSystemWindows="true"
      app:layout_constraintStart_toStartOf="parent"
      app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
