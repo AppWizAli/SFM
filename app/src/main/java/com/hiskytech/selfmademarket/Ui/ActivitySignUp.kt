@@ -42,7 +42,6 @@ import java.io.File
 class ActivitySignUp : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
-    private lateinit var apiInterFace: ApiService
     private var subscriptionPlan: String? = null
     private var isPlanSelected = false
     private val IMAGE_PICK_CODE = 1000
@@ -58,7 +57,6 @@ class ActivitySignUp : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        apiInterFace = RetrofitClient.apiInterface
 
         // Image selection listeners
         binding.js.setOnClickListener {
