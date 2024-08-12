@@ -22,6 +22,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import com.hiskytech.selfmademarket.Model.ModelSignupResponse
+import com.hiskytech.selfmademarket.Model.SignupBuilder.apiInterface
 import com.hiskytech.selfmademarket.Model.userModel
 import com.hiskytech.selfmademarket.R
 import com.hiskytech.selfmademarket.api.ApiService
@@ -113,88 +115,68 @@ class ActivitySignUp : AppCompatActivity() {
             val district = binding.district.text.toString().trim()
             val city = binding.city.text.toString().trim()
             val postalCode = binding.postal.text.toString().trim()
-            val transectionid = binding.tid.text.toString().trim()
+            val transactionId = binding.tid.text.toString().trim()
 
             if (email.isEmpty() || phone.isEmpty() || password.isEmpty() || name.isEmpty() || country.isEmpty() || district.isEmpty() || postalCode.isEmpty() || subscriptionPlan == null) {
                 Toast.makeText(this@ActivitySignUp, "Please fill all fields and select a plan", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val username = RequestBody.create("text/plain".toMediaTypeOrNull(), name)
-            val uemail = RequestBody.create("text/plain".toMediaTypeOrNull(), email)
-            val upassword = RequestBody.create("text/plain".toMediaTypeOrNull(), password)
-            val uphone = RequestBody.create("text/plain".toMediaTypeOrNull(), phone)
-            val ucountry = RequestBody.create("text/plain".toMediaTypeOrNull(), country)
-            val udistrict = RequestBody.create("text/plain".toMediaTypeOrNull(), district)
-            val ucity = RequestBody.create("text/plain".toMediaTypeOrNull(), city)
-            val upostalcode = RequestBody.create("text/plain".toMediaTypeOrNull(), postalCode)
-            val transid = RequestBody.create("text/plain".toMediaTypeOrNull(), transectionid)
-            val uplanselect = RequestBody.create("text/plain".toMediaTypeOrNull(), subscriptionPlan!!)
-            val screenshot = createPartFromUri(screenshotUri)
-            val idCardFrontPic = createPartFromUri(idCardFrontUri)
-            val idCardBackPic = createPartFromUri(idCardBackUri)
-
-            Log.d("API Request", "Phone: $phone, Email: $email, Password: $password, Name: $name, Country: $country, District: $district, City: $city, Postal Code: $postalCode, Transaction ID: $transectionid, Plan: $subscriptionPlan")
-
-            val call = apiInterFace.signUpUser(
-                uphone,
-                uemail,
-                upassword,
-                username,
-                ucountry,
-                ucity,
-                udistrict,
-                upostalcode,
-                transid,
-                uplanselect,
-                screenshot,
-                idCardBackPic,
-                idCardFrontPic
+            val requestBodyMap = mapOf(
+                "email" to RequestBody.create("text/plain".toMediaTypeOrNull(), email),
+                "phone" to RequestBody.create("text/plain".toMediaTypeOrNull(), phone),
+                "password" to RequestBody.create("text/plain".toMediaTypeOrNull(), password),
+                "name" to RequestBody.create("text/plain".toMediaTypeOrNull(), name),
+                "country" to RequestBody.create("text/plain".toMediaTypeOrNull(), country),
+                "city" to RequestBody.create("text/plain".toMediaTypeOrNull(), city),
+                "district" to RequestBody.create("text/plain".toMediaTypeOrNull(), district),
+                "postal_code" to RequestBody.create("text/plain".toMediaTypeOrNull(), postalCode),
+                "transaction_id" to RequestBody.create("text/plain".toMediaTypeOrNull(), transactionId),
+                "plan_select" to RequestBody.create("text/plain".toMediaTypeOrNull(), subscriptionPlan!!),
+                "payment_method" to RequestBody.create("text/plain".toMediaTypeOrNull(), "YourPaymentMethodHere")
             )
 
-            call.enqueue(object : Callback<userModel> {
-                override fun onResponse(call: Call<userModel>, response: Response<userModel>) {
+            val call = apiInterface.signUpUser(
+                requestBodyMap["email"]!!,
+                requestBodyMap["phone"]!!,
+                requestBodyMap["password"]!!,
+                requestBodyMap["name"]!!,
+                requestBodyMap["country"]!!,
+                requestBodyMap["city"]!!,
+                requestBodyMap["district"]!!,
+                requestBodyMap["postal_code"]!!,
+                requestBodyMap["transaction_id"]!!,
+                requestBodyMap["plan_select"]!!,
+                requestBodyMap["payment_method"]!!
+            )
+            call.enqueue(object : Callback<ModelSignupResponse> {
+                override fun onResponse(call: Call<ModelSignupResponse>, response: Response<ModelSignupResponse>) {
                     if (response.isSuccessful) {
                         response.body()?.let {
-                            Log.d("API Success", "User data: ${it.users}")
-                            Toast.makeText(
-                                this@ActivitySignUp,
-                                "Account Created Successfully",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Log.d("API Success", "Message: ${it.message}, Status: ${it.status}")
+                            Toast.makeText(this@ActivitySignUp, "Account Created Successfully", Toast.LENGTH_SHORT).show()
                             startActivity(Intent(this@ActivitySignUp, ActivityLogin::class.java))
                             finish()
                         } ?: run {
                             Log.e("API Error", "Response body is null")
-                            Toast.makeText(
-                                this@ActivitySignUp,
-                                "Response body is null",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(this@ActivitySignUp, "Response body is null", Toast.LENGTH_SHORT).show()
                         }
                     } else {
                         Log.e("API Error", "Response code: ${response.code()}, message: ${response.message()}")
-                        response.errorBody()?.let { errorBody ->
-                            Log.e("API Error", "Error body: ${errorBody.string()}")
-                        }
-                        Toast.makeText(
-                            this@ActivitySignUp,
-                            "Failed to fetch data: ${response.message()}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(this@ActivitySignUp, "Failed to fetch data: ${response.message()}", Toast.LENGTH_SHORT).show()
                     }
                 }
 
-                override fun onFailure(call: Call<userModel>, t: Throwable) {
+                override fun onFailure(call: Call<ModelSignupResponse>, t: Throwable) {
                     Log.e("API Failure", "API call failed: ${t.message}", t)
-                    Toast.makeText(this@ActivitySignUp, "Failure: ${t.message}", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(this@ActivitySignUp, "Failure: ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
         }
     }
 
-    private fun showPaymentDialog() {
+
+                        private fun showPaymentDialog() {
         val dialog = Dialog(this@ActivitySignUp)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -301,21 +283,20 @@ class ActivitySignUp : AppCompatActivity() {
                 when (clickedTextViewId) {
                     R.id.d -> {
                         idCardFrontUri = imageUri
-                        binding.d.visibility = View.GONE
-                        binding.dimg.visibility = View.VISIBLE
-                        binding.dimg.setImageURI(imageUri)
+
+
+                        binding.d.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_image_24, 0, 0, 0) // Change the icon
                     }
                     R.id.js -> {
                         screenshotUri = imageUri
-                        binding.js.visibility = View.GONE
-                        binding.jsimg.visibility = View.VISIBLE
-                        binding.jsimg.setImageURI(imageUri)
+
+                        binding.js.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_image_24, 0, 0, 0) // Change the icon
                     }
                     R.id.c -> {
                         idCardBackUri = imageUri
-                        binding.c.visibility = View.GONE
-                        binding.cimg.visibility = View.VISIBLE
-                        binding.cimg.setImageURI(imageUri)
+
+
+                        binding.c.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_image_24, 0, 0, 0) // Change the icon
                     }
                 }
             } else {
@@ -325,5 +306,6 @@ class ActivitySignUp : AppCompatActivity() {
             Toast.makeText(this, "Image selection canceled", Toast.LENGTH_SHORT).show()
         }
     }
+
 
 }

@@ -2,7 +2,8 @@
  <item
      android:id="@+id/fragmentCommunity"
      android:icon="@drawable/community_icon"
-     android:title="Community" />
+     android:title="Community"
+     />
 
  <item
      android:id="@+id/fragmentCourses"
