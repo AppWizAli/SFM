@@ -1,6 +1,7 @@
 package com.hiskytech.selfmademarket.Fragment
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hiskytech.selfmademarket.ActivityInvoices
 import com.hiskytech.selfmademarket.Adapter.AdapterForex
 import com.hiskytech.selfmademarket.ApiInterface.ForexInterface
 import com.hiskytech.selfmademarket.Model.DataXX
@@ -49,6 +51,10 @@ class FragmentForex : Fragment() {
         fetchForex()
         binding.btnNotification.setOnClickListener {
             fetchNotificationsAndShowDialog()
+        }
+        binding.img.setOnClickListener(){
+            val intent = Intent(requireContext(), ActivityInvoices::class.java)
+            startActivity(intent)
         }
 
     }

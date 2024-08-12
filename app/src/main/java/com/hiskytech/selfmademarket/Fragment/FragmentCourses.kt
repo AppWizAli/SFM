@@ -1,6 +1,7 @@
 package com.hiskytech.selfmademarket.Fragment
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -14,6 +15,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.LottieAnimationView
+import com.hiskytech.selfmademarket.ActivityInvoices
 import com.hiskytech.selfmademarket.Adapter.AdapterCourse
 import com.hiskytech.selfmademarket.ApiInterface.CourseInterface
 import com.hiskytech.selfmademarket.Model.ModelCourses
@@ -52,6 +54,10 @@ class FragmentCourses : Fragment() {
         fetchCourse()
         binding.btnNotification.setOnClickListener {
             fetchNotificationsAndShowDialog()
+        }
+        binding.profileImg.setOnClickListener(){
+            val intent = Intent(requireContext(), ActivityInvoices::class.java)
+            startActivity(intent)
         }
     }
 

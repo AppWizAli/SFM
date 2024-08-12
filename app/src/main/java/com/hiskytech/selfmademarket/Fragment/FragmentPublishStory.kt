@@ -1,6 +1,7 @@
 package com.hiskytech.selfmademarket.Fragment
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.hiskytech.selfmademarket.ActivityInvoices
 import com.hiskytech.selfmademarket.Model.NotificationBuilder
 import com.hiskytech.selfmademarket.Model.ModelNotification
 import com.hiskytech.selfmademarket.Model.ModelStoryResponse
@@ -47,6 +49,10 @@ class FragmentPublishStory : Fragment() {
         binding.btnSubmit.setOnClickListener {
             showAnimation()
             submitStory()
+        }
+        binding.img.setOnClickListener(){
+            val intent = Intent(requireContext(), ActivityInvoices::class.java)
+            startActivity(intent)
         }
     }
 

@@ -25,9 +25,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.hiskytech.selfmademarket.Model.ModelSignupResponse
 import com.hiskytech.selfmademarket.Model.SignupBuilder.apiInterface
-import com.hiskytech.selfmademarket.Model.userModel
 import com.hiskytech.selfmademarket.R
-import com.hiskytech.selfmademarket.api.ApiService
 import com.hiskytech.selfmademarket.api.RetrofitClient
 import com.hiskytech.selfmademarket.databinding.ActivitySignUpBinding
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
