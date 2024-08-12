@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.hiskytech.selfmademarket.ApiInterface.UserLoginRequest
 import com.hiskytech.selfmademarket.ApiInterface.logininterface
-import com.hiskytech.selfmademarket.Model.modeluserlogin
+import com.hiskytech.selfmademarket.Model.ModelLoginResponse
 import com.hiskytech.selfmademarket.Model.loginBuilder
 import com.hiskytech.selfmademarket.R
 import com.hiskytech.selfmademarket.databinding.ActivityLoginBinding
@@ -44,14 +44,16 @@ class ActivityLogin : AppCompatActivity() {
         showAnimation()
 
         val userLoginRequest = UserLoginRequest(email, password)
-        apiInterFace.loginUser(userLoginRequest).enqueue(object : Callback<modeluserlogin> {
-            override fun onResponse(call: Call<modeluserlogin>, response: Response<modeluserlogin>) {
+        apiInterFace.loginUser(userLoginRequest).enqueue(object : Callback<ModelLoginResponse> {
+            override fun onResponse(call: Call<ModelLoginResponse>, response: Response<ModelLoginResponse>) {
                 closeAnimation()
                 val userResponse = response.body()
                 if (response.isSuccessful && userResponse != null) {
                     Toast.makeText(this@ActivityLogin, "Response: ${userResponse.message}", Toast.LENGTH_SHORT).show()
                     if (userResponse.message == "Login successful") {
                         Toast.makeText(this@ActivityLogin, "Login Successful!!", Toast.LENGTH_SHORT).show()
+
+                        // Proceed to the main activity
                         startActivity(Intent(this@ActivityLogin, MainActivity::class.java))
                         finishAffinity()
                     } else {
@@ -62,8 +64,7 @@ class ActivityLogin : AppCompatActivity() {
                 }
             }
 
-
-            override fun onFailure(call: Call<modeluserlogin>, t: Throwable) {
+            override fun onFailure(call: Call<ModelLoginResponse>, t: Throwable) {
                 closeAnimation()
                 Toast.makeText(this@ActivityLogin, "Something went wrong!!", Toast.LENGTH_SHORT).show()
             }

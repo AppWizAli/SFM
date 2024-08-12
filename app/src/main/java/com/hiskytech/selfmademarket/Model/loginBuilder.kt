@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object loginBuilder {
-    private const val BASE_URL = "https://hiskytechs.com/video_adminpenal/"
+    private const val BASE_URL = "https://hiskytechs.com/"
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
