@@ -23,39 +23,42 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"/>
 
-        <TextView
-            android:id="@+id/invoice_1"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1. Purchased Date: 25 July 2024"
-            android:layout_marginBottom="8dp"/>
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. Subscription Start Date: "
+                android:layout_marginBottom="8dp"/>
+            <TextView
+                android:id="@+id/startDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25 July 2024"
+                android:layout_marginBottom="8dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. Subscription End Date:   "
+                android:layout_marginBottom="8dp"/>
+            <TextView
+                android:id="@+id/endDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25 July 2024"
+                android:layout_marginBottom="8dp"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/invoice_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2. Renew Date : 25 Oct 2024"
-            android:layout_marginBottom="8dp"/>
 
-        <TextView
-            android:id="@+id/invoice_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3. Renew Date : 25 Oct 2024"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:id="@+id/invoice_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="4. Renew Date : 25 Oct 2024"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:id="@+id/invoice_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5. Renew Date : 25 Oct 2024"/>
 
     </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.hiskytech.selfmademarket.Fragment
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -54,9 +55,6 @@ class FragmentCoursesDetail : Fragment() {
 
         return binding.root
 
-        binding.btnNotification.setOnClickListener {
-            fetchNotificationsAndShowDialog()
-        }
 
     }
     private fun fetchNotificationsAndShowDialog() {

@@ -1,6 +1,7 @@
 package com.hiskytech.selfmademarket.Fragment
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hiskytech.selfmademarket.ActivityInvoices
 import com.hiskytech.selfmademarket.Adapter.AdaterCommint
 import com.hiskytech.selfmademarket.ApiInterface.CommentsInterface
 import com.hiskytech.selfmademarket.Model.CommintsBuilder
@@ -45,6 +47,10 @@ class FragmentCommunity : Fragment() {
         fetchComments()
         binding.btnNotification.setOnClickListener {
             fetchNotificationsAndShowDialog()
+        }
+        binding.img.setOnClickListener(){
+            val intent = Intent(requireContext(), ActivityInvoices::class.java)
+            startActivity(intent)
         }
     }
     private fun fetchNotificationsAndShowDialog() {

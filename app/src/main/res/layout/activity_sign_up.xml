@@ -424,8 +424,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_bg"
                 android:drawableStart="@drawable/baseline_person_24"
-                android:gravity="center"
                 android:hint="Transaction id"
+                android:paddingStart="5dp"
                 android:textColor="@color/white"
                 android:textSize="10sp" />
 
