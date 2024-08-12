@@ -7,6 +7,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -35,6 +36,7 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
 import java.io.File
 
 class ActivitySignUp : AppCompatActivity() {
@@ -117,11 +119,13 @@ class ActivitySignUp : AppCompatActivity() {
             val postalCode = binding.postal.text.toString().trim()
             val transactionId = binding.tid.text.toString().trim()
 
-            if (email.isEmpty() || phone.isEmpty() || password.isEmpty() || name.isEmpty() || country.isEmpty() || district.isEmpty() || postalCode.isEmpty() || subscriptionPlan == null) {
+            // Check if all fields are filled
+       /*     if (email.isEmpty() || phone.isEmpty() || password.isEmpty() || name.isEmpty() || country.isEmpty() || district.isEmpty() || postalCode.isEmpty() || subscriptionPlan == null) {
                 Toast.makeText(this@ActivitySignUp, "Please fill all fields and select a plan", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
+*/
+            // Create request body parts
             val requestBodyMap = mapOf(
                 "email" to RequestBody.create("text/plain".toMediaTypeOrNull(), email),
                 "phone" to RequestBody.create("text/plain".toMediaTypeOrNull(), phone),
@@ -136,6 +140,12 @@ class ActivitySignUp : AppCompatActivity() {
                 "payment_method" to RequestBody.create("text/plain".toMediaTypeOrNull(), "YourPaymentMethodHere")
             )
 
+            // Create MultipartBody.Part for the screenshot
+            val transcriptScreenshotPart = createPartFromUri(this,screenshotUri, "transcript_screenshot")
+   val front_pic = createPartFromUri(this,idCardFrontUri, "id_card_front_pic")
+   val back_pic = createPartFromUri(this,idCardBackUri, "id_card_back_pic")
+
+            // Make the API call
             val call = apiInterface.signUpUser(
                 requestBodyMap["email"]!!,
                 requestBodyMap["phone"]!!,
@@ -147,8 +157,13 @@ class ActivitySignUp : AppCompatActivity() {
                 requestBodyMap["postal_code"]!!,
                 requestBodyMap["transaction_id"]!!,
                 requestBodyMap["plan_select"]!!,
-                requestBodyMap["payment_method"]!!
+                requestBodyMap["payment_method"]!!,
+                transcriptScreenshotPart,
+                front_pic,
+                back_pic
             )
+
+            // Handle the API response
             call.enqueue(object : Callback<ModelSignupResponse> {
                 override fun onResponse(call: Call<ModelSignupResponse>, response: Response<ModelSignupResponse>) {
                     if (response.isSuccessful) {
@@ -172,11 +187,10 @@ class ActivitySignUp : AppCompatActivity() {
                     Toast.makeText(this@ActivitySignUp, "Failure: ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
-        }
-    }
 
+}}
 
-                        private fun showPaymentDialog() {
+        private fun showPaymentDialog() {
         val dialog = Dialog(this@ActivitySignUp)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -249,26 +263,29 @@ class ActivitySignUp : AppCompatActivity() {
 
         dialog.show()
     }
-
-    private fun createPartFromUri(uri: Uri?): MultipartBody.Part? {
+    private fun compressImage(uri: Uri): ByteArray {
+        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+        val outputStream = ByteArrayOutputStream()
+        // Compress bitmap to JPEG format with 75% quality
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, outputStream)
+        return outputStream.toByteArray()
+    }
+    private fun createPartFromUri(context: Context, uri: Uri?, partName: String): MultipartBody.Part? {
         return uri?.let {
-            val file = File(getRealPathFromURI(uri))
-            val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-            MultipartBody.Part.createFormData("file", file.name, requestFile)
+            try {
+                // Use the compressImage function
+                val byteArray = compressImage(uri)
+                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), byteArray)
+                MultipartBody.Part.createFormData(partName, "image.jpg", requestFile)
+            } catch (e: Exception) {
+                Log.e("Image Error", "Error creating MultipartBody.Part from Uri", e)
+                null
+            }
         }
     }
 
-    private fun getRealPathFromURI(uri: Uri): String {
-        var filePath = ""
-        val cursor = contentResolver.query(uri, null, null, null, null)
-        if (cursor != null) {
-            cursor.moveToFirst()
-            val index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-            filePath = cursor.getString(index)
-            cursor.close()
-        }
-        return filePath
-    }
+
+
 
     private fun pickImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

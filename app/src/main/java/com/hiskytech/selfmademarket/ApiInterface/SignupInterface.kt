@@ -24,10 +24,10 @@ interface SignupInterface {
         @Part("transaction_id") transaction_id: RequestBody,
         @Part("plan_select") plan_select: RequestBody,
         @Part("payment_method") payment_method: RequestBody,
-     //   @Part transcript_screenshot: MultipartBody.Part?
-//        @Part id_card_front_pic: MultipartBody.Part?,
-//        @Part("user_image") user_image: MultipartBody.Part?,
-//        @Part id_card_back_pic: MultipartBody.Part?
+       @Part transcript_screenshot: MultipartBody.Part?,
+      @Part id_card_front_pic: MultipartBody.Part?,
+  //    @Part("user_image") user_image: MultipartBody.Part?
+      @Part id_card_back_pic: MultipartBody.Part?
     ): Call<ModelSignupResponse>
 
 }
