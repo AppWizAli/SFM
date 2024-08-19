@@ -31,10 +31,11 @@
         android:layout_height="50dp"
         android:layout_marginHorizontal="50dp"
         android:drawableStart="@drawable/baseline_mark_email_read_24"
-        android:paddingStart="20sp"
+        android:paddingStart="10sp"
+        android:drawableTint="@color/icon_color"
         android:id="@+id/email"
-        android:hint="  xxxxxxxxxxxxxxx"
-        android:textColor="@color/Primary_color"
+        android:drawablePadding="8dp"
+        android:textColor="@color/edit_text_color"
 
 android:background="@drawable/edittext_bg"
         />
@@ -43,11 +44,12 @@ android:background="@drawable/edittext_bg"
         android:layout_height="50dp"
         android:layout_marginHorizontal="50dp"
         android:drawableStart="@drawable/baseline_key_24"
-        android:paddingStart="20sp"
+        android:paddingStart="10sp"
+      android:drawableTint="@color/icon_color"
      android:layout_marginTop="20dp"
 android:id="@+id/password"
         android:textColor="@color/Primary_color"
-
+      android:drawablePadding="8dp"
 android:background="@drawable/edittext_bg"
         />
     <TextView
