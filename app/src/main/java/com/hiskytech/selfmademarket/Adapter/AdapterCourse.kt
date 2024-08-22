@@ -40,7 +40,10 @@ class AdapterCourse(val context : Context , var courseList : List<ModelCoursesIt
             it.findNavController().navigate(R.id.fragmentCoursesDetail, bundle)
         }
     }
-
+    fun updateList(newList: List<ModelCoursesItem>) {
+        courseList = newList
+        notifyDataSetChanged()
+    }
     override fun getItemCount(): Int {
        return courseList.size
     }

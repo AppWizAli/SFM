@@ -2,8 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="splash">#2A56A7</color>
     <color name="sec">#D71010</color>
     <color name="Primary_color">#185ED2</color>
+    <color name="my_color">#B6B7B8</color>
     <color name="hint_color">#8BA7C2ED</color>
+    <color name="hint_color2">#37A7C2ED</color>
 
 </resources>

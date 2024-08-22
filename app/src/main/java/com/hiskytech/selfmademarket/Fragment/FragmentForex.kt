@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -14,15 +16,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.hiskytech.selfmademarket.ActivityInvoices
 import com.hiskytech.selfmademarket.Adapter.AdapterForex
-import com.hiskytech.selfmademarket.ApiInterface.ForexInterface
 import com.hiskytech.selfmademarket.Model.DataXX
-import com.hiskytech.selfmademarket.Model.ModelForex
 import com.hiskytech.selfmademarket.Model.ModelNotification
 import com.hiskytech.selfmademarket.Model.NotificationBuilder
-import com.hiskytech.selfmademarket.Model.RetrofitBuilder
 import com.hiskytech.selfmademarket.R
+import com.hiskytech.selfmademarket.Repo.MySharedPref
 import com.hiskytech.selfmademarket.databinding.FragmentForexBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,9 +31,12 @@ import retrofit2.Response
 
 class FragmentForex : Fragment() {
 
+    private lateinit var mySharedPref: MySharedPref
     private var _binding: FragmentForexBinding? = null
     private val binding get() = _binding!!
     private lateinit var dialog: Dialog
+    private lateinit var adapterForex: AdapterForex
+    private var forexList: MutableList<DataXX> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,34 +49,66 @@ class FragmentForex : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize RecyclerView
-        binding.rvForex.layoutManager = LinearLayoutManager(context)
+        mySharedPref = MySharedPref(requireContext())
 
-        fetchForex()
+        setupRecyclerView()
+        setupListeners()
+
+        val fullUrl = "https://hiskytechs.com/planemanger/uploads/${mySharedPref.getUserModel()?.user_image}"
+        Glide.with(requireContext()).load(fullUrl).into(binding.img)
+        binding.courseName.text = mySharedPref.getUserModel()?.name
+
+        // Load forex data from SharedPreferences
+        loadForexData()
+
+        binding.img.setOnClickListener {
+            startActivity(Intent(requireContext(), ActivityInvoices::class.java))
+        }
+    }
+
+    private fun setupRecyclerView() {
+        adapterForex = AdapterForex(requireContext(), emptyList())
+        binding.rvForex.layoutManager = LinearLayoutManager(context)
+        binding.rvForex.adapter = adapterForex
+    }
+
+    private fun setupListeners() {
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filterForex(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         binding.btnNotification.setOnClickListener {
             fetchNotificationsAndShowDialog()
         }
-        binding.img.setOnClickListener(){
-            val intent = Intent(requireContext(), ActivityInvoices::class.java)
-            startActivity(intent)
-        }
-
     }
+
+    private fun loadForexData() {
+        forexList = mySharedPref.retrieveStoredForexData().toMutableList()
+        adapterForex.updateList(forexList)
+    }
+
+    private fun filterForex(query: String) {
+        val filteredList = forexList.filter { it.description.contains(query, ignoreCase = true) }
+        adapterForex.updateList(filteredList)
+    }
+
     private fun fetchNotificationsAndShowDialog() {
+        // This method remains unchanged
         val notificationInterface = NotificationBuilder.getNotificationInterface()
         val call = notificationInterface.getNotification()
 
         call.enqueue(object : Callback<ModelNotification> {
-            override fun onResponse(
-                call: Call<ModelNotification>,
-                response: Response<ModelNotification>
-            ) {
+            override fun onResponse(call: Call<ModelNotification>, response: Response<ModelNotification>) {
                 if (response.isSuccessful) {
                     val notifications = response.body()
                     if (!notifications.isNullOrEmpty()) {
-                        // Show the first notification in the dialog
-                        val firstNotification = notifications[0]
-                        showDialog(firstNotification.title, firstNotification.message)
+                        showDialog(notifications[0].title, notifications[0].message)
                     } else {
                         Toast.makeText(requireContext(), "No notifications available", Toast.LENGTH_SHORT).show()
                     }
@@ -89,65 +125,35 @@ class FragmentForex : Fragment() {
     }
 
     private fun showDialog(title: String, message: String) {
-        val dialog = Dialog(requireContext())
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.notification_dialog, null)
-
-        dialog.setContentView(dialogView)
-
-        // Set the dialog to show at the top
-        dialog.window?.setGravity(Gravity.TOP)
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window?.attributes = dialog.window?.attributes?.apply {
-            y = 100 // Adjust the vertical offset if needed
+        val dialog = Dialog(requireContext()).apply {
+            setContentView(dialogView)
+            window?.apply {
+                setGravity(Gravity.TOP)
+                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                attributes = attributes?.apply { y = 100 }
+            }
         }
 
-        // Find and set up views in the custom dialog layout
-        val dialogTitle = dialogView.findViewById<TextView>(R.id.notificationTitle)
-        val dialogMessage = dialogView.findViewById<TextView>(R.id.notificationDescription)
-
-        dialogTitle.text = title
-        dialogMessage.text = message
-
+        dialogView.findViewById<TextView>(R.id.notificationTitle).text = title
+        dialogView.findViewById<TextView>(R.id.notificationDescription).text = message
         dialog.show()
     }
 
-    private fun fetchForex() {
-        showAnimation()
-        val apiInterface =  RetrofitBuilder.getInstance().create(ForexInterface::class.java)
-        val call = apiInterface.getForex()
+    private fun showAnimation() {
+        dialog = Dialog(requireContext()).apply {
+            setContentView(R.layout.loadingdialog)
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
+            show()
+        }
+    }
 
-        call.enqueue(object : Callback<ModelForex> {
-            override fun onResponse(call: Call<ModelForex>, response: Response<ModelForex>) {
-                closeAnimation()
-                if (response.isSuccessful) {
-                    val forexList = response.body()?.data ?: emptyList()
-                    binding.rvForex.adapter = AdapterForex(requireContext(), forexList)
-                } else {
-                    Log.e("FetchError", "Response code: ${response.code()}")
-                    Log.e("FetchError", "Response message: ${response.message()}")
-                    Log.e("FetchError", "Error body: ${response.errorBody()?.string()}")
-                }
-            }
-
-            override fun onFailure(call: Call<ModelForex>, t: Throwable) {
-                closeAnimation()
-                Log.e("FetchError", "API call failed: ${t.message}")
-            }
-        })
+    private fun closeAnimation() {
+        dialog.dismiss()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-    private fun showAnimation() {
-        dialog = Dialog(requireContext())
-        dialog.setContentView(R.layout.loadingdialog)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.show()
-    }
-
-    private fun closeAnimation() {
-        dialog.dismiss()
     }
 }

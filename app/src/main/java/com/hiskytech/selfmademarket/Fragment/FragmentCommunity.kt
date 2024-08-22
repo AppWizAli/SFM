@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
@@ -14,24 +16,31 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.hiskytech.selfmademarket.ActivityInvoices
 import com.hiskytech.selfmademarket.Adapter.AdaterCommint
-import com.hiskytech.selfmademarket.ApiInterface.CommentsInterface
-import com.hiskytech.selfmademarket.Model.CommintsBuilder
+import com.hiskytech.selfmademarket.Model.CommentX
 import com.hiskytech.selfmademarket.Model.ModelCommint
-import com.hiskytech.selfmademarket.Model.ModelNotification
 import com.hiskytech.selfmademarket.Model.NotificationBuilder
+import com.hiskytech.selfmademarket.Model.ModelNotification
 import com.hiskytech.selfmademarket.R
+import com.hiskytech.selfmademarket.Repo.MySharedPref
 import com.hiskytech.selfmademarket.databinding.FragmentCommunityBinding
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class FragmentCommunity : Fragment() {
 
+    private lateinit var mySharedPref: MySharedPref
     private var _binding: FragmentCommunityBinding? = null
     private val binding get() = _binding!!
     private lateinit var dialog: Dialog
+    private lateinit var adaterCommint: AdaterCommint
+    private var courseList: MutableList<CommentX> = mutableListOf()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,16 +52,56 @@ class FragmentCommunity : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvCommunity.layoutManager = LinearLayoutManager(context)
-        fetchComments()
-        binding.btnNotification.setOnClickListener {
-            fetchNotificationsAndShowDialog()
-        }
-        binding.img.setOnClickListener(){
+        mySharedPref = MySharedPref(requireContext())
+
+        setupRecyclerView()
+        setupListeners()
+
+        fetchCommentsFromSharedPref()
+
+        val fullUrl = "https://hiskytechs.com/planemanger/uploads/${mySharedPref.getUserModel()?.user_image}"
+        Glide.with(requireContext()).load(fullUrl).into(binding.img)
+        binding.courseName.text = mySharedPref.getUserModel()?.name
+
+        binding.img.setOnClickListener {
             val intent = Intent(requireContext(), ActivityInvoices::class.java)
             startActivity(intent)
         }
     }
+
+    private fun setupRecyclerView() {
+        adaterCommint = AdaterCommint(requireContext(), courseList)
+        binding.rvCommunity.layoutManager = LinearLayoutManager(context)
+        binding.rvCommunity.adapter = adaterCommint
+    }
+
+    private fun setupListeners() {
+        binding.btnNotification.setOnClickListener {
+            fetchNotificationsAndShowDialog()
+        }
+
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filterCourses(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    private fun fetchCommentsFromSharedPref() {
+
+        val json = mySharedPref.retrieveStoredComments() // Replace this with the actual method to get the comments JSON from SharedPreferences
+
+                courseList.clear()
+                courseList.addAll(json)
+                adaterCommint.notifyDataSetChanged()
+
+
+    }
+
     private fun fetchNotificationsAndShowDialog() {
         val notificationInterface = NotificationBuilder.getNotificationInterface()
         val call = notificationInterface.getNotification()
@@ -106,37 +155,18 @@ class FragmentCommunity : Fragment() {
         dialog.show()
     }
 
-    private fun fetchComments() {
-        showAnimation()
-        val apiInterface = CommintsBuilder.getInstance().create(CommentsInterface::class.java)
-        val call = apiInterface.getCommints()
-
-        call.enqueue(object : Callback<ModelCommint> {
-
-            override fun onResponse(p0: Call<ModelCommint>, p1: Response<ModelCommint>) {
-                closeAnimation()
-                if (p1.isSuccessful) {
-                    val commentsList = p1.body()?.comments ?: emptyList()
-                    Log.d("FetchSuccess", "Fetched ${commentsList.size} comments")
-                    binding.rvCommunity.adapter = AdaterCommint(requireContext(), commentsList)
-                } else {
-                    Log.e("FetchError", "Response code: ${p1.code()}")
-                    Log.e("FetchError", "Response message: ${p1.message()}")
-                    Log.e("FetchError", "Error body: ${p1.errorBody()?.string()}")
-                }
-            }
-
-            override fun onFailure(p0: Call<ModelCommint>, p1: Throwable) {
-                closeAnimation()
-                Log.e("FetchError", "API call failed: ${p1.message}")
-            }
-        })
+    private fun filterCourses(query: String) {
+        val filteredList = courseList.filter { course ->
+            course.description?.contains(query, ignoreCase = true) ?: false
+        }
+        adaterCommint.updateList(filteredList)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
     private fun showAnimation() {
         dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.loadingdialog)

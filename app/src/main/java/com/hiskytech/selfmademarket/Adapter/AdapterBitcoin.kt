@@ -6,35 +6,41 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hiskytech.selfmademarket.Model.DataX
-import com.hiskytech.selfmademarket.R
 import com.hiskytech.selfmademarket.databinding.BitcoinItemBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class AdapterBitcoin(val context: Context, var bitCoinList : List<DataX>) : RecyclerView.Adapter<AdapterBitcoin.MyViewHolder>() {
+class AdapterBitcoin(private val context: Context, private var bitCoinList: List<DataX>) : RecyclerView.Adapter<AdapterBitcoin.MyViewHolder>() {
 
-    inner  class MyViewHolder(val binding : BitcoinItemBinding): RecyclerView.ViewHolder(binding.root){}
+    inner class MyViewHolder(val binding: BitcoinItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterBitcoin.MyViewHolder {
-        val binding = BitcoinItemBinding.inflate(LayoutInflater.from(context),parent,false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val binding = BitcoinItemBinding.inflate(LayoutInflater.from(context), parent, false)
         return MyViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: AdapterBitcoin.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentPosition = bitCoinList[position]
         val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val targetFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
         val date = originalFormat.parse(currentPosition.created_date)
         val formattedDate = targetFormat.format(date)
-        holder.binding.butonPlan.setText(formattedDate)
+
+        holder.binding.butonPlan.text = formattedDate
         holder.binding.tvDescription.text = currentPosition.description
+
         val fullUrl = "https://hiskytechs.com/planemanger/uploads/${currentPosition.image}"
         Glide.with(context).load(fullUrl).into(holder.binding.img)
-        val fullcoinUrl = "https://hiskytechs.com/planemanger/uploads/${currentPosition.icon}"
-        Glide.with(context).load(fullcoinUrl).into(holder.binding.bitcoinImg)
 
+        val fullCoinUrl = "https://hiskytechs.com/planemanger/uploads/${currentPosition.icon}"
+        Glide.with(context).load(fullCoinUrl).into(holder.binding.bitcoinImg)
     }
 
+    fun updateList(newList: List<DataX>) {
+        bitCoinList = newList
+        notifyDataSetChanged()
+    }
     override fun getItemCount(): Int {
         return bitCoinList.size
     }

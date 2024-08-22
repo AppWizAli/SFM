@@ -13,21 +13,27 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.hiskytech.selfmademarket.Model.ModelSignupResponse
 import com.hiskytech.selfmademarket.Model.SignupBuilder.apiInterface
 import com.hiskytech.selfmademarket.R
+import com.hiskytech.selfmademarket.Repo.MySharedPref
 import com.hiskytech.selfmademarket.api.RetrofitClient
 import com.hiskytech.selfmademarket.databinding.ActivitySignUpBinding
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -36,9 +42,11 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 
 class ActivitySignUp : AppCompatActivity() {
-
+private lateinit var mySharedPref:MySharedPref
     private lateinit var binding: ActivitySignUpBinding
     private var subscriptionPlan: String? = null
     private var isPlanSelected = false
@@ -48,16 +56,39 @@ class ActivitySignUp : AppCompatActivity() {
     private var screenshotUri: Uri? = null
     private var idCardFrontUri: Uri? = null
     private var idCardBackUri: Uri? = null
+    private var profileImageUri: Uri? = null
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
+mySharedPref= MySharedPref(this@ActivitySignUp)
+
+
+        val layoutParams = binding.main.layoutParams as ViewGroup.MarginLayoutParams
+        layoutParams.setMargins(-2, -2, -2, -2)
+        binding.main.layoutParams = layoutParams
+
+
+
+
+
+        findViewById<AppCompatButton>(R.id.btnLogin).setOnClickListener()
+        {
+            startActivity(Intent(this@ActivitySignUp,ActivityLogin::class.java))
+        }
+
+
+
 
 
         // Image selection listeners
         binding.js.setOnClickListener {
+            clickedTextViewId = it.id
+            pickImageFromGallery()
+        }
+        binding.img.setOnClickListener {
             clickedTextViewId = it.id
             pickImageFromGallery()
         }
@@ -71,31 +102,33 @@ class ActivitySignUp : AppCompatActivity() {
         }
 
         binding.cv.setOnClickListener {
-            if (!isPlanSelected) {
-                subscriptionPlan = "1"
+
+                subscriptionPlan = "one_month"
+            binding.plan2.visibility = View.GONE
                 binding.startupPlanSaving.visibility = View.VISIBLE
-                binding.cv1.isEnabled = false
                 isPlanSelected = true
 
 
-                binding.cv1.setCardBackgroundColor(ContextCompat.getColor(this, R.color.hint_color))
+                binding.cv.setCardBackgroundColor(ContextCompat.getColor(this, R.color.white))
+                binding.cv1.setCardBackgroundColor(ContextCompat.getColor(this, R.color.hint_color2))
 
-                Toast.makeText(this@ActivitySignUp, "Selected Plan: $subscriptionPlan", Toast.LENGTH_SHORT).show()
-            }
+               // Toast.makeText(this@ActivitySignUp, "Selected Plan: $subscriptionPlan", Toast.LENGTH_SHORT).show()
+
         }
 
         binding.cv1.setOnClickListener {
-            if (!isPlanSelected) {
-                subscriptionPlan = "3"
+            binding.cv1.setCardBackgroundColor(ContextCompat.getColor(this, R.color.white))
+            binding.cv.setCardBackgroundColor(ContextCompat.getColor(this, R.color.hint_color))
+                subscriptionPlan = "three_month"
                 binding.plan2.visibility = View.VISIBLE
-                binding.cv.isEnabled = false
+            binding.startupPlanSaving.visibility = View.GONE
                 isPlanSelected = true
 
 
                 binding.cv.setCardBackgroundColor(ContextCompat.getColor(this, R.color.hint_color))
 
                 Toast.makeText(this@ActivitySignUp, "Selected Plan: $subscriptionPlan", Toast.LENGTH_SHORT).show()
-            }
+
         }
 
 
@@ -105,7 +138,7 @@ class ActivitySignUp : AppCompatActivity() {
         }
 
         binding.btn.setOnClickListener {
-            showAnimation()
+
             val email = binding.email.text.toString().trim()
             val phone = binding.phone.text.toString().trim()
             val password = binding.pswrd.text.toString().trim()
@@ -121,7 +154,92 @@ class ActivitySignUp : AppCompatActivity() {
                 Toast.makeText(this@ActivitySignUp, "Please fill all fields and select a plan", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-*/
+    */// Validation checks
+            if (email.isEmpty()) {
+                Toast.makeText(this@ActivitySignUp, "Email is required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (phone.isEmpty()) {
+                Toast.makeText(this@ActivitySignUp, "Phone number is required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (password.isEmpty()) {
+                Toast.makeText(this@ActivitySignUp, "Password is required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (name.isEmpty()) {
+                Toast.makeText(this@ActivitySignUp, "Name is required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (country.isEmpty()) {
+                Toast.makeText(this@ActivitySignUp, "Country is required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (district.isEmpty()) {
+                Toast.makeText(this@ActivitySignUp, "District is required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (city.isEmpty()) {
+                Toast.makeText(this@ActivitySignUp, "City is required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (postalCode.isEmpty()) {
+                Toast.makeText(this@ActivitySignUp, "Postal code is required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (transactionId.isEmpty()) {
+                Toast.makeText(this@ActivitySignUp, "Transaction ID is required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (subscriptionPlan == null) {
+                Toast.makeText(this@ActivitySignUp, "Please select a subscription plan", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (screenshotUri == null) {
+                Toast.makeText(this@ActivitySignUp, "Please select a screenshot", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (idCardFrontUri == null) {
+                Toast.makeText(this@ActivitySignUp, "Please select the front of your ID card", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (idCardBackUri == null) {
+                Toast.makeText(this@ActivitySignUp, "Please select the back of your ID card", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (profileImageUri == null) {
+                Toast.makeText(this@ActivitySignUp, "Please select a profile image", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            showAnimation()
+            val screenShot = uriToFile(screenshotUri!!)
+            val requestFile = RequestBody.create("image/jpeg".toMediaType(), screenShot)
+            val screenShotImage = MultipartBody.Part.createFormData("transcript_screenshot", screenShot.name, requestFile)
+
+
+            val profileImage = uriToFile(profileImageUri!!)
+            val reQuestProfile = RequestBody.create("image/jpeg".toMediaType(), profileImage)
+            val profileimageFile = MultipartBody.Part.createFormData("user_image", profileImage.name, reQuestProfile)
+
+            //
+            val frontSide = uriToFile(idCardFrontUri!!)
+            val requestFrontFile = RequestBody.create("image/jpeg".toMediaType(), frontSide)
+            val backSide = uriToFile(idCardBackUri!!)
+            val requestBackSide = RequestBody.create("image/jpeg".toMediaType(), backSide)
+
+            val FrontIdcard = MultipartBody.Part.createFormData("id_card_front_pic", frontSide.name, requestFrontFile)
+            val BackIdCard = MultipartBody.Part.createFormData("id_card_back_pic", backSide.name, requestBackSide)
+            //
+
+
+
+
+
+
+            val transcriptScreenshotPart = createPartFromUri(this, screenshotUri, "transcript_screenshot")
+            val frontPicPart = createPartFromUri(this, idCardFrontUri, "id_card_front_pic")
+            val backPicPart = createPartFromUri(this, idCardBackUri, "id_card_back_pic")
             // Create request body parts
             val requestBodyMap = mapOf(
                 "email" to RequestBody.create("text/plain".toMediaTypeOrNull(), email),
@@ -134,12 +252,9 @@ class ActivitySignUp : AppCompatActivity() {
                 "postal_code" to RequestBody.create("text/plain".toMediaTypeOrNull(), postalCode),
                 "transaction_id" to RequestBody.create("text/plain".toMediaTypeOrNull(), transactionId),
                 "plan_select" to RequestBody.create("text/plain".toMediaTypeOrNull(), subscriptionPlan!!),
-                "payment_method" to RequestBody.create("text/plain".toMediaTypeOrNull(), "YourPaymentMethodHere")
-            )
+                "payment_method" to RequestBody.create("text/plain".toMediaTypeOrNull(), "YourPaymentMethodHere"),
 
-            val transcriptScreenshotPart = createPartFromUri(this, screenshotUri, "transcript_screenshot")
-            val frontPicPart = createPartFromUri(this, idCardFrontUri, "id_card_front_pic")
-            val backPicPart = createPartFromUri(this, idCardBackUri, "id_card_back_pic")
+            )
 
             // Make the API call
             val call = apiInterface.signUpUser(
@@ -154,9 +269,10 @@ class ActivitySignUp : AppCompatActivity() {
                 requestBodyMap["transaction_id"]!!,
                 requestBodyMap["plan_select"]!!,
                 requestBodyMap["payment_method"]!!,
-                transcriptScreenshotPart,
-                frontPicPart,
-                backPicPart
+              screenShotImage!!,
+                      FrontIdcard!!,
+                      BackIdCard!!,
+                      profileimageFile!!,
             )
 
             // Handle the API response
@@ -165,9 +281,11 @@ class ActivitySignUp : AppCompatActivity() {
                   closeAnimation()
                     if (response.isSuccessful) {
                         response.body()?.let {
-                            Log.d("API Success", "Message: ${it.message}, Status: ${it.status}")
-                            Toast.makeText(this@ActivitySignUp, "Account Created Successfully", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(this@ActivitySignUp, ActivityLogin::class.java))
+
+                            mySharedPref.saveUserId(response.body()?.user_id.toString())
+
+mySharedPref.putSignUpUser()
+                             startActivity(Intent(this@ActivitySignUp, ActivityVerification::class.java))
                             finish()
                         } ?: run {
                             Log.e("API Error", "Response body is null")
@@ -307,6 +425,9 @@ class ActivitySignUp : AppCompatActivity() {
                     R.id.c -> {
                         idCardBackUri = imageUri
                         binding.c.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_image_24, 0, 0, 0)
+                    }   R.id.img -> {
+                        profileImageUri = imageUri
+                  Glide.with(this@ActivitySignUp).load(profileImageUri).into(binding.img)
                     }
                 }
             } else {
@@ -325,6 +446,42 @@ class ActivitySignUp : AppCompatActivity() {
 
     private fun closeAnimation() {
         dialog.dismiss()
+    }
+
+
+
+
+
+
+
+
+    private fun uriToFile(uri: Uri): File {
+        val inputStream: InputStream? = contentResolver.openInputStream(uri)
+        val file = File(cacheDir, getFileName(uri))
+        val outputStream = FileOutputStream(file)
+        inputStream?.use { input ->
+            outputStream.use { output ->
+                val buffer = ByteArray(4 * 1024)
+                var read: Int
+                while (input.read(buffer).also { read = it } != -1) {
+                    output.write(buffer, 0, read)
+                }
+                output.flush()
+            }
+        }
+        return file
+    }
+
+    private fun getFileName(uri: Uri): String {
+        var name = ""
+        val returnCursor = contentResolver.query(uri, null, null, null, null)
+        if (returnCursor != null) {
+            val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            returnCursor.moveToFirst()
+            name = returnCursor.getString(nameIndex)
+            returnCursor.close()
+        }
+        return name
     }
 
 }

@@ -2,15 +2,21 @@ package com.hiskytech.selfmademarket.Ui
 
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.hiskytech.selfmademarket.ApiInterface.UserLoginRequest
 import com.hiskytech.selfmademarket.ApiInterface.logininterface
-import com.hiskytech.selfmademarket.Model.ModelLoginResponse
+import com.hiskytech.selfmademarket.Model.ModelLoginResponse2
 import com.hiskytech.selfmademarket.Model.loginBuilder
 import com.hiskytech.selfmademarket.R
+import com.hiskytech.selfmademarket.Repo.MySharedPref
 import com.hiskytech.selfmademarket.databinding.ActivityLoginBinding
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody
+import okhttp3.internal.http.hasBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,17 +24,26 @@ import retrofit2.Response
 class ActivityLogin : AppCompatActivity() {
     private lateinit var apiInterFace: logininterface
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var mySharedPref: MySharedPref
     private lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+mySharedPref= MySharedPref(this@ActivityLogin)
         // Initialize API interface
         apiInterFace = loginBuilder.apiInterface
 
+binding.btnSignUp.setOnClickListener()
+{
+    startActivity(Intent(this@ActivityLogin,ActivitySignUp::class.java))
+}
+
+
         binding.login.setOnClickListener {
+
+
             val email = binding.email.text.toString().trim()
             val password = binding.password.text.toString().trim()
 
@@ -42,18 +57,23 @@ class ActivityLogin : AppCompatActivity() {
 
     private fun loginUser(email: String, password: String) {
         showAnimation()
+        val emailPart = RequestBody.create("text/plain".toMediaType(), email)
+        val passwordPart = RequestBody.create("text/plain".toMediaType(), password)
 
         val userLoginRequest = UserLoginRequest(email, password)
-        apiInterFace.loginUser(userLoginRequest).enqueue(object : Callback<ModelLoginResponse> {
-            override fun onResponse(call: Call<ModelLoginResponse>, response: Response<ModelLoginResponse>) {
+        apiInterFace.logininterface(emailPart,passwordPart).enqueue(object : Callback<ModelLoginResponse2> {
+            override fun onResponse(call: Call<ModelLoginResponse2>, response: Response<ModelLoginResponse2>) {
                 closeAnimation()
                 val userResponse = response.body()
                 if (response.isSuccessful && userResponse != null) {
                     Toast.makeText(this@ActivityLogin, "Response: ${userResponse.message}", Toast.LENGTH_SHORT).show()
-                    if (userResponse.message == "Login successful") {
+mySharedPref.putUserLoggedIn()
+                    if (userResponse.message.toString().equals("Login successful") ){
                         Toast.makeText(this@ActivityLogin, "Login Successful!!", Toast.LENGTH_SHORT).show()
 
-                        // Proceed to the main activity
+                        mySharedPref.saveUserModel(response.body()?.data!!)
+
+
                         startActivity(Intent(this@ActivityLogin, MainActivity::class.java))
                         finishAffinity()
                     } else {
@@ -64,7 +84,7 @@ class ActivityLogin : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<ModelLoginResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ModelLoginResponse2>, t: Throwable) {
                 closeAnimation()
                 Toast.makeText(this@ActivityLogin, "Something went wrong!!", Toast.LENGTH_SHORT).show()
             }

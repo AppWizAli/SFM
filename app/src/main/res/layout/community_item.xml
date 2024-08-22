@@ -5,9 +5,9 @@
         android:layout_height="wrap_content"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginHorizontal="30dp"
+    android:layout_marginHorizontal="35dp"
         app:cardCornerRadius="17dp"
-        app:cardElevation="20dp"
+        app:cardElevation="7dp"
     android:layout_marginVertical="10dp"
 
     android:layout_centerInParent="true">
@@ -73,7 +73,7 @@
                 android:id="@+id/account_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/img_6" />
 
         </androidx.cardview.widget.CardView>
