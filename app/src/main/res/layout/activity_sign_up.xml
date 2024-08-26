@@ -68,6 +68,7 @@
         android:layout_height="wrap_content"
         android:text="Select Image"
         android:textSize="7sp"
+        android:layout_gravity="center"
         android:textColor="@color/white"
         android:layout_below="@id/layProfile"/>
 </LinearLayout>

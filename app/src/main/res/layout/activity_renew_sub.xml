@@ -1,10 +1,297 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+
+    android:background="@drawable/bg4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Ui.ActivityRenewSub">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/brain"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/logo_for_login_screen" />
+
+
+    <TextView
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_below="@id/brain"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginVertical="10dp"
+        android:fontFamily="@font/productsansbold"
+        android:text="Renew Plan"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlStartPlan"
+        android:layout_below="@+id/signup"
+
+        android:layout_marginTop="10dp"
+        android:columnCount="2"
+        android:rowCount="1"
+
+        android:layout_marginHorizontal="20dp"
+
+        >
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_columnWeight="1"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="#F8F9FA"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/startup_plan_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Startup Plan"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/startup_plan_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="27dp"
+                    android:text="1-Month"
+                    android:textColor="@android:color/black"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/startup_plan_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/startup_plan_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="3dp"
+                    android:text="200$"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/startup_plan_saving"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_below="@id/startup_plan_duration"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginHorizontal="20dp"
+                    android:padding="4dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginBottom="0dp"
+                    android:backgroundTint="@android:color/holo_orange_light"
+                    android:text="Selected"
+                    android:visibility="gone"
+                    android:textColor="@android:color/black"
+                    android:textSize="8sp" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_columnWeight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="@color/white"
+            android:id="@+id/cv1"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="0dp">
+
+                <TextView
+                    android:id="@+id/startup_plan_title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Pro Plan"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/startup_plan_duration2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="27dp"
+                    android:text="3-Month"
+                    android:textColor="@android:color/black"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/startup_plan_price2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/startup_plan_title2"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="3dp"
+                    android:text="350$"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/plan2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_below="@id/startup_plan_duration2"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginHorizontal="20dp"
+                    android:padding="4dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginBottom="0dp"
+                    android:backgroundTint="@android:color/holo_orange_light"
+                    android:text="Selected"
+                    android:visibility="gone"
+                    android:textColor="@android:color/black"
+                    android:textSize="8sp" />
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/btnPayment"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_below="@+id/rlStartPlan"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edittext_bg"
+        android:drawableStart="@drawable/baseline_fiber_manual_record_24"
+        android:gravity="center"
+        android:paddingStart="15dp"
+        android:drawablePadding="10dp"
+        android:paddingHorizontal="20dp"
+        android:text="Choose Payment Method"
+        android:textColor="@color/white" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlTransaction"
+        android:layout_below="@id/btnPayment"
+        android:layout_marginHorizontal="20dp"
+        android:columnCount="2"
+        android:rowCount="1"
+        android:layout_marginTop="15dp">
+
+        <EditText
+            android:id="@+id/tid"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="5dp"
+            android:layout_row="0"
+            android:maxLines="1"
+            android:layout_column="0"
+            android:layout_marginRight="5dp"
+            android:textColorHint="@color/white"
+            android:background="@drawable/edittext_bg"
+            android:drawableStart="@drawable/baseline_person_24"
+            android:hint="Transaction id"
+            android:paddingStart="5dp"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/js"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_columnWeight="1"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/edittext_bg"
+            android:drawableStart="@drawable/baseline_outlined_flag_24"
+            android:paddingStart="5dp"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:text="Transaction screenshot"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+
+
+    </GridLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlTransaction"
+        app:cornerRadius="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#07216D"
+        android:text="Renew Plan" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/ballite"
+        android:text=" money is motivation"
+        android:layout_marginVertical="20dp"
+        android:layout_alignParentBottom="true"
+
+        android:textColor="@color/white"
+        android:textSize="29sp" />
+
+</RelativeLayout>

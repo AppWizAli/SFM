@@ -45,6 +45,17 @@ class MySharedPref(context:Context) {
         return  shared.getBoolean("IsUserSingUp",false)
     }
 
+    fun putRenewPlan()
+    {
+        editor.putBoolean("IsRenew",true)
+        editor.apply()
+    }
+
+    fun isRenewPlan():Boolean
+    {
+        return  shared.getBoolean("IsRenew",false)
+    }
+
 
     fun saveUserId(id:String)
     {

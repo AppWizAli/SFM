@@ -181,12 +181,21 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:text="Select Image"
-         android:layout_alignParentEnd="true"
+
+      android:layout_centerInParent="true"
+        android:paddingVertical="5dp"
          android:layout_marginEnd="5dp"
          android:textSize="10sp"
          android:layout_below="@id/card"
          android:layout_marginTop="5dp"/>
-
+<ImageView
+    android:layout_width="20dp"
+    android:layout_height="20dp"
+android:layout_centerInParent="true"
+    android:layout_below="@id/card"
+    android:layout_marginTop="6dp"
+    android:layout_toRightOf="@+id/tvSelect"
+    android:src="@drawable/imgg"/>
             <EditText
                 android:id="@+id/etDescription"
                 android:layout_width="315dp"

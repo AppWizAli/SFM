@@ -114,7 +114,6 @@ class ActivitySplash : AppCompatActivity() {
 
 
 
-
         apiInterFace.checkStatus(id).enqueue(object :
             Callback<ModelStatusCheck> {
             override fun onResponse(
@@ -127,11 +126,11 @@ class ActivitySplash : AppCompatActivity() {
 
                 if (response.isSuccessful && userResponse != null) {
 
-                    if (userResponse.is_verified == 1 && mySharedPref.isUserLoggedIn() && !userResponse.is_subscription_valid) {
+                    if (userResponse.is_verified == 1 && mySharedPref.isUserLoggedIn() && userResponse.is_subscription_valid) {
                         //   Toast.makeText(this@ActivitySplash, "1", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this@ActivitySplash, MainActivity::class.java))
                         finish()
-                    } else if (userResponse.is_verified == 1 && !userResponse.is_subscription_valid) {
+                    } else if (userResponse.is_verified == 1 && userResponse.is_subscription_valid) {
                         // Toast.makeText(this@ActivitySplash, "1", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this@ActivitySplash, ActivityLogin::class.java))
                         finish()
@@ -140,15 +139,15 @@ class ActivitySplash : AppCompatActivity() {
 
                         startActivity(Intent(this@ActivitySplash, ActivityVerification::class.java))
                         finish()
-                    } else if (userResponse.is_subscription_valid && userResponse.is_verified == 1) {
-                        // Toast.makeText(this@ActivitySplash, "3", Toast.LENGTH_SHORT).show()
-
-                        startActivity(Intent(this@ActivitySplash, ActivityRenewSub::class.java))
-                        finish()
-                    } else {
+                    } else if(!mySharedPref.isUserSignUp() && !mySharedPref.isUserLoggedIn()){
                         // Toast.makeText(this@ActivitySplash, "4", Toast.LENGTH_SHORT).show()
 
                         startActivity(Intent(this@ActivitySplash, ActivitySignUp::class.java))
+                        finish()
+                    }else if (!userResponse.is_subscription_valid) {
+                        // Toast.makeText(this@ActivitySplash, "3", Toast.LENGTH_SHORT).show()
+
+                        startActivity(Intent(this@ActivitySplash, ActivityRenewSub::class.java))
                         finish()
                     }
 

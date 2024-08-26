@@ -57,17 +57,34 @@
                 android:text="25 July 2024"
                 android:layout_marginBottom="8dp"/>
         </LinearLayout>
-
-<com.google.android.material.button.MaterialButton
-    android:id="@+id/btnLogout"
+<LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textColor="@color/white"
-    android:text="Logout"
-    android:backgroundTint="@color/Primary_color"
-    android:layout_gravity="end"
-    android:layout_marginHorizontal="5dp"
-    app:cornerRadius="8dp"/>
+    android:orientation="horizontal">
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="Logout"
+        android:backgroundTint="@color/Primary_color"
+        android:layout_gravity="end"
+        android:layout_marginHorizontal="5dp"
+        app:cornerRadius="8dp"/>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnUpdatePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="Update Password"
+        android:backgroundTint="@color/Primary_color"
+        android:layout_gravity="end"
+        android:layout_marginHorizontal="5dp"
+        app:cornerRadius="8dp"/>
+
+</LinearLayout>
 
     </LinearLayout>
 

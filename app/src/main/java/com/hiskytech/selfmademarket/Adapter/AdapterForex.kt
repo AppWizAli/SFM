@@ -1,11 +1,16 @@
 package com.hiskytech.selfmademarket.Adapter
 
+import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hiskytech.selfmademarket.Model.DataXX
+import com.hiskytech.selfmademarket.R
 import com.hiskytech.selfmademarket.databinding.ForexItemBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -33,6 +38,39 @@ class AdapterForex(
         holder.binding.butonPlan.text = formattedDate
         holder.binding.tvForexTittle.text = currentItem.title
         holder.binding.tvForexDescription.text = currentItem.description
+
+        holder.binding.zoomBtn.setOnClickListener {
+            // Create the Dialog instance
+            val dialogView = Dialog(context)
+
+            // Set the custom layout for the dialog
+            dialogView.setContentView(R.layout.dialog_image_view)
+            dialogView.window?.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+            // Find the ImageView in the dialog layout
+            val imgFull = dialogView.findViewById<ImageView>(R.id.imgFull)
+            val cross = dialogView.findViewById<ImageView>(R.id.cross)
+
+
+            // Load the image into the ImageView using Glide
+            val fullUrl = "https://hiskytechs.com/planemanger/uploads/${currentItem.image}"
+            Glide.with(context)
+                .load(fullUrl)
+                .into(imgFull)
+
+            // Show the dialog
+            dialogView.show()
+
+
+            cross.setOnClickListener()
+            {
+                dialogView.dismiss()
+            }
+
+            dialogView.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }
 
         val fullUrl = "https://hiskytechs.com/planemanger/uploads/${currentItem.image}"
         Glide.with(context).load(fullUrl).into(holder.binding.img)

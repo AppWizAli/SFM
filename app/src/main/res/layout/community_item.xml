@@ -80,7 +80,7 @@
 
 
         <ImageView
-            android:id="@+id/imgMagnifier"
+            android:id="@+id/zoomBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_saved_search_24"

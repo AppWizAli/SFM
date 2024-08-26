@@ -1,5 +1,6 @@
 package com.hiskytech.selfmademarket.api
 
+import com.hiskytech.selfmademarket.Model.ModelResponsePassword
 import com.hiskytech.selfmademarket.Model.ModelSignupResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -32,5 +33,15 @@ interface SignupInterface {
   //    @Part("user_image") user_image: MultipartBody.Part?
       //@Part id_card_back_pic: MultipartBody.Part?
     ): Call<ModelSignupResponse>
+
+    @Multipart
+    @POST("/planemanger/upgrade_plan.php")
+    fun RenewPlanUser(
+        @Part("transaction_id") transaction_id: RequestBody,
+
+        @Part("plan_select") plan_select: RequestBody,
+       @Part transcript_screenshot: MultipartBody.Part,
+        @Part("id") id: RequestBody,
+    ): Call<ModelResponsePassword>
 
 }

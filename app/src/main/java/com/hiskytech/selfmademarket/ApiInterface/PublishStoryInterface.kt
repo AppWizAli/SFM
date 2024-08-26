@@ -14,6 +14,7 @@ interface PublishStoryInterface {
     fun publishStory(
         @Part("user_name") user_name: RequestBody,
         @Part("description") description: RequestBody,
+        @Part("user_image") user_image: RequestBody,
         @Part image: MultipartBody.Part,
     ): Call<ModelStoryResponse>
 }

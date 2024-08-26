@@ -179,13 +179,14 @@ class FragmentPublishStory : Fragment() {
         if (username.isNotEmpty() && description.isNotEmpty()) {
             val usernamePart = RequestBody.create("text/plain".toMediaType(), username)
             val descriptionPart = RequestBody.create("text/plain".toMediaType(), description)
+            val user_image = RequestBody.create("text/plain".toMediaType(), mySharedPref.getUserModel()?.user_image!!)
 
             screenshotUri?.let { uri ->
                 val screenShot = uriToFile(uri)
                 val requestFile = RequestBody.create("image/jpeg".toMediaType(), screenShot)
                 val screenShotImage = MultipartBody.Part.createFormData("image", screenShot.name, requestFile)
 
-                apiInterface.publishStory(usernamePart, descriptionPart, screenShotImage)
+                apiInterface.publishStory(usernamePart, descriptionPart, user_image,screenShotImage)
                     .enqueue(object : Callback<ModelStoryResponse> {
                         override fun onResponse(
                             call: Call<ModelStoryResponse>,
