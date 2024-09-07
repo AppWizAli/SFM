@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "308234007708",
+    "project_id": "selfmademarkeet",
+    "storage_bucket": "selfmademarkeet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308234007708:android:2e8fd9238ac7fb75572959",
+        "android_client_info": {
+          "package_name": "com.hiskytech.selfmademarket"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAw3TLJ1B3D8NxVW3-8zUKIgqrKN2XWTvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

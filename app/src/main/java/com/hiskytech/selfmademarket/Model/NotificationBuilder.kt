@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object NotificationBuilder {
 
-    val apiUrl = "https://hiskytechs.com/"
+    val apiUrl = "https://en.selfmademarket.net/"
 
     fun getInstance() : Retrofit {
         return Retrofit.Builder()

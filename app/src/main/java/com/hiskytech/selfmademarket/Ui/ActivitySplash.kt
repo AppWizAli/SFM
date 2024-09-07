@@ -1,7 +1,10 @@
 package com.hiskytech.selfmademarket.Ui
 
+import android.Manifest
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -47,6 +51,20 @@ class ActivitySplash : AppCompatActivity() {
     private lateinit var apiInterFace: logininterface
     private lateinit var binding: ActivitySplashBinding
     private lateinit var mySharedPref: MySharedPref
+
+
+    private val notificationPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            // Permission granted, you can start using notifications
+            Toast.makeText(this, "Notification permission granted!", Toast.LENGTH_SHORT).show()
+        } else {
+            // Permission denied
+            Toast.makeText(this, "Notification permission denied!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
@@ -62,7 +80,7 @@ class ActivitySplash : AppCompatActivity() {
 
         mySharedPref = MySharedPref(this@ActivitySplash)
 
-
+        requestNotificationPermission()
         fetchComments()
 
 
@@ -87,7 +105,24 @@ class ActivitySplash : AppCompatActivity() {
        // checkStatus()
     }
 
-
+    private fun requestNotificationPermission() {
+        // Check if the Android version is 13 or higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Check if the permission is already granted
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // Request the notification permission
+                notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        } else {
+            // For Android versions below 13, no runtime permission is required for notifications
+            // You can proceed directly with notifications or inform the user
+            Toast.makeText(this, "Notifications are enabled by default for this Android version.", Toast.LENGTH_SHORT).show()
+        }
+    }
     private fun checkStatus() {
 
         var id= RequestBody.create("text/plain".toMediaType(), mySharedPref.getUserModel()?.id.toString())

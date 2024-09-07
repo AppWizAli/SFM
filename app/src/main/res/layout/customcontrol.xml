@@ -4,18 +4,19 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#00000000">
-    <ImageView
+    <TextView
         android:id="@+id/exo_playback_speed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="28dp"
-        android:src="@drawable/exo_ic_speed"
+        android:text="Quality"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/exo_track_selection_view"
         app:tint="@color/white">
 
-    </ImageView>
+    </TextView>
 
     <ImageView
         android:id="@+id/exoplayer_resize1"

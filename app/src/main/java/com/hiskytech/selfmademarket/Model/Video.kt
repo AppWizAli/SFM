@@ -7,7 +7,8 @@ data class Video(
    val course_id: String,
    val created_at: String,
    val video: String,
-   val video_description: String,
+   val video2: String,
+   val video3: String,
    val video_id: String
 ) : Parcelable {
    constructor(parcel: Parcel) : this(
@@ -15,14 +16,16 @@ data class Video(
       parcel.readString().toString(),
       parcel.readString().toString(),
       parcel.readString().toString(),
-      parcel.readString().toString()
+      parcel.readString().toString(),
+      parcel.readString().toString(),
    )
 
    override fun writeToParcel(parcel: Parcel, flags: Int) {
       parcel.writeString(course_id)
       parcel.writeString(created_at)
       parcel.writeString(video)
-      parcel.writeString(video_description)
+      parcel.writeString(video2)
+      parcel.writeString(video3)
       parcel.writeString(video_id)
    }
 

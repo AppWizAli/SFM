@@ -46,7 +46,7 @@ class AdaterCommint(val context: Context, private var commintList: List<CommentX
 
 
             // Load the image into the ImageView using Glide
-            val fullUrl = "https://hiskytechs.com/planemanger/uploads/${currentPosition.image}"
+            val fullUrl = "https://en.selfmademarket.net/planemanger/uploads/${currentPosition.image}"
             Glide.with(context)
                 .load(fullUrl)
                 .into(imgFull)
@@ -67,9 +67,9 @@ class AdaterCommint(val context: Context, private var commintList: List<CommentX
 
 
 
-        val fullUrlimage = "https://hiskytechs.com/planemanger/uploads/${currentPosition.user_image}"
+        val fullUrlimage = "https://en.selfmademarket.net/planemanger/uploads/${currentPosition.user_image}"
         Glide.with(context).load(fullUrlimage).into(holder.binding.profileImage)
-        val fullUrl = "https://hiskytechs.com/planemanger/uploads/${currentPosition.image}"
+        val fullUrl = "https://en.selfmademarket.net/planemanger/uploads/${currentPosition.image}"
         Glide.with(context).load(fullUrl).into(holder.binding.accountImage)
     }
 

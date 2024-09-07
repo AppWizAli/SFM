@@ -4,7 +4,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object CommintsBuilder {
 
-        private const val BASE_URL = "https://hiskytechs.com/"
+        private const val BASE_URL = "https://en.selfmademarket.net/"
 
         fun getInstance(): Retrofit {
             return Retrofit.Builder()

@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object StoryBuilder {
 
-    private const val BASE_URL = "https://hiskytechs.com/video_adminpenal/"
+    private const val BASE_URL = "https://en.selfmademarket.net/video_adminpenal/"
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

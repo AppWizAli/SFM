@@ -27,6 +27,10 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
+import com.hiskytech.selfmademarket.Model.ModelAccounts
 import com.hiskytech.selfmademarket.Model.ModelSignupResponse
 import com.hiskytech.selfmademarket.Model.SignupBuilder.apiInterface
 import com.hiskytech.selfmademarket.R
@@ -48,6 +52,7 @@ import java.io.InputStream
 class ActivitySignUp : AppCompatActivity() {
 private lateinit var mySharedPref:MySharedPref
     private lateinit var binding: ActivitySignUpBinding
+    var db=Firebase.firestore
     private var subscriptionPlan: String? = null
     private var isPlanSelected = false
     private val IMAGE_PICK_CODE = 1000
@@ -110,7 +115,7 @@ mySharedPref= MySharedPref(this@ActivitySignUp)
 
 
                 binding.cv.setCardBackgroundColor(ContextCompat.getColor(this, R.color.white))
-                binding.cv1.setCardBackgroundColor(ContextCompat.getColor(this, R.color.hint_color2))
+                binding.cv1.setCardBackgroundColor(ContextCompat.getColor(this, R.color.hint_color3))
 
                // Toast.makeText(this@ActivitySignUp, "Selected Plan: $subscriptionPlan", Toast.LENGTH_SHORT).show()
 
@@ -118,16 +123,16 @@ mySharedPref= MySharedPref(this@ActivitySignUp)
 
         binding.cv1.setOnClickListener {
             binding.cv1.setCardBackgroundColor(ContextCompat.getColor(this, R.color.white))
-            binding.cv.setCardBackgroundColor(ContextCompat.getColor(this, R.color.hint_color))
+          //  binding.cv.setCardBackgroundColor(ContextCompat.getColor(this, R.color.hint_color3))
                 subscriptionPlan = "three_month"
                 binding.plan2.visibility = View.VISIBLE
             binding.startupPlanSaving.visibility = View.GONE
                 isPlanSelected = true
 
 
-                binding.cv.setCardBackgroundColor(ContextCompat.getColor(this, R.color.hint_color))
+                binding.cv.setCardBackgroundColor(ContextCompat.getColor(this, R.color.hint_color3))
 
-                Toast.makeText(this@ActivitySignUp, "Selected Plan: $subscriptionPlan", Toast.LENGTH_SHORT).show()
+           //     Toast.makeText(this@ActivitySignUp, "Selected Plan: $subscriptionPlan", Toast.LENGTH_SHORT).show()
 
         }
 
@@ -307,6 +312,7 @@ mySharedPref.putSignUpUser()
 }}
 
         private fun showPaymentDialog() {
+            Toast.makeText(this@ActivitySignUp, "Account Number can take some time to load!!", Toast.LENGTH_SHORT).show()
         val dialog = Dialog(this@ActivitySignUp)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -318,26 +324,34 @@ mySharedPref.putSignUpUser()
         val btnEasyPaisa = dialog.findViewById<CardView>(R.id.easypaisa)
         val btnJazzCash = dialog.findViewById<CardView>(R.id.jazzcash)
         val btnBank = dialog.findViewById<CardView>(R.id.banktransfer)
-
+db.collection("Accounts").document("snUsWCJEr9x3e7ZOXzwq").get()
+    .addOnSuccessListener { documment->
+    
+var modelAccounts=documment.toObject(ModelAccounts::class.java)!!
         btnBinance.setOnClickListener {
-            showPaymentDetailsDialog("Binance", "1111111", R.drawable.binance)
+            showPaymentDetailsDialog("Binance", modelAccounts.binance, R.drawable.binance)
         }
         btnWise.setOnClickListener {
-            showPaymentDetailsDialog("Wise", "22222", R.drawable.wise)
+            showPaymentDetailsDialog("Wise", modelAccounts.wise, R.drawable.wise)
         }
         btnPayonner.setOnClickListener {
-            showPaymentDetailsDialog("Payonner", "3333333", R.drawable.payoneer)
+            showPaymentDetailsDialog("Payoneer", modelAccounts.payoneer, R.drawable.payoneer)
         }
         btnEasyPaisa.setOnClickListener {
-            showPaymentDetailsDialog("Easy Paisa", "4444444", R.drawable.img_2)
+            showPaymentDetailsDialog("Easy Paisa", modelAccounts.easypaisa, R.drawable.img_2)
         }
         btnJazzCash.setOnClickListener {
-            showPaymentDetailsDialog("Jazz Cash", "5555555", R.drawable.jazzcash)
+            showPaymentDetailsDialog("Jazz Cash", modelAccounts.jazzcash, R.drawable.jazzcash)
         }
         btnBank.setOnClickListener {
-            showPaymentDetailsDialog("Bank Transfer", "666666", R.drawable.banktransfer)
+            showPaymentDetailsDialog("Bank Transfer", modelAccounts.banktransfer, R.drawable.banktransfer)
         }
 
+    }
+
+    .addOnFailureListener(){
+      
+    }
         dialog.show()
     }
 

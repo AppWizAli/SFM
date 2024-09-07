@@ -59,7 +59,7 @@ class FragmentCommunity : Fragment() {
 
         fetchCommentsFromSharedPref()
 
-        val fullUrl = "https://hiskytechs.com/planemanger/uploads/${mySharedPref.getUserModel()?.user_image}"
+        val fullUrl = "https://en.selfmademarket.net/planemanger/uploads/${mySharedPref.getUserModel()?.user_image}"
         Glide.with(requireContext()).load(fullUrl).into(binding.img)
         binding.courseName.text = mySharedPref.getUserModel()?.name
 

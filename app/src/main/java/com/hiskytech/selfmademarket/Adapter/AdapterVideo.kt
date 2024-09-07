@@ -8,8 +8,11 @@ import com.hiskytech.selfmademarket.Model.Video
 import com.hiskytech.selfmademarket.Ui.playeractivity
 import com.hiskytech.selfmademarket.databinding.ItemVideoBinding
 
-class AdapterVideo(private val videoList: List<Video>) :
+class AdapterVideo(videoList: List<Video>) :
     RecyclerView.Adapter<AdapterVideo.VideoViewHolder>() {
+
+    // Sort the videos by the created_at date in ascending order
+    private val sortedVideoList = videoList.sortedBy { it.created_at }
 
     class VideoViewHolder(val binding: ItemVideoBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -19,20 +22,24 @@ class AdapterVideo(private val videoList: List<Video>) :
     }
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
-        val video = videoList[position]
+        val video = sortedVideoList[position]
 
-        holder.binding.videoCount.text = video.video_id
+        // Set the video count starting from 1
+        holder.binding.videoCount.text = (position + 1).toString()
 
         // Handle item click
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
-            val intent = Intent(context, playeractivity::class.java)
-            intent.putExtra("videourl", video.video) // Pass the video URL to the playeractivity
+            val intent = Intent(context, playeractivity::class.java).apply {
+                putExtra("videourl1", video.video)  // High quality
+                putExtra("videourl2", video.video2) // Medium quality
+                putExtra("videourl3", video.video3) // Low quality
+            }
             context.startActivity(intent)
         }
     }
 
     override fun getItemCount(): Int {
-        return videoList.size
+        return sortedVideoList.size
     }
 }

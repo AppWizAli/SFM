@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 object SignupBuilder {
 
 
-    private const val BASE_URL = "https://hiskytechs.com/"
+    private const val BASE_URL = "https://en.selfmademarket.net/"
     val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS) // Set connection timeout
         .readTimeout(30, TimeUnit.SECONDS) // Set read timeout

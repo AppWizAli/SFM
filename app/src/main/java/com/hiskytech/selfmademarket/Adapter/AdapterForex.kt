@@ -30,6 +30,7 @@ class AdapterForex(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = forexList[position]
 
+        // Parsing and formatting the date
         val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val targetFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val date = originalFormat.parse(currentItem.created_date)
@@ -39,45 +40,36 @@ class AdapterForex(
         holder.binding.tvForexTittle.text = currentItem.title
         holder.binding.tvForexDescription.text = currentItem.description
 
+        // Set click listener for the zoom button
         holder.binding.zoomBtn.setOnClickListener {
-            // Create the Dialog instance
             val dialogView = Dialog(context)
-
-            // Set the custom layout for the dialog
             dialogView.setContentView(R.layout.dialog_image_view)
-            dialogView.window?.setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-            // Find the ImageView in the dialog layout
+            dialogView.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
             val imgFull = dialogView.findViewById<ImageView>(R.id.imgFull)
             val cross = dialogView.findViewById<ImageView>(R.id.cross)
 
+            val fullUrl = "https://en.selfmademarket.net/planemanger/uploads/${currentItem.image}"
+            Glide.with(context).load(fullUrl).into(imgFull)
 
-            // Load the image into the ImageView using Glide
-            val fullUrl = "https://hiskytechs.com/planemanger/uploads/${currentItem.image}"
-            Glide.with(context)
-                .load(fullUrl)
-                .into(imgFull)
-
-            // Show the dialog
             dialogView.show()
 
-
-            cross.setOnClickListener()
-            {
+            cross.setOnClickListener {
                 dialogView.dismiss()
             }
 
             dialogView.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
 
-        val fullUrl = "https://hiskytechs.com/planemanger/uploads/${currentItem.image}"
+        // Load image into item view
+        val fullUrl = "https://en.selfmademarket.net/planemanger/uploads/${currentItem.image}"
         Glide.with(context).load(fullUrl).into(holder.binding.img)
     }
 
+    // Update the list with sorting
     fun updateList(newList: List<DataXX>) {
-        forexList = newList
+        forexList = newList.sortedByDescending {
+            SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(it.created_date)
+        }
         notifyDataSetChanged()
     }
 

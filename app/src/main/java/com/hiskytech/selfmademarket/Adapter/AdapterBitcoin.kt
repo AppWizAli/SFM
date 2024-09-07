@@ -31,33 +31,21 @@ class AdapterBitcoin(private val context: Context, private var bitCoinList: List
 
         val date = originalFormat.parse(currentPosition.created_date)
         val formattedDate = targetFormat.format(date)
-        holder.binding.zoomBtn.setOnClickListener {
-            // Create the Dialog instance
-            val dialogView = Dialog(context)
 
-            // Set the custom layout for the dialog
+        holder.binding.zoomBtn.setOnClickListener {
+            val dialogView = Dialog(context)
             dialogView.setContentView(R.layout.dialog_image_view)
-            dialogView.window?.setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-            // Find the ImageView in the dialog layout
+            dialogView.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+
             val imgFull = dialogView.findViewById<ImageView>(R.id.imgFull)
             val cross = dialogView.findViewById<ImageView>(R.id.cross)
 
+            val fullUrl = "https://en.selfmademarket.net/planemanger/uploads/${currentPosition.image}"
+            Glide.with(context).load(fullUrl).into(imgFull)
 
-            // Load the image into the ImageView using Glide
-            val fullUrl = "https://hiskytechs.com/planemanger/uploads/${currentPosition.image}"
-            Glide.with(context)
-                .load(fullUrl)
-                .into(imgFull)
-
-            // Show the dialog
             dialogView.show()
 
-
-            cross.setOnClickListener()
-            {
+            cross.setOnClickListener {
                 dialogView.dismiss()
             }
 
@@ -67,17 +55,21 @@ class AdapterBitcoin(private val context: Context, private var bitCoinList: List
         holder.binding.butonPlan.text = formattedDate
         holder.binding.tvDescription.text = currentPosition.description
 
-        val fullUrl = "https://hiskytechs.com/planemanger/uploads/${currentPosition.image}"
+        val fullUrl = "https://en.selfmademarket.net/planemanger/uploads/${currentPosition.image}"
         Glide.with(context).load(fullUrl).into(holder.binding.img)
 
-        val fullCoinUrl = "https://hiskytechs.com/planemanger/uploads/${currentPosition.icon}"
+        val fullCoinUrl = "https://en.selfmademarket.net/planemanger/uploads/${currentPosition.icon}"
         Glide.with(context).load(fullCoinUrl).into(holder.binding.bitcoinImg)
     }
 
+    // Update the list with sorting by created_date in descending order
     fun updateList(newList: List<DataX>) {
-        bitCoinList = newList
+        bitCoinList = newList.sortedByDescending {
+            SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(it.created_date)
+        }
         notifyDataSetChanged()
     }
+
     override fun getItemCount(): Int {
         return bitCoinList.size
     }

@@ -65,13 +65,13 @@ class FragmentPublishStory : Fragment() {
             fetchNotificationsAndShowDialog()
         }
 
-        val fullUrl = "https://hiskytechs.com/planemanger/uploads/${mySharedPref.getUserModel()?.user_image}"
+        val fullUrl = "https://en.selfmademarket.net/planemanger/uploads/${mySharedPref.getUserModel()?.user_image}"
         Glide.with(requireContext()).load(fullUrl).into(binding.img)
         binding.courseName.text = mySharedPref.getUserModel()?.name
         Glide.with(requireContext()).load(fullUrl).into(binding.profileImage)
         binding.username.text = mySharedPref.getUserModel()?.name
 
-        binding.tvSelect.setOnClickListener {
+        binding.layImage.setOnClickListener {
             pickImageFromGallery()
         }
 
@@ -237,6 +237,9 @@ class FragmentPublishStory : Fragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             val imageUri = data?.data
             imageUri?.let {
+
+                binding.imgAdd.visibility=View.VISIBLE
+                binding.layImage.visibility=View.GONE
                 screenshotUri = it
                 Glide.with(requireContext()).load(screenshotUri).centerCrop().into(binding.imgAdd)
             }

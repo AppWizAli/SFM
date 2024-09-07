@@ -21,6 +21,7 @@ import com.hiskytech.selfmademarket.Model.ModelCoursesItem
 import com.hiskytech.selfmademarket.Model.ModelNotification
 import com.hiskytech.selfmademarket.Model.NotificationBuilder
 import com.hiskytech.selfmademarket.R
+import com.hiskytech.selfmademarket.Repo.MySharedPref
 import com.hiskytech.selfmademarket.databinding.FragmentCoursesDetailBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,24 +30,27 @@ import retrofit2.Response
 class FragmentCoursesDetail : Fragment() {
 
     private lateinit var course: ModelCoursesItem
-
+private lateinit var mySharedPref: MySharedPref
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentCoursesDetailBinding.inflate(inflater, container, false)
-
+mySharedPref=MySharedPref(requireContext())
         // Retrieve the course data from the bundle
         arguments?.let {
             course = it.getParcelable("course") ?: return@let
         }
+        val fullUrl2 = "https://en.selfmademarket.net/planemanger/uploads/${mySharedPref.getUserModel()?.user_image}"
+        Glide.with(requireContext()).load(fullUrl2).into(binding.img)
+        binding.courseName.text = mySharedPref.getUserModel()?.name
 
         // Use the course data
         binding.tvCourseName.text = course.course_name
         binding.userName.text = course.course_instructor
         binding.tvDuration.text = course.course_duration
 
-        val fullUrl = "https://hiskytechs.com/planemanger/uploads/${course.course_image}"
+        val fullUrl = "https://en.selfmademarket.net/planemanger/uploads/${course.course_image}"
         Glide.with(requireContext()).load(fullUrl).into(binding.imgdetails)
 
         // Set up RecyclerView for videos

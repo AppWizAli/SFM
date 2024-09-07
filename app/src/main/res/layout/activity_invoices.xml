@@ -18,7 +18,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Invoices"
-            android:drawableEnd="@drawable/baseline_edit_24"
             android:backgroundTint="@color/Primary_color"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"/>
