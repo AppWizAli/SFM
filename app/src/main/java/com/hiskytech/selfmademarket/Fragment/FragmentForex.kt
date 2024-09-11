@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -19,9 +21,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.hiskytech.selfmademarket.ActivityInvoices
 import com.hiskytech.selfmademarket.Adapter.AdapterForex
+import com.hiskytech.selfmademarket.ApiInterface.ForexInterface
 import com.hiskytech.selfmademarket.Model.DataXX
+import com.hiskytech.selfmademarket.Model.ModelForex
 import com.hiskytech.selfmademarket.Model.ModelNotification
 import com.hiskytech.selfmademarket.Model.NotificationBuilder
+import com.hiskytech.selfmademarket.Model.RetrofitBuilder
 import com.hiskytech.selfmademarket.R
 import com.hiskytech.selfmademarket.Repo.MySharedPref
 import com.hiskytech.selfmademarket.databinding.FragmentForexBinding
@@ -33,26 +38,31 @@ class FragmentForex : Fragment() {
 
     private lateinit var mySharedPref: MySharedPref
     private var _binding: FragmentForexBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding ?: throw IllegalStateException("Binding is not initialized")
     private lateinit var dialog: Dialog
     private lateinit var adapterForex: AdapterForex
     private var forexList: MutableList<DataXX> = mutableListOf()
+    private val handler = Handler(Looper.getMainLooper())
+    private val fetchRunnable = object : Runnable {
+        override fun run() {
+            fetchForexData()
+            handler.postDelayed(this, 1000) // Repeat every 1 second
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentForexBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         mySharedPref = MySharedPref(requireContext())
 
         setupRecyclerView()
         setupListeners()
+
+        binding.swipeRefresherLayout.setOnRefreshListener {
+            fetchForexData()
+        }
 
         val fullUrl = "https://en.selfmademarket.net/planemanger/uploads/${mySharedPref.getUserModel()?.user_image}"
         Glide.with(requireContext()).load(fullUrl).into(binding.img)
@@ -64,6 +74,30 @@ class FragmentForex : Fragment() {
         binding.img.setOnClickListener {
             startActivity(Intent(requireContext(), ActivityInvoices::class.java))
         }
+
+        startFetchingCommentsPeriodically()
+        return binding.root
+    }
+
+    private fun fetchForexData() {
+        val forexInterface = RetrofitBuilder.getInstance().create(ForexInterface::class.java)
+        val call = forexInterface.getForex()
+
+        call.enqueue(object : Callback<ModelForex> {
+            override fun onResponse(call: Call<ModelForex>, response: Response<ModelForex>) {
+                if (_binding != null && response.isSuccessful) {
+                    val forexData = response.body()?.data ?: emptyList()
+                    binding.swipeRefresherLayout.isRefreshing = false
+                    mySharedPref.storeForexInPref(forexData)
+                    adapterForex.updateList(forexData)
+                }
+            }
+
+            override fun onFailure(call: Call<ModelForex>, t: Throwable) {
+                Log.e("API_ERROR", "Failed to fetch forex data: ${t.message}")
+                Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun setupRecyclerView() {
@@ -99,7 +133,6 @@ class FragmentForex : Fragment() {
     }
 
     private fun fetchNotificationsAndShowDialog() {
-        // This method remains unchanged
         val notificationInterface = NotificationBuilder.getNotificationInterface()
         val call = notificationInterface.getNotification()
 
@@ -126,7 +159,7 @@ class FragmentForex : Fragment() {
 
     private fun showDialog(title: String, message: String) {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.notification_dialog, null)
-        val dialog = Dialog(requireContext()).apply {
+        dialog = Dialog(requireContext()).apply {
             setContentView(dialogView)
             window?.apply {
                 setGravity(Gravity.TOP)
@@ -149,11 +182,22 @@ class FragmentForex : Fragment() {
     }
 
     private fun closeAnimation() {
-        dialog.dismiss()
+        if (::dialog.isInitialized && dialog.isShowing) {
+            dialog.dismiss()
+        }
+    }
+
+    private fun startFetchingCommentsPeriodically() {
+        handler.post(fetchRunnable)
+    }
+
+    private fun stopFetchingCommentsPeriodically() {
+        handler.removeCallbacks(fetchRunnable)
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        stopFetchingCommentsPeriodically()
         _binding = null
+        super.onDestroyView()
     }
 }

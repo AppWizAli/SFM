@@ -45,7 +45,9 @@ class AdapterForex(
             val dialogView = Dialog(context)
             dialogView.setContentView(R.layout.dialog_image_view)
             dialogView.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-            val imgFull = dialogView.findViewById<ImageView>(R.id.imgFull)
+
+            // Use PhotoView instead of ImageView for imgFull
+            val imgFull = dialogView.findViewById<com.github.chrisbanes.photoview.PhotoView>(R.id.imgFull)
             val cross = dialogView.findViewById<ImageView>(R.id.cross)
 
             val fullUrl = "https://en.selfmademarket.net/planemanger/uploads/${currentItem.image}"
@@ -59,6 +61,28 @@ class AdapterForex(
 
             dialogView.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
+
+  holder.binding.cvImg.setOnClickListener {
+            val dialogView = Dialog(context)
+            dialogView.setContentView(R.layout.dialog_image_view)
+            dialogView.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+
+            // Use PhotoView instead of ImageView for imgFull
+            val imgFull = dialogView.findViewById<com.github.chrisbanes.photoview.PhotoView>(R.id.imgFull)
+            val cross = dialogView.findViewById<ImageView>(R.id.cross)
+
+            val fullUrl = "https://en.selfmademarket.net/planemanger/uploads/${currentItem.image}"
+            Glide.with(context).load(fullUrl).into(imgFull)
+
+            dialogView.show()
+
+            cross.setOnClickListener {
+                dialogView.dismiss()
+            }
+
+            dialogView.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }
+
 
         // Load image into item view
         val fullUrl = "https://en.selfmademarket.net/planemanger/uploads/${currentItem.image}"

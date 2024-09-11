@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,9 +54,11 @@ public class playeractivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+
+        // Your existing code
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         ViewCompat.getWindowInsetsController(getWindow().getDecorView()).hide(WindowInsetsCompat.Type.statusBars());
-
         setContentView(R.layout.activity_playeractivity);
 
         handler = new Handler(Looper.getMainLooper());

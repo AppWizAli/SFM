@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "308234007708",
-    "project_id": "selfmademarkeet",
-    "storage_bucket": "selfmademarkeet.appspot.com"
+    "project_number": "160112797019",
+    "project_id": "self-made-market",
+    "storage_bucket": "self-made-market.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:308234007708:android:2e8fd9238ac7fb75572959",
+        "mobilesdk_app_id": "1:160112797019:android:96a00fbf0ea5f7ae0d667e",
         "android_client_info": {
           "package_name": "com.hiskytech.selfmademarket"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAw3TLJ1B3D8NxVW3-8zUKIgqrKN2XWTvA"
+          "current_key": "AIzaSyB7Zr67gG0TIFx4-JEBREYQDVmTIwWKRTo"
         }
       ],
       "services": {

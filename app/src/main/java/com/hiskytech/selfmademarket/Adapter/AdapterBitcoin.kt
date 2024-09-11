@@ -31,13 +31,14 @@ class AdapterBitcoin(private val context: Context, private var bitCoinList: List
 
         val date = originalFormat.parse(currentPosition.created_date)
         val formattedDate = targetFormat.format(date)
-
+holder.binding.tvTittle.text=bitCoinList[position].title
         holder.binding.zoomBtn.setOnClickListener {
             val dialogView = Dialog(context)
             dialogView.setContentView(R.layout.dialog_image_view)
             dialogView.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 
-            val imgFull = dialogView.findViewById<ImageView>(R.id.imgFull)
+            // Use PhotoView instead of ImageView for imgFull
+            val imgFull = dialogView.findViewById<com.github.chrisbanes.photoview.PhotoView>(R.id.imgFull)
             val cross = dialogView.findViewById<ImageView>(R.id.cross)
 
             val fullUrl = "https://en.selfmademarket.net/planemanger/uploads/${currentPosition.image}"
@@ -51,6 +52,27 @@ class AdapterBitcoin(private val context: Context, private var bitCoinList: List
 
             dialogView.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
+        holder.binding.cvImg.setOnClickListener {
+            val dialogView = Dialog(context)
+            dialogView.setContentView(R.layout.dialog_image_view)
+            dialogView.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+
+            // Use PhotoView instead of ImageView for imgFull
+            val imgFull = dialogView.findViewById<com.github.chrisbanes.photoview.PhotoView>(R.id.imgFull)
+            val cross = dialogView.findViewById<ImageView>(R.id.cross)
+
+            val fullUrl = "https://en.selfmademarket.net/planemanger/uploads/${currentPosition.image}"
+            Glide.with(context).load(fullUrl).into(imgFull)
+
+            dialogView.show()
+
+            cross.setOnClickListener {
+                dialogView.dismiss()
+            }
+
+            dialogView.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }
+
 
         holder.binding.butonPlan.text = formattedDate
         holder.binding.tvDescription.text = currentPosition.description

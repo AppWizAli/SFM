@@ -19,6 +19,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -54,6 +55,7 @@ private lateinit var mySharedPref:MySharedPref
     private lateinit var binding: ActivitySignUpBinding
     var db=Firebase.firestore
     private var subscriptionPlan: String? = null
+    private var payment_Method: String="jazzcash"
     private var isPlanSelected = false
     private val IMAGE_PICK_CODE = 1000
     private var clickedTextViewId: Int? = null
@@ -76,15 +78,68 @@ mySharedPref= MySharedPref(this@ActivitySignUp)
         binding.main.layoutParams = layoutParams
 
 
-
-
-
         findViewById<AppCompatButton>(R.id.btnLogin).setOnClickListener()
         {
             startActivity(Intent(this@ActivitySignUp,ActivityLogin::class.java))
         }
 
 
+        binding.email.imeOptions = EditorInfo.IME_ACTION_NEXT
+        binding.email.setOnEditorActionListener { _, actionId, _ ->
+                binding.phone.requestFocus()
+
+        }
+
+        binding.phone.imeOptions = EditorInfo.IME_ACTION_NEXT
+        binding.phone.setOnEditorActionListener { _, actionId, _ ->
+                binding.pswrd.requestFocus()
+
+        }
+
+        binding.pswrd.imeOptions = EditorInfo.IME_ACTION_NEXT
+        binding.pswrd.setOnEditorActionListener { _, actionId, _ ->
+                binding.bn.requestFocus()
+
+        }
+
+        binding.bn.imeOptions = EditorInfo.IME_ACTION_NEXT
+        binding.bn.setOnEditorActionListener { _, actionId, _ ->
+                binding.bcountry.requestFocus()
+
+        }
+
+        binding.bcountry.imeOptions = EditorInfo.IME_ACTION_NEXT
+        binding.bcountry.setOnEditorActionListener { _, actionId, _ ->
+                binding.district.requestFocus()
+
+        }
+
+        binding.district.imeOptions = EditorInfo.IME_ACTION_NEXT
+        binding.district.setOnEditorActionListener { _, actionId, _ ->
+                binding.city.requestFocus()
+
+        }
+
+        binding.city.imeOptions = EditorInfo.IME_ACTION_NEXT
+        binding.city.setOnEditorActionListener { _, actionId, _ ->
+                binding.postal.requestFocus()
+
+        }
+
+        binding.postal.imeOptions = EditorInfo.IME_ACTION_NEXT
+        binding.postal.setOnEditorActionListener { _, actionId, _ ->
+                binding.tid.requestFocus()
+
+        }
+        binding.tid.imeOptions = EditorInfo.IME_ACTION_DONE
+                binding.tid.setOnEditorActionListener { _, actionId, _ ->
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        binding.tid.clearFocus()  // Clear the focus from the EditText
+                        true  // Indicate that the action has been handled
+                    } else {
+                        false  // Return false for other actions, letting the default behavior proceed
+                    }
+                }
 
 
 
@@ -257,7 +312,7 @@ mySharedPref= MySharedPref(this@ActivitySignUp)
                 "postal_code" to RequestBody.create("text/plain".toMediaTypeOrNull(), postalCode),
                 "transaction_id" to RequestBody.create("text/plain".toMediaTypeOrNull(), transactionId),
                 "plan_select" to RequestBody.create("text/plain".toMediaTypeOrNull(), subscriptionPlan!!),
-                "payment_method" to RequestBody.create("text/plain".toMediaTypeOrNull(), "YourPaymentMethodHere"),
+                "payment_method" to RequestBody.create("text/plain".toMediaTypeOrNull(), "jazzcash"),
 
             )
 
@@ -286,9 +341,9 @@ mySharedPref= MySharedPref(this@ActivitySignUp)
                   closeAnimation()
                     if (response.isSuccessful) {
                         response.body()?.let {
-
+                            Toast.makeText(this@ActivitySignUp, response.body()?.message.toString(), Toast.LENGTH_SHORT).show()
                             mySharedPref.saveUserId(response.body()?.user_id.toString())
-
+                            Log.e("MyError", response.body()?.message.toString())
 mySharedPref.putSignUpUser()
                              startActivity(Intent(this@ActivitySignUp, ActivityVerification::class.java))
                             finish()
@@ -324,26 +379,36 @@ mySharedPref.putSignUpUser()
         val btnEasyPaisa = dialog.findViewById<CardView>(R.id.easypaisa)
         val btnJazzCash = dialog.findViewById<CardView>(R.id.jazzcash)
         val btnBank = dialog.findViewById<CardView>(R.id.banktransfer)
-db.collection("Accounts").document("snUsWCJEr9x3e7ZOXzwq").get()
+db.collection("Accounts").document("VaW4Wiys35M5zw5lyUrb").get()
     .addOnSuccessListener { documment->
     
 var modelAccounts=documment.toObject(ModelAccounts::class.java)!!
         btnBinance.setOnClickListener {
+            payment_Method="Binance"
             showPaymentDetailsDialog("Binance", modelAccounts.binance, R.drawable.binance)
         }
         btnWise.setOnClickListener {
+            payment_Method="Wise"
             showPaymentDetailsDialog("Wise", modelAccounts.wise, R.drawable.wise)
         }
         btnPayonner.setOnClickListener {
+            payment_Method="Wise"
+
             showPaymentDetailsDialog("Payoneer", modelAccounts.payoneer, R.drawable.payoneer)
         }
         btnEasyPaisa.setOnClickListener {
+            payment_Method="Wise"
+
             showPaymentDetailsDialog("Easy Paisa", modelAccounts.easypaisa, R.drawable.img_2)
         }
         btnJazzCash.setOnClickListener {
+            payment_Method="Wise"
+
             showPaymentDetailsDialog("Jazz Cash", modelAccounts.jazzcash, R.drawable.jazzcash)
         }
         btnBank.setOnClickListener {
+            payment_Method="Wise"
+
             showPaymentDetailsDialog("Bank Transfer", modelAccounts.banktransfer, R.drawable.banktransfer)
         }
 

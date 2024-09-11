@@ -35,7 +35,7 @@ class AdapterCourse(val context : Context , var courseList : List<ModelCoursesIt
         // Set OnClickListener to pass data
         holder.itemView.setOnClickListener {
             val bundle = Bundle().apply {
-                putParcelable("course", course) // Pass the course object
+                putParcelable("course", course!!) // Pass the course object
             }
             it.findNavController().navigate(R.id.fragmentCoursesDetail, bundle)
         }

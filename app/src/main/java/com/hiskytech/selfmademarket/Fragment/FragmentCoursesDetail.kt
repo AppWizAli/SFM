@@ -49,6 +49,7 @@ mySharedPref=MySharedPref(requireContext())
         binding.tvCourseName.text = course.course_name
         binding.userName.text = course.course_instructor
         binding.tvDuration.text = course.course_duration
+       binding.tvDetails.text = course?.course_description
 
         val fullUrl = "https://en.selfmademarket.net/planemanger/uploads/${course.course_image}"
         Glide.with(requireContext()).load(fullUrl).into(binding.imgdetails)

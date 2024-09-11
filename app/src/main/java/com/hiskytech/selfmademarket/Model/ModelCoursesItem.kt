@@ -10,20 +10,23 @@ data class ModelCoursesItem(
     val course_level: String,
     val course_name: String,
     val created_at: String,
+    val course_description: String="",
     val total_videos: String,
     val videos: List<Video>
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString().toString(),
-        parcel.readString().toString(),
-        parcel.readString().toString(),
-        parcel.readString().toString(),
-        parcel.readString().toString(),
-        parcel.readString().toString(),
-        parcel.readString().toString(),
-        parcel.readString().toString(),
+        parcel.readString() ?: "", // Provide a default value if readString() returns null
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
         parcel.createTypedArrayList(Video.CREATOR) ?: emptyList()
     )
+
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(course_duration)
@@ -33,6 +36,7 @@ data class ModelCoursesItem(
         parcel.writeString(course_level)
         parcel.writeString(course_name)
         parcel.writeString(created_at)
+        parcel.writeString(course_description)
         parcel.writeString(total_videos)
         parcel.writeTypedList(videos)
     }
@@ -50,4 +54,18 @@ data class ModelCoursesItem(
             return arrayOfNulls(size)
         }
     }
+    override fun hashCode(): Int {
+        var result = (course_duration?.hashCode() ?: 0)
+        result = 31 * result + (course_id?.hashCode() ?: 0)
+        result = 31 * result + (course_image?.hashCode() ?: 0)
+        result = 31 * result + (course_instructor?.hashCode() ?: 0)
+        result = 31 * result + (course_level?.hashCode() ?: 0)
+        result = 31 * result + (course_name?.hashCode() ?: 0)
+        result = 31 * result + (created_at?.hashCode() ?: 0)
+        result = 31 * result + (course_description?.hashCode() ?: 0)
+        result = 31 * result + (total_videos?.hashCode() ?: 0)
+        result = 31 * result + (videos.hashCode())
+        return result
+    }
+
 }

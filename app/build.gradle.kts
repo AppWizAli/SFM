@@ -59,8 +59,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     implementation("com.github.qamarelsafadi:CurvedBottomNavigation:0.1.3")
     implementation ("com.google.android.material:material:1.9.0")
-
-
+    implementation ("com.github.chrisbanes:PhotoView:2.3.0")
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
